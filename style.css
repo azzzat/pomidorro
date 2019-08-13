@@ -1,0 +1,128 @@
+body {
+    background: antiquewhite;
+}
+
+#count-border-main{
+    background: #d03540;
+    border-radius: 10px;
+    color: antiquewhite;
+    font-family:sans-serif;
+    height: 250px auto;
+    max-width: 1000px;
+    min-width: 400px;
+    margin: 30px auto;
+}
+
+.count-border-head {
+    height: 30px;
+    margin: 0px;
+    padding: 10px;
+    padding-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.settings {
+    height: 30px;
+    width: 100px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.title {
+    height: 30px;
+    width: 400px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+    text-align: end;
+}
+
+.timer-clock {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 40px;
+    height: 100px;
+    width: 400px;
+    font-size: 100px;
+    text-align: center;
+}
+
+.timer-buttons{
+
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.left-button{
+    width: 250px;
+    height: 40px;
+    border-width: thin;
+    border-color: antiquewhite;
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.right-button{
+    width: 250px;
+    height: 40px;
+    border-width: thin;
+    border-color: antiquewhite;
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.left-button:active{
+    border-color: blue;
+}
+
+#buttonLeftRed:hover{
+    background: #d02020;
+}
+
+#buttonLeftGreen:hover{
+    background: rgb(70, 160, 70);
+}
+
+#buttonRightRed:active{
+    border-color: blue;
+    cursor: pointer;
+}
+
+#buttonRightGreen:active{
+    border-color: blue;
+    cursor: pointer;
+}
+
+#buttonRightRed:hover{
+    background: #d02020;
+    cursor: pointer;
+}
+
+#buttonRightGreen:hover{
+    background: rgb(70, 160, 70);
+    cursor: pointer;
+}
+
+#buttonRightStop{
+    border-color: burlywood;
+    color: burlywood;
+}
+
+#buttonRightStop:hover{
+    cursor: not-allowed;
+}
