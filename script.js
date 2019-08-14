@@ -12,30 +12,43 @@ function getTime(workTime) {
     };
     };
 
-let pomidorroInterval; //задал переменную зараннее, чтобы можно было использовать для остановки и паузы
-let remainingTime;
-let state;
+let pomidorroInterval; //переменная для setInterval
+let remainingTime; // оставшееся время для того чтобы можно было ставить на паузу
+let state; // состояние режима работы - рабочее либо отдых
+let timeValue; // переменная для работы с фунциями showTime() checkTimeEnd() launchPomidorro();
+let newWorkTime; // переменная для работы с launchPomidorro()
 
-function initiatePomidorro(workTime) {
-    let clock = document.querySelector(".count-border-main").querySelector(".timer-clock");
-    function launchPomidorro() {
-        let timeValue = getTime(workTime);
+//отображение времени
+function showTime() {
         let minute = ("0" + timeValue.min).slice(-2);
         let second = ("0" + timeValue.sec).slice(-2);
-        clock.innerHTML =  minute + ":" + second + ""; 
+        document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML =  minute + ":" + second + "";
+}
+
+// действие при истечении времени таймера:
+function checkTimeEnd() {
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
             if (state == "start") {
             rightButtonRest();}
             else{
             rightButtonStop()
-            };
-            }
-        remainingTime = timeValue.time;
-        }
+            }; 
+      }
+}
+
+function initiatePomidorro(workTime) {
+        newWorkTime = workTime; //перезапись переменной для работы с launchPomidorro()
         launchPomidorro();
         pomidorroInterval = setInterval(launchPomidorro, 1000);
     };
+
+function launchPomidorro() {
+        timeValue = getTime(newWorkTime); 
+        showTime(); //отображаем время
+        checkTimeEnd(); //проверят не закончилось ли время
+        remainingTime = timeValue.time; //запись в переменную оставшегося времени
+}
 
 function leftButtonStart() { 
     onClickLeftButtonValue("leftButtonPause()")
