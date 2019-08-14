@@ -16,7 +16,7 @@ let pomidorroInterval; //задал переменную зараннее, чт�
 let remainingTime;
 
 function initiatePomidorro(workTime) {
-    let clock = document.getElementById("count-border-main").querySelector(".timer-clock");
+    let clock = document.getElementsByClassName("count-border-main").querySelector(".timer-clock");
     function launchPomidorro() {
         let timeValue = getTime(workTime);
         let minute = ("0" + timeValue.min).slice(-2);
@@ -24,7 +24,7 @@ function initiatePomidorro(workTime) {
         clock.innerHTML =  minute + ":" + second + ""; 
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
-            if (document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").id == "buttonLeftRed") {
+            if (document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").id == "buttonLeftRed") {
             rightButtonRest();}
             else{
             rightButtonStop()
@@ -84,7 +84,7 @@ function leftButtonResume() {
 }
 
 function rightButtonStop() {
-    document.getElementById("count-border-main").querySelector(".timer-clock").innerHTML = "00:00";
+    document.getElementsByClassName("count-border-main").querySelector(".timer-clock").innerHTML = "00:00";
 
     onClickLeftButtonValue("leftButtonStart()")
     idValueLeftButton("buttonLeftRed");
@@ -149,45 +149,45 @@ function leftButtonRestResum() {
 
 // цвет фона в режиме работы
 function backgroundColorWork() {
-    document.getElementById("count-border-main").style.backgroundColor = "#d03540";
+    document.getElementsByClassName("count-border-main").style.backgroundColor = "#d03540";
 }
 
 // цвет фона в режиме перерыва
 function backgroundColorRest() {
-    document.getElementById("count-border-main").style.backgroundColor = "rgb(86, 189, 86)";
+    document.getElementsByClassName("count-border-main").style.backgroundColor = "rgb(86, 189, 86)";
 }
 
 // надпись на правой кнопке
 function rightButtonValue(buttonValue) {
-    document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".right-button").innerHTML = buttonValue;
+    document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".right-button").innerHTML = buttonValue;
 }
 
 //надпись на левой кнопке
 function leftButtonValue(ButtonValue) {
-    document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").innerHTML = ButtonValue;
+    document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").innerHTML = ButtonValue;
 }
 
 //надпись на верхней части блока помидорро
 function titleValue(value) {
-    document.getElementById("count-border-main").querySelector(".count-border-head").querySelector(".title").innerHTML = value;
+    document.getElementsByClassName("count-border-main").querySelector(".count-border-head").querySelector(".title").innerHTML = value;
 }
 
 //задаем функцию при нажатии на правую кнопку
 function onClickRighButtontValue(value) {
-    document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".right-button").setAttribute('onClick', value);
+    document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".right-button").setAttribute('onClick', value);
 }
 
 //задаем функцию при нажатии на левую кнопку
 function onClickLeftButtonValue(value) {
-    document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").setAttribute('onClick', value);
+    document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").setAttribute('onClick', value);
 }
 
 //задаем значение id для правой кнопки
 function idValueRightButton(value) {
-    document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".right-button").setAttribute('id', value);
+    document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".right-button").setAttribute('id', value);
 }
 
 //задаем значение id для левой кнопки
 function idValueLeftButton(value) {
-    document.getElementById("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").setAttribute('id', value);
+    document.getElementsByClassName("count-border-main").querySelector(".timer-buttons").querySelector(".left-button").setAttribute('id', value);
 }
