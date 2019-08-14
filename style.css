@@ -2,7 +2,7 @@ body {
     background: antiquewhite;
 }
 
-#count-border-main{
+.count-border-main{
     background: #d03540;
     border-radius: 10px;
     color: antiquewhite;
