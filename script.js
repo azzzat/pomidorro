@@ -14,6 +14,7 @@ function getTime(workTime) {
 
 let pomidorroInterval; //задал переменную зараннее, чтобы можно было использовать для остановки и паузы
 let remainingTime;
+let state;
 
 function initiatePomidorro(workTime) {
     let clock = document.querySelector(".count-border-main").querySelector(".timer-clock");
@@ -24,7 +25,7 @@ function initiatePomidorro(workTime) {
         clock.innerHTML =  minute + ":" + second + ""; 
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
-            if (document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").id == "buttonLeftRed") {
+            if (state == "start") {
             rightButtonRest();}
             else{
             rightButtonStop()
@@ -49,6 +50,7 @@ function leftButtonStart() {
     titleValue("ПОМИДОР");
     
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.5*60*1000));
+    state = "start";
 };
 
 function leftButtonPause() {
@@ -112,7 +114,9 @@ function rightButtonRest() {
     backgroundColorRest();
     titleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
+    
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.1*60*1000));
+    state = "rest";
 }
 
 function leftButtonRestPause() {
