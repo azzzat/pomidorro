@@ -18,6 +18,8 @@ let state; // состояние режима работы - рабочее ли
 let timeValue; // переменная для работы с фунциями showTime() checkTimeEnd() launchPomidorro();
 let newWorkTime; // переменная для работы с launchPomidorro()
 
+rightButtonStop();
+
 //отображение времени
 function showTime() {
         let minute = ("0" + timeValue.min).slice(-2);
