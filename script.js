@@ -19,6 +19,7 @@ let timeValue; // переменная для работы с фунциями s
 let newWorkTime; // переменная для работы с launchPomidorro()
 
 rightButtonStop();
+rightButtonStop();
 
 //отображение времени
 function showTime() {
@@ -53,11 +54,11 @@ function launchPomidorro() {
 }
 
 function leftButtonStart() { 
-    onClickLeftButtonValue("leftButtonPause()")
+    onClickLeftButton("leftButtonPause()")
     idValueLeftButton("buttonLeftRed");
     leftButtonValue("ПАУЗА");
 
-    onClickRighButtontValue("rightButtonStop()");
+    onClickRightButton("rightButtonStop()");
     idValueRightButton("buttonRightRed");
     rightButtonValue("СТОП");
     
@@ -69,11 +70,11 @@ function leftButtonStart() {
 };
 
 function leftButtonPause() {
-    onClickLeftButtonValue("leftButtonResume()")
+    onClickLeftButton("leftButtonResume()")
     idValueLeftButton("buttonLeftRed");
     leftButtonValue("ПРОДОЛЖИТЬ");
 
-    onClickRighButtontValue('rightButtonRest()');
+    onClickRightButton('rightButtonRest()');
     idValueRightButton("buttonRightRed");
     rightButtonValue("СДЕЛАНО");
     
@@ -84,11 +85,11 @@ function leftButtonPause() {
 };
 
 function leftButtonResume() {
-    onClickLeftButtonValue("leftButtonPause()")
+    onClickLeftButton("leftButtonPause()")
     idValueLeftButton("buttonLeftRed");
     leftButtonValue("ПАУЗА");
 
-    onClickRighButtontValue('rightButtonStop()');
+    onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightRed");
     rightButtonValue("СТОП");
     
@@ -103,11 +104,11 @@ function leftButtonResume() {
 function rightButtonStop() {
     document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = "00:00";
 
-    onClickLeftButtonValue("leftButtonStart()")
+    onClickLeftButton("leftButtonStart()")
     idValueLeftButton("buttonLeftRed");
     leftButtonValue("СТАРТ");
 
-    onClickRighButtontValue(' ');
+    onClickRightButton(' ');
     idValueRightButton("buttonRightStop");
     rightButtonValue("СТОП");
     
@@ -118,11 +119,11 @@ function rightButtonStop() {
 }
 
 function rightButtonRest() {
-    onClickLeftButtonValue("leftButtonRestPause()")
+    onClickLeftButton("leftButtonRestPause()")
     idValueLeftButton("buttonLeftGreen");
     leftButtonValue("ПАУЗА");
 
-    onClickRighButtontValue('rightButtonStop()');
+    onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightGreen");
     rightButtonValue("ПРОПУСТИТЬ");
     
@@ -135,11 +136,11 @@ function rightButtonRest() {
 }
 
 function leftButtonRestPause() {
-    onClickLeftButtonValue("leftButtonRestResum()")
+    onClickLeftButton("leftButtonRestResum()")
     idValueLeftButton("buttonLeftGreen");
     leftButtonValue("ПРОДОЛЖИТЬ");
 
-    onClickRighButtontValue('rightButtonStop()');
+    onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightGreen");
     rightButtonValue("ПРОПУСТИТЬ");
     
@@ -150,11 +151,11 @@ function leftButtonRestPause() {
 }
 
 function leftButtonRestResum() {
-    onClickLeftButtonValue("leftButtonRestPause()")
+    onClickLeftButton("leftButtonRestPause()")
     idValueLeftButton("buttonLeftGreen");
     leftButtonValue("ПАУЗА");
 
-    onClickRighButtontValue('rightButtonStop()');
+    onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightGreen");
     rightButtonValue("ПРОПУСТИТЬ");
     
@@ -192,12 +193,12 @@ function titleValue(value) {
 }
 
 //задаем функцию при нажатии на правую кнопку
-function onClickRighButtontValue(value) {
+function onClickRightButton(value) {
     document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".right-button").setAttribute('onClick', value);
 }
 
 //задаем функцию при нажатии на левую кнопку
-function onClickLeftButtonValue(value) {
+function onClickLeftButton(value) {
     document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").setAttribute('onClick', value);
 }
 
