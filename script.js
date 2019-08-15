@@ -29,7 +29,7 @@ function showTime() {
 }
 
 // действие при истечении времени таймера:
-function checkTimeEnd() {
+function checkTime() {
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
             if (state == "start") {
@@ -49,7 +49,7 @@ function initiatePomidorro(workTime) {
 function launchPomidorro() {
         timeValue = getTime(newWorkTime); 
         showTime(); //отображаем время
-        checkTimeEnd(); //проверят не закончилось ли время
+        checkTime(); //проверят не закончилось ли время
         remainingTime = timeValue.time; //запись в переменную оставшегося времени
 }
 
@@ -62,7 +62,7 @@ function leftButtonStart() {
     idValueRightButton("buttonRightRed");
     setRightButtonValue("СТОП");
     
-    backgroundColorWork();
+    setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
     
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.5*60*1000));
@@ -78,7 +78,7 @@ function leftButtonPause() {
     idValueRightButton("buttonRightRed");
     setRightButtonValue("СДЕЛАНО");
     
-    backgroundColorWork();
+    setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
 
     clearInterval(pomidorroInterval);
@@ -93,7 +93,7 @@ function leftButtonResume() {
     idValueRightButton("buttonRightRed");
     setRightButtonValue("СТОП");
     
-    backgroundColorWork();
+    setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
 
     clearInterval(pomidorroInterval);
@@ -112,7 +112,7 @@ function rightButtonStop() {
     idValueRightButton("buttonRightStop");
     setRightButtonValue("СТОП");
     
-    backgroundColorWork();
+    setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
     
     clearInterval(pomidorroInterval);
@@ -127,9 +127,8 @@ function rightButtonRest() {
     idValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
-    backgroundColorRest();
+    setBackgroundColor("rgb(86, 189, 86)");
     setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
-    
     
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.1*60*1000));
     state = "rest";
@@ -144,7 +143,7 @@ function leftButtonRestPause() {
     idValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
-    backgroundColorRest();
+    setBackgroundColor("rgb(86, 189, 86)");
     setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
     clearInterval(pomidorroInterval);    
@@ -159,7 +158,7 @@ function leftButtonRestResum() {
     idValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
-    backgroundColorRest();
+    setBackgroundColor("rgb(86, 189, 86)");
     setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
     clearInterval(pomidorroInterval); 
@@ -167,14 +166,9 @@ function leftButtonRestResum() {
     initiatePomidorro(new Date(Date.parse(new Date()) + remainingTime));
 }
 
-// цвет фона в режиме работы
-function backgroundColorWork() {
-    document.querySelector(".count-border-main").style.backgroundColor = "#d03540";
-}
-
-// цвет фона в режиме перерыва
-function backgroundColorRest() {
-    document.querySelector(".count-border-main").style.backgroundColor = "rgb(86, 189, 86)";
+// цвет фонa
+function setBackgroundColor(color) {
+    document.querySelector(".count-border-main").style.backgroundColor = color;
 }
 
 // надпись на правой кнопке
@@ -183,8 +177,8 @@ function setRightButtonValue(buttonValue) {
 }
 
 //надпись на левой кнопке
-function setLeftButtonValue(ButtonValue) {
-    document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").innerHTML = ButtonValue;
+function setLeftButtonValue(buttonValue) {
+    document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").innerHTML = buttonValue;
 }
 
 //надпись на верхней части блока помидорро
