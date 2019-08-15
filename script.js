@@ -56,14 +56,14 @@ function launchPomidorro() {
 function leftButtonStart() { 
     onClickLeftButton("leftButtonPause()")
     idValueLeftButton("buttonLeftRed");
-    leftButtonValue("ПАУЗА");
+    setLeftButtonValue("ПАУЗА");
 
     onClickRightButton("rightButtonStop()");
     idValueRightButton("buttonRightRed");
-    rightButtonValue("СТОП");
+    setRightButtonValue("СТОП");
     
     backgroundColorWork();
-    titleValue("ПОМИДОР");
+    setTitleValue("ПОМИДОР");
     
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.5*60*1000));
     state = "start";
@@ -72,14 +72,14 @@ function leftButtonStart() {
 function leftButtonPause() {
     onClickLeftButton("leftButtonResume()")
     idValueLeftButton("buttonLeftRed");
-    leftButtonValue("ПРОДОЛЖИТЬ");
+    setLeftButtonValue("ПРОДОЛЖИТЬ");
 
     onClickRightButton('rightButtonRest()');
     idValueRightButton("buttonRightRed");
-    rightButtonValue("СДЕЛАНО");
+    setRightButtonValue("СДЕЛАНО");
     
     backgroundColorWork();
-    titleValue("ПОМИДОР");
+    setTitleValue("ПОМИДОР");
 
     clearInterval(pomidorroInterval);
 };
@@ -87,14 +87,14 @@ function leftButtonPause() {
 function leftButtonResume() {
     onClickLeftButton("leftButtonPause()")
     idValueLeftButton("buttonLeftRed");
-    leftButtonValue("ПАУЗА");
+    setLeftButtonValue("ПАУЗА");
 
     onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightRed");
-    rightButtonValue("СТОП");
+    setRightButtonValue("СТОП");
     
     backgroundColorWork();
-    titleValue("ПОМИДОР");
+    setTitleValue("ПОМИДОР");
 
     clearInterval(pomidorroInterval);
     
@@ -106,14 +106,14 @@ function rightButtonStop() {
 
     onClickLeftButton("leftButtonStart()")
     idValueLeftButton("buttonLeftRed");
-    leftButtonValue("СТАРТ");
+    setLeftButtonValue("СТАРТ");
 
     onClickRightButton(' ');
     idValueRightButton("buttonRightStop");
-    rightButtonValue("СТОП");
+    setRightButtonValue("СТОП");
     
     backgroundColorWork();
-    titleValue("ПОМИДОР");
+    setTitleValue("ПОМИДОР");
     
     clearInterval(pomidorroInterval);
 }
@@ -121,14 +121,14 @@ function rightButtonStop() {
 function rightButtonRest() {
     onClickLeftButton("leftButtonRestPause()")
     idValueLeftButton("buttonLeftGreen");
-    leftButtonValue("ПАУЗА");
+    setLeftButtonValue("ПАУЗА");
 
     onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightGreen");
-    rightButtonValue("ПРОПУСТИТЬ");
+    setRightButtonValue("ПРОПУСТИТЬ");
     
     backgroundColorRest();
-    titleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
+    setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
     
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.1*60*1000));
@@ -138,14 +138,14 @@ function rightButtonRest() {
 function leftButtonRestPause() {
     onClickLeftButton("leftButtonRestResum()")
     idValueLeftButton("buttonLeftGreen");
-    leftButtonValue("ПРОДОЛЖИТЬ");
+    setLeftButtonValue("ПРОДОЛЖИТЬ");
 
     onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightGreen");
-    rightButtonValue("ПРОПУСТИТЬ");
+    setRightButtonValue("ПРОПУСТИТЬ");
     
     backgroundColorRest();
-    titleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
+    setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
     clearInterval(pomidorroInterval);    
 }
@@ -153,14 +153,14 @@ function leftButtonRestPause() {
 function leftButtonRestResum() {
     onClickLeftButton("leftButtonRestPause()")
     idValueLeftButton("buttonLeftGreen");
-    leftButtonValue("ПАУЗА");
+    setLeftButtonValue("ПАУЗА");
 
     onClickRightButton('rightButtonStop()');
     idValueRightButton("buttonRightGreen");
-    rightButtonValue("ПРОПУСТИТЬ");
+    setRightButtonValue("ПРОПУСТИТЬ");
     
     backgroundColorRest();
-    titleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
+    setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
     clearInterval(pomidorroInterval); 
     
@@ -178,17 +178,17 @@ function backgroundColorRest() {
 }
 
 // надпись на правой кнопке
-function rightButtonValue(buttonValue) {
+function setRightButtonValue(buttonValue) {
     document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".right-button").innerHTML = buttonValue;
 }
 
 //надпись на левой кнопке
-function leftButtonValue(ButtonValue) {
+function setLeftButtonValue(ButtonValue) {
     document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").innerHTML = ButtonValue;
 }
 
 //надпись на верхней части блока помидорро
-function titleValue(value) {
+function setTitleValue(value) {
     document.querySelector(".count-border-main").querySelector(".count-border-head").querySelector(".title").innerHTML = value;
 }
 
