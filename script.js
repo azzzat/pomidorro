@@ -18,8 +18,8 @@ let state; // состояние режима работы - рабочее ли
 let timeValue; // переменная для работы с фунциями showTime() checkTimeEnd() launchPomidorro();
 let newWorkTime; // переменная для работы с launchPomidorro()
 
-rightButtonStop();
-rightButtonStop();
+stopRightButtonWork();
+stopRightButtonWork();
 
 //отображение времени
 function showTime() {
@@ -33,9 +33,9 @@ function checkTime() {
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
             if (state == "start") {
-            rightButtonRest();}
+            restRightButtonRest();}
             else{
-            rightButtonStop()
+            stopRightButtonWork()
             }; 
       }
 }
@@ -53,12 +53,12 @@ function launchPomidorro() {
         remainingTime = timeValue.time; //запись в переменную оставшегося времени
 }
 
-function leftButtonStart() { 
-    onClickLeftButton("leftButtonPause()")
+function startLeftButtonWork() { 
+    onClickLeftButton("pauseLeftButtonWork()")
     idValueLeftButton("buttonLeftRed");
     setLeftButtonValue("ПАУЗА");
 
-    onClickRightButton("rightButtonStop()");
+    onClickRightButton("stopRightButtonWork()");
     idValueRightButton("buttonRightRed");
     setRightButtonValue("СТОП");
     
@@ -69,12 +69,12 @@ function leftButtonStart() {
     state = "start";
 };
 
-function leftButtonPause() {
-    onClickLeftButton("leftButtonResume()")
+function pauseLeftButtonWork() {
+    onClickLeftButton("resumeLeftButtonWork()")
     idValueLeftButton("buttonLeftRed");
     setLeftButtonValue("ПРОДОЛЖИТЬ");
 
-    onClickRightButton('rightButtonRest()');
+    onClickRightButton('restRightButtonRest()');
     idValueRightButton("buttonRightRed");
     setRightButtonValue("СДЕЛАНО");
     
@@ -84,12 +84,12 @@ function leftButtonPause() {
     clearInterval(pomidorroInterval);
 };
 
-function leftButtonResume() {
-    onClickLeftButton("leftButtonPause()")
+function resumeLeftButtonWork() {
+    onClickLeftButton("pauseLeftButtonWork()")
     idValueLeftButton("buttonLeftRed");
     setLeftButtonValue("ПАУЗА");
 
-    onClickRightButton('rightButtonStop()');
+    onClickRightButton('stopRightButtonWork()');
     idValueRightButton("buttonRightRed");
     setRightButtonValue("СТОП");
     
@@ -101,10 +101,10 @@ function leftButtonResume() {
     initiatePomidorro(new Date(Date.parse(new Date()) + remainingTime));
 }
 
-function rightButtonStop() {
+function stopRightButtonWork() {
     document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = "00:00";
 
-    onClickLeftButton("leftButtonStart()")
+    onClickLeftButton("startLeftButtonWork()")
     idValueLeftButton("buttonLeftRed");
     setLeftButtonValue("СТАРТ");
 
@@ -118,12 +118,12 @@ function rightButtonStop() {
     clearInterval(pomidorroInterval);
 }
 
-function rightButtonRest() {
-    onClickLeftButton("leftButtonRestPause()")
+function restRightButtonRest() {
+    onClickLeftButton("pauseLeftButtonRest()")
     idValueLeftButton("buttonLeftGreen");
     setLeftButtonValue("ПАУЗА");
 
-    onClickRightButton('rightButtonStop()');
+    onClickRightButton('stopRightButtonWork()');
     idValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
@@ -134,12 +134,12 @@ function rightButtonRest() {
     state = "rest";
 }
 
-function leftButtonRestPause() {
-    onClickLeftButton("leftButtonRestResum()")
+function pauseLeftButtonRest() {
+    onClickLeftButton("resumeLeftButtonRest()")
     idValueLeftButton("buttonLeftGreen");
     setLeftButtonValue("ПРОДОЛЖИТЬ");
 
-    onClickRightButton('rightButtonStop()');
+    onClickRightButton('stopRightButtonWork()');
     idValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
@@ -149,12 +149,12 @@ function leftButtonRestPause() {
     clearInterval(pomidorroInterval);    
 }
 
-function leftButtonRestResum() {
-    onClickLeftButton("leftButtonRestPause()")
+function resumeLeftButtonRest() {
+    onClickLeftButton("pauseLeftButtonRest()")
     idValueLeftButton("buttonLeftGreen");
     setLeftButtonValue("ПАУЗА");
 
-    onClickRightButton('rightButtonStop()');
+    onClickRightButton('stopRightButtonWork()');
     idValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
