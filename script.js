@@ -15,21 +15,19 @@ function getTime(workTime) {
 let pomidorroInterval; //переменная для setInterval
 let remainingTime; // оставшееся время для того чтобы можно было ставить на паузу
 let state; // состояние режима работы - рабочее либо отдых
-let timeValue; // переменная для работы с фунциями showTime() checkTimeEnd() launchPomidorro();
 let newWorkTime; // переменная для работы с launchPomidorro()
 
 stopRightButtonWork();
-stopRightButtonWork();
 
 //отображение времени
-function showTime() {
+function showTime(timeValue) {
         let minute = ("0" + timeValue.min).slice(-2);
         let second = ("0" + timeValue.sec).slice(-2);
         document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML =  minute + ":" + second + "";
 }
 
 // действие при истечении времени таймера:
-function checkTime() {
+function checkTime(timeValue) {
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
             if (state == "start") {
@@ -47,9 +45,9 @@ function initiatePomidorro(workTime) {
     };
 
 function launchPomidorro() {
-        timeValue = getTime(newWorkTime); 
-        showTime(); //отображаем время
-        checkTime(); //проверят не закончилось ли время
+        let timeValue = getTime(newWorkTime); 
+        showTime(timeValue); //отображаем время
+        checkTime(timeValue); //проверят не закончилось ли время
         remainingTime = timeValue.time; //запись в переменную оставшегося времени
 }
 
