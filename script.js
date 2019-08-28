@@ -213,25 +213,25 @@ function setBackgroundColor(color) {
 
 // надпись на правой кнопке
 function setRightButtonValue(buttonValue) {
-    document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".right-button").innerHTML = buttonValue;
+    document.querySelector(".right-button").innerHTML = buttonValue;
 }
 
 //надпись на левой кнопке
 function setLeftButtonValue(buttonValue) {
-    document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").innerHTML = buttonValue;
+    document.querySelector(".left-button").innerHTML = buttonValue;
 }
 
 //надпись на верхней части блока помидорро
 function setTitleValue(value) {
-    document.querySelector(".count-border-main").querySelector(".count-border-head").querySelector(".title").innerHTML = value;
+    document.querySelector(".title").innerHTML = value;
 }
 
 //задаем значение id для правой кнопки
 function idValueRightButton(value) {
-    document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".right-button").setAttribute('id', value);
+    document.querySelector(".right-button").setAttribute('id', value);
 }
 
 //задаем значение id для левой кнопки
 function idValueLeftButton(value) {
-    document.querySelector(".count-border-main").querySelector(".timer-buttons").querySelector(".left-button").setAttribute('id', value);
+    document.querySelector(".left-button").setAttribute('id', value);
 }
