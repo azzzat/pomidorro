@@ -30,12 +30,16 @@ function showTime(timeValue) {
 function checkTime(timeValue) {
         if (timeValue.time <= 0) {
             clearInterval(pomidorroInterval);
-            if (state == "start") {
-            restRightButtonRest();}
-            else{
-            stopRightButtonWork()
-            }; 
+            checkState();
       }
+}
+
+function checkState() {
+    if (state == "start") {
+        restRightButtonRest();}
+        else{
+        stopRightButtonWork()
+        };
 }
 
 function initiatePomidorro(workTime) {
