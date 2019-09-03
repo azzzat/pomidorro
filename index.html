@@ -26,5 +26,127 @@
             </div>
         </div>
     </div>
+    
+    
+    
+    
+    
+    
+    
+    <div class = "todo-border">
+        <h4>ЗАПЛАНИРОВАНО   
+            <span title = "Quantity"></span> 
+        </h4>
+        
+        <form title = "todo-input">
+            <div >
+                <input ref="category" placeholder="Категория" aria-label="категория">
+            </div>
+            <div>
+                <div>
+                    <input ref="description" placeholder="Короткое описание" arial-label="Короткое описание">
+                    <button type="submit" title="Запланировать">
+                        <icon fa="plus"></icon>
+                    </button>
+                </div>
+                <button title="Избранное">
+                    <icon fa="star"></icon>
+                </button>
+            </div>
+        </form>
+        
+        <div ref="sortable">
+            <div>
+                <form>
+                    <div>
+                        <input ref="category" hidden placeholder="Категория" style="display: none;">
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <span title="время"></span>
+                        <button></button>
+                        <button>
+                            <icon fa="ellipsys"></icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <h7>
+            <icon fa="coffee"></icon>
+            "Перерыв"
+            <span>
+                Осталось 3
+            </span>
+        </h7>
+        <div>
+            <button>
+               Work
+                <span> 1</span>
+            </button>
+            <button>Очистить список</button>
+        </div>
+    </div>
+    <div class = "history-border">
+        <h4>СДЕЛАНО
+        <span title="кол-во">
+            1
+            <span title="продолжительность">
+            </span>
+        </span>
+        </h4>
+        <div>
+            <div>Категория</div>
+            <div>Описание</div>
+        </div>
+        <h7>
+            <icon fa="star">
+                <i></i>
+                "Цель на день"
+            </icon>
+        </h7>
+        <pomo>
+            <div>
+                <input ref="category" hidden placeholder="Категория">
+                <div>
+                    
+                </div>
+            </div>
+            <div>
+                <div> без описания </div>
+            </div>
+            <div>
+                <span title="время">14.23</span>
+                <button title="Запланировать"> 
+                    <icon fa="repeat">
+                        <i></i>
+                    </icon>
+                </button>
+                <button title="Открыть меню">
+                    <icon fa="ellipsis">
+                        <i></i>
+                    </icon>
+                </button>
+            </div>
+        </pomo>
+        <div>
+            <button disabled="disabled">
+                " # "
+                <span> 1</span>
+            </button>
+            <button>
+                Очистить список
+            </button>
+        </div>
+        <p>Клик для редактирования</p>
+        <div>
+            <h4>Вы не авторизованы</h4>
+            <p>История не будет сохранена</p>
+        </div>
+    </div>
 </body>
 </html>
