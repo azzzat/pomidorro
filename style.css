@@ -126,3 +126,119 @@ body {
 #buttonRightStop:hover{
     cursor: not-allowed;
 }
+
+
+
+
+
+.todo-border{
+    font-family:sans-serif;
+    max-width: 1000px;
+    min-width: 400px;
+    margin: 30px auto;
+}
+
+.todo-border-header{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    letter-spacing: .08rem;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 10px;
+}
+
+.todo-border-header::before{
+    content: '';
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    background: #e3e3e3;
+    height: .1rem;
+}
+
+.todo-border-header::after{
+    content: '';
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    background: #e3e3e3;
+    height: .1rem;
+}
+
+
+
+
+.todo-body{
+    display:flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.todo-category{
+    align-self: stretch;
+    display: flex;
+    word-break: break-all;
+    height: 45px;
+}
+
+.todo-description{
+    align-self: stretch;
+    display: flex;
+    height: 45px;
+    flex-grow: 1;
+}
+
+.todo-button{
+    display: flex;
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 6px;
+    border-color: #bdbdbd;
+    border-width: 1px;
+    color: #373737;
+    box-shadow: none;
+    border-style: solid;
+}
+
+.todo-input-button{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    
+}
+
+.todo-right-button{
+    margin-left: 8px;
+}
+
+
+.todo-input-box{
+    display:flex;
+    flex-grow: 1;
+    padding-left: 8px;
+}
+
+
+.todo-input{
+    background-color: #fcfcfc;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bdbdbd;
+    color: #373737;
+    font-size: 16px;
+    padding: 2px;
+    height: 40px;
+    width:100%;
+}
+
+.todo-with-button{
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}

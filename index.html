@@ -29,31 +29,50 @@
     
     
     
-    
-    
-    
-    
     <div class = "todo-border">
-        <h4>ЗАПЛАНИРОВАНО   
-            <span title = "Quantity"></span> 
-        </h4>
+        <h4 class="todo-border-header">
+           ЗАПЛАНИРОВАНО   
+           <span title = "Quantity"></span> 
+        </h4> 
         
-        <form title = "todo-input">
-            <div >
-                <input ref="category" placeholder="Категория" aria-label="категория">
+        
+        
+        <div class="todo-body">
+            <div class="todo-category">
+                <input class="todo-input">
             </div>
-            <div>
-                <div>
-                    <input ref="description" placeholder="Короткое описание" arial-label="Короткое описание">
-                    <button type="submit" title="Запланировать">
-                        <icon fa="plus"></icon>
+            <div  class="todo-description">
+                <div class="todo-input-box">
+                    <input class="todo-input todo-with-button">
+                    <button class="todo-button todo-input-button">
+                        <icon></icon>
                     </button>
                 </div>
-                <button title="Избранное">
-                    <icon fa="star"></icon>
+                <button class="todo-button todo-right-button">
+                    <icon ></icon>
                 </button>
             </div>
-        </form>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         <div ref="sortable">
             <div>
@@ -76,7 +95,12 @@
             </div>
         </div>
         
-        <h7>
+        
+<!--     
+        ПОТОМ:
+        
+        
+        <h7 class="todo-border-header">
             <icon fa="coffee"></icon>
             "Перерыв"
             <span>
@@ -91,19 +115,22 @@
             <button>Очистить список</button>
         </div>
     </div>
+    
+    
     <div class = "history-border">
-        <h4>СДЕЛАНО
+        <h4 class="todo-border-header">
+        СДЕЛАНО
         <span title="кол-во">
             1
             <span title="продолжительность">
             </span>
         </span>
         </h4>
-        <div>
+        <div class="todo-border-body">
             <div>Категория</div>
             <div>Описание</div>
         </div>
-        <h7>
+        <h7 >
             <icon fa="star">
                 <i></i>
                 "Цель на день"
@@ -150,3 +177,4 @@
     </div>
 </body>
 </html>
+-->
