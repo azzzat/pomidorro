@@ -180,6 +180,7 @@ body {
     display: flex;
     word-break: break-all;
     height: 45px;
+    width: 200px;
 }
 
 .todo-description{
@@ -241,4 +242,20 @@ body {
 .todo-with-button{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+}
+
+.todo-case-category{
+    width: 200px;
+}
+
+.todo-case-description{
+    flex-grow:1;
+}
+
+.todo-case-tail{
+    color: #969696;
+    font-size: 13px;
+    padding-left: 3px;
+    display: flex;
+    align-items: center;
 }
