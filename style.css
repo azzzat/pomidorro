@@ -203,6 +203,7 @@ body {
     color: #373737;
     box-shadow: none;
     border-style: solid;
+    padding: 0px;
 }
 
 .todo-input-button{
@@ -250,6 +251,7 @@ body {
 
 .todo-case-description{
     flex-grow:1;
+    margin-left: 10px;
 }
 
 .todo-case-tail{
@@ -258,4 +260,101 @@ body {
     padding-left: 3px;
     display: flex;
     align-items: center;
+}
+
+.history-border{
+    padding-top: 20px;
+}
+
+.todo-border-header-green{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    letter-spacing: .08rem;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 10px;
+    color: green;
+}
+
+.todo-border-header-green::before{
+    content: '';
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    background: #e3e3e3;
+    height: .05rem;
+    background: green;
+}
+
+.todo-border-header-green::after{
+    content: '';
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    background: #e3e3e3;
+    height: .05rem;
+    background: green;
+}
+
+.history-border-table{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    color: #707070;
+    text-transform: uppercase;
+    font-size: 11px;
+    text-align: left;
+}
+
+.history-border-table-category{
+    width:200px;
+    margin-left: 3px;
+}
+
+.history-border-table-description{
+    margin-left: 3px;
+}
+
+.plus-icon{
+    font-family: Arial;
+    font-weight: 600;
+    font-size: 35px;
+    margin-left: 10px;
+}
+
+.star-icon{
+    font-family: Arial;
+    font-weight: 500;
+    font-size: 30px;
+    text-align: center;
+    margin-left: 9px;
+    margin-bottom: 10px;
+}
+
+.number-icon{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.three-points-icon{
+    letter-spacing: -3px;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #373737;
+}
+
+.return-icon{
+    font-size: 25px;
+    font-weight: bolder;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }

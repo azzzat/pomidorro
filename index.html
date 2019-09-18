@@ -34,23 +34,27 @@
            ЗАПЛАНИРОВАНО   
            <span title = "Quantity"></span> 
         </h4> 
-        
+    
         
         
         <div class="todo-body">
             <div class="todo-category">
-                <input class="todo-input">
+                <input class="todo-input" placeholder="Категория">
             </div>
             
             <div  class="todo-description">
                 <div class="todo-input-box">
-                    <input class="todo-input todo-with-button">
+                    <input class="todo-input todo-with-button" placeholder="Короткое описание">
                     <button class="todo-button todo-input-button">
-                        <icon></icon>
+                         <icon class="plus-icon">
+                            &#43;
+                         </icon>
                     </button>
                 </div>
                 <button class="todo-button todo-right-button">
-                    <icon ></icon>
+                   <icon class="star-icon">
+                        &#9734;
+                   </icon>
                 </button>
             </div>
         </div>
@@ -61,7 +65,7 @@
                 <div class="todo-case-category">
                     <input class="todo-input" style="display: none;">
                     <div class="todo-case-category-text">
-                        hfjfjfffbfjk hjkh,ghgkhghgh jbjjjhgjhjhjh jjhyvvvgtccchb khjkkj
+                        hfjfjfffbfjk hjkh,ghgkhghgh jbjjjhgjhjhjh jjhyvvvgtccchb khjkkj ijblbjlb blhblibhkugvg gvgkvkgvkkgv kvkjhvkvk kvkvkvkvgk kvkvkvtuv kuvkuvjjc jjvuvjtcjc
                     </div>
                 </div>
                 <div class="todo-case-description">
@@ -73,35 +77,19 @@
                     <span class="todo-time">
                         59:84
                     </span>
-                    <button class="todo-button todo-right-button"></button>
-                    <button class="todo-button todo-right-button"></button>
+                    <button class="todo-button todo-right-button">
+                        <inon class="number-icon">
+                            1
+                        </inon>
+                    </button>
+                    <button class="todo-button todo-right-button">
+                        <icon class="three-points-icon">
+                            &#183;&#183;&#183;
+                        </icon>
+                    </button>
                 </div>
             </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-<!--     
-        ПОТОМ:
-        
         
         <h7 class="todo-border-header">
             <icon fa="coffee"></icon>
@@ -110,74 +98,75 @@
                 Осталось 3
             </span>
         </h7>
+        
         <div>
-            <button>
-               Work
-                <span> 1</span>
-            </button>
-            <button>Очистить список</button>
+            
         </div>
-    </div>
-    
-    
-    <div class = "history-border">
-        <h4 class="todo-border-header">
-        СДЕЛАНО
-        <span title="кол-во">
-            1
-            <span title="продолжительность">
-            </span>
-        </span>
-        </h4>
-        <div class="todo-border-body">
-            <div>Категория</div>
-            <div>Описание</div>
-        </div>
-        <h7 >
-            <icon fa="star">
-                <i></i>
-                "Цель на день"
-            </icon>
-        </h7>
-        <pomo>
-            <div>
-                <input ref="category" hidden placeholder="Категория">
-                <div>
-                    
+        <a>
+            Кликните номер для добавления. Перетаскивайте для сортировки
+        </a>
+        
+        <div class = "history-border">
+            
+            <h4 class="todo-border-header">
+                СДЕЛАНО
+                <span title="кол-во">
+                        1
+                        <span title="продолжительность">
+                        </span>
+                </span>
+            </h4>
+            
+            <div class="history-border-table">
+                <div class="history-border-table-category">
+                    категория
                 </div>
+                
+                <div class="history-border-table-description">
+                    описание
+                </div>                
             </div>
-            <div>
-                <div> без описания </div>
-            </div>
-            <div>
-                <span title="время">14.23</span>
-                <button title="Запланировать"> 
-                    <icon fa="repeat">
-                        <i></i>
-                    </icon>
-                </button>
-                <button title="Открыть меню">
-                    <icon fa="ellipsis">
-                        <i></i>
-                    </icon>
-                </button>
-            </div>
-        </pomo>
-        <div>
-            <button disabled="disabled">
-                " # "
-                <span> 1</span>
-            </button>
-            <button>
-                Очистить список
-            </button>
+           
+            <h7 class="todo-border-header-green">
+                <icon fa="coffee"></icon>
+                    "Перерыв"
+                    
+                <span>
+                    Осталось 3
+                </span>
+            </h7>
+            
+                       <div class="todo-body todo-case-body">
+                <div class="todo-case-category">
+                    <input class="todo-input" style="display: none;">
+                    <div class="todo-case-category-text">
+                        hfjfjfffbfjk hjkh,ghgkhghgh jbjjjhgjhjhjh jjhyvvvgtccchb khjkkj ijblbjlb blhblibhkugvg gvgkvkgvkkgv kvkjhvkvk kvkvkvkvgk kvkvkvtuv kuvkuvjjc jjvuvjtcjc
+                    </div>
+                </div>
+                <div class="todo-case-description">
+                    <div class="todo-case-description-text">
+                        длддд
+                    </div>
+                </div>
+                <div class="todo-case-tail">
+                    <span class="todo-time">
+                        59:84
+                    </span>
+                    <button class="todo-button todo-right-button">
+                        <icon class="return-icon">
+                            &#x21bb;
+                        </icon>
+                    </button>
+                    <button class="todo-button todo-right-button">
+                        <icon class="three-points-icon">
+                            &#183;&#183;&#183;
+                        </icon>
+                    </button>
+                </div>
+            </div>  
+            
         </div>
-        <p>Клик для редактирования</p>
-        <div>
-            <h4>Вы не авторизованы</h4>
-            <p>История не будет сохранена</p>
-        </div>
+        
+      
     </div>
-</body>
-</html>
--->
+        
