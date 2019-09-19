@@ -145,7 +145,10 @@ body {
     letter-spacing: .08rem;
     font-size: 16px;
     text-transform: uppercase;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .todo-border-header::before{
@@ -166,7 +169,9 @@ body {
     height: .1rem;
 }
 
-
+.todo-border-header-rest{
+    font-size: 12px;
+}
 
 
 .todo-body{
@@ -273,7 +278,10 @@ body {
     letter-spacing: .08rem;
     font-size: 12px;
     text-transform: uppercase;
-    margin: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
     color: green;
 }
 
@@ -282,7 +290,6 @@ body {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0%;
-    background: #e3e3e3;
     height: .05rem;
     background: green;
 }
@@ -292,7 +299,6 @@ body {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0%;
-    background: #e3e3e3;
     height: .05rem;
     background: green;
 }
@@ -305,6 +311,12 @@ body {
     text-transform: uppercase;
     font-size: 11px;
     text-align: left;
+    height: 35px;
+    border-bottom-color: #e3e3e3;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .history-border-table-category{
@@ -366,19 +378,24 @@ body {
 .todo-border-tags{
     display: flex;
     margin-top: 10px;
-    height: 35px auto;
+    margin-left: 5px;
+    margin-right: 8px;
+    height: auto;
 }
 
 .category-boxes{
     display: flex;
-    max-width: 1000px;
-    height: 35px auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: auto;
 }
 
 .category-box{
-    display: inline-block; -??
     font-size: 14px;
     text-align:left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 1px;
     margin-left: 0px;
     margin-top: 0px;
     margin-right: 5px;
@@ -389,7 +406,8 @@ body {
     border-style: solid;
     border-width: 1px;
     border-radius: 2px;
-    height: 35px;
+    height: 25px;
+    max-width: 150px;
 }
 
 .category-box-delete{
@@ -397,6 +415,7 @@ body {
     margin-top: 0px;
     margin-right: 0px;
     margin-bottom: 5px;
+    white-space: nowrap;
     background-color: transparent;
     color: #707070;
     border-color: #707070;
@@ -404,13 +423,8 @@ body {
     border-width: 1px;
     border-radius: 2px;
     width: 150px;
-    height: 35px auto;
+    height: 25px;
 }
-
-
-
-
-
 
 .click-to-sort{
     display:block;
