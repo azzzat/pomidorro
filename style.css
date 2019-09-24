@@ -136,6 +136,7 @@ body {
     max-width: 1000px;
     min-width: 400px;
     margin: 30px auto;
+        
 }
 
 .todo-border-header{
@@ -253,6 +254,18 @@ body {
 .todo-case-category{
     width: 200px;
 }
+
+.todo-case-text{
+    display:block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+
+
+
+
 
 .todo-case-description{
     flex-grow:1;

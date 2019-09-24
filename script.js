@@ -239,3 +239,74 @@ function idValueRightButton(value) {
 function idValueLeftButton(value) {
     document.querySelector(".left-button").setAttribute('id', value);
 }
+
+
+
+//всё для механизма работы ту-ду листа
+
+//то что происходит при нажатии на кнопку плюс:
+let todoList = [];
+
+function plusButtonClick() {
+    let categoryTodo = document.querySelector(".todo-category-value").value;
+    let descriptionTodo = document.querySelector(".todo-description-value").value;
+    
+    let todoListNew = {};
+    todoListNew.todoCat = categoryTodo;
+    todoListNew.todoDesc = descriptionTodo;
+    
+    let i = todoList.length;
+    todoList[i] = todoListNew;
+    
+    createToDo();
+    createMassiveBox();
+}
+
+
+//происходит создание строки ToDo
+function createToDo() {
+    let createdLists = "";
+
+    for (let key in todoList) {
+        createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
+        createdLists += todoList[key].todoCat;
+        createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
+        createdLists += todoList[key].todoDesc;
+        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button"> <inon class="number-icon"> 1 </inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>'
+    }
+    document.querySelector(".todo-item-list").innerHTML = createdLists;
+    }
+
+
+// создание блоков с группировкой задач
+function createMassiveBox() {
+    let grouppedTodo = todoList.reduce((acc, cur)=>{
+        acc[cur.todoCat] = acc[cur.todoCat] || {
+            todoCat: cur.todoCat
+        }
+        return acc;
+    },{})
+    
+    createToDoBox(grouppedTodo);
+}
+
+function createToDoBox(grouppedTodo) {
+    let createdBox = "";
+    
+    for (let key in grouppedTodo) {
+        createdBox += '<button class="category-box">';
+        createdBox += grouppedTodo[key].todoCat;
+        createdBox += '</button>';
+    }
+    document.querySelector(".category-boxes-todo").innerHTML = createdBox;
+}
+
+// удаление строк
+    
+
+// перенос строки в сделанное 
+
+// группировка строк 
+
+
+// 
