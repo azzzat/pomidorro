@@ -16,6 +16,9 @@ let pomidorroInterval; //переменная для setInterval
 let remainingTime; // оставшееся время для того чтобы можно было ставить на паузу
 let state; // состояние режима работы - рабочее либо отдых
 let newWorkTime; // переменная для работы с launchPomidorro()
+let pomidorroDuration = 0.5*60*1000;
+let stortRestDuration = 0.1*60*1000;
+let longRestDuration = 0.2*60*1000;
 
 stopRightButtonWork();
 
@@ -111,7 +114,7 @@ function startLeftButtonWork() {
     setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
     
-    initiatePomidorro(new Date(Date.parse(new Date()) + 0.5*60*1000));
+    initiatePomidorro(new Date(Date.parse(new Date()) + pomidorroDuration));
     state = "startWork";
 };
 
@@ -174,7 +177,7 @@ function restRightButtonRest() {
     setBackgroundColor("rgb(86, 189, 86)");
     setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
-    initiatePomidorro(new Date(Date.parse(new Date()) + 0.1*60*1000));
+    initiatePomidorro(new Date(Date.parse(new Date()) + stortRestDuration));
     state = "restRest";
 }
 
@@ -240,31 +243,54 @@ function idValueLeftButton(value) {
     document.querySelector(".left-button").setAttribute('id', value);
 }
 
-
-
 //всё для механизма работы ту-ду листа
 
 //то что происходит при нажатии на кнопку плюс:
+
+//создаем массив для помещения в него todo дел
+
+let totalInformationList = {};
+//тут информация остальная:
 let todoList = [];
 
+// вызов функции при нажатии на кнопку
 function plusButtonClick() {
+    
     let categoryTodo = document.querySelector(".todo-category-value").value;
     let descriptionTodo = document.querySelector(".todo-description-value").value;
     
-    let todoListNew = {};
-    todoListNew.todoCat = categoryTodo;
-    todoListNew.todoDesc = descriptionTodo;
-    
-    let i = todoList.length;
-    todoList[i] = todoListNew;
-    
+     
+    checkTodo(categoryTodo, descriptionTodo);
     createToDo();
     createMassiveBox();
 }
 
+function checkTodo(categoryTodo, descriptionTodo) {
+    if (
+         (todoList.find(
+             function(item, index, array){
+             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
+         ))  == undefined
+         ){
+        let todoListNew = {};
+    
+        todoListNew.todoCat = categoryTodo;
+        todoListNew.todoDesc = descriptionTodo;
+        todoListNew.quantity = 1;
+        
+        let i = todoList.length;
+        todoList[i] = todoListNew;} 
+        else {
+                todoList.forEach(function(item, index, array){
+                if(item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo) {
+                item.quantity += 1} 
+        });
+        }
+}
 
 //происходит создание строки ToDo
 function createToDo() {
+ 
     let createdLists = "";
 
     for (let key in todoList) {
@@ -272,7 +298,9 @@ function createToDo() {
         createdLists += todoList[key].todoCat;
         createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
         createdLists += todoList[key].todoDesc;
-        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button"> <inon class="number-icon"> 1 </inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>'
+        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button"> <inon class="number-icon">';
+        createdLists += todoList[key].quantity;
+        createdLists += '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
     }
     document.querySelector(".todo-item-list").innerHTML = createdLists;
     }
@@ -301,12 +329,90 @@ function createToDoBox(grouppedTodo) {
     document.querySelector(".category-boxes-todo").innerHTML = createdBox;
 }
 
-// удаление строк
-    
 
 // перенос строки в сделанное 
+let doneTodoList = []; 
 
-// группировка строк 
+function lastItemDone() {
+    let date = new Date;
+    if (todoList[0].quantity == 1) {
+        doneTodoList.unshift(todoList.shift());
+        doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
+    } else {
+        doneTodoList.unshift(todoList[0]);
+        doneTodoList[0].quantity = doneTodoList[0].quantity - 1;
+        doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
+    }
+    
+    createToDo();
+    createMassiveBox();
+    createDoneItems();
+    createDoneMassiveBox();
+}
 
 
-// 
+function createDoneItems() {
+
+    let createdLists = '';
+
+    for (let key in doneTodoList) {
+        createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
+        createdLists += doneTodoList[key].todoCat;
+        createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-description-text">';
+        createdLists += doneTodoList[key].todoDesc;
+        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time">';
+        createdLists += doneTodoList[key].date;
+        createdLists += '</span> <button class="todo-button todo-right-button" onclick="repeatTask(';
+        createdLists += key;
+        createdLists += ')"> <icon class="return-icon"> &#x21bb; </icon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div> '
+    }
+    
+    document.querySelector(".todo-case-category-done").innerHTML = createdLists;
+    }
+
+//создать боксы done
+function createDoneMassiveBox() {
+    let grouppedDoneTodo = doneTodoList.reduce((acc, cur)=>{
+        acc[cur.todoCat] = acc[cur.todoCat] || {
+            todoCat: cur.todoCat
+        }
+        return acc;
+    },{})
+    
+    createTodoDoneBox(grouppedDoneTodo);
+}
+
+function createTodoDoneBox(grouppedDoneTodo) {
+    let createdBox = "";
+    
+    for (let key in grouppedDoneTodo) {
+        createdBox += '<button class="category-box">';
+        createdBox += grouppedDoneTodo[key].todoCat;
+        createdBox += '</button>';
+    }
+    document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
+}
+
+
+// повтор задания 
+function repeatTask(key) {
+    let categoryTodo = doneTodoList[key].todoCat;
+    let descriptionTodo = doneTodoList[key].todoDesc;
+    
+    checkTodo(categoryTodo, descriptionTodo);
+    createToDo();
+    createMassiveBox();
+    
+}
+
+// клик на бокс - оставляет нужные дела;
+// количество сделанных заданий
+// очищаем список
+// запуск задания при кликах
+// перетаскивание заданий - верх-низ
+// текущее задание на мониторе
+// настроить появление длинного перерыва
+// передвижение длинного переыва
+// линия - сколько до длинного переыва
+// оформить бокс
+// время окончания очередного задания

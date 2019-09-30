@@ -86,7 +86,7 @@
                         </inon>
                     </button>
                     <button class="todo-button todo-right-button">
-                        <icon class="three-points-icon">
+                        <icon class="three-points-icon" >
                             &#183;&#183;&#183;
                         </icon>
                     </button>
@@ -120,7 +120,7 @@
                 </button>              
            </div>
             
-            <button class="category-box-delete">
+            <button class="category-box-delete" onClick = "lastItemDone()">
                 Очистить список
             </button>
             
@@ -159,36 +159,36 @@
                     Осталось 3
                 </span>
             </h7>
-            
-                       <div class="todo-body todo-case-body">
-                <div class="todo-case-category">
-                    <input class="todo-input" style="display: none;">
-                    <div class="todo-case-category-text">
-                        hfjfjfffbfjk hjkh,ghgkhghgh jbjjjhgjhjhjh jjhyvvvgtccchb khjkkj ijblbjlb blhblibhkugvg gvgkvkgvkkgv kvkjhvkvk kvkvkvkvgk kvkvkvtuv kuvkuvjjc jjvuvjtcjc
+            <div class="todo-case-category-done">
+                <div class="todo-body todo-case-body">
+                    <div class="todo-case-category">
+                        <div class="todo-case-category-text">
+                            hfjfjfffbfjk hjkh,ghgkhghgh jbjjjhgjhjhjh jjhyvvvgtccchb khjkkj ijblbjlb blhblibhkugvg gvgkvkgvkkgv kvkjhvkvk kvkvkvkvgk kvkvkvtuv kuvkuvjjc jjvuvjtcjc
+                        </div>
                     </div>
-                </div>
-                <div class="todo-case-description">
-                    <div class="todo-case-description-text">
-                        длддд
+                    <div class="todo-case-description">
+                        <div class="todo-case-description-text">
+                            длддд
+                        </div>
                     </div>
-                </div>
-                <div class="todo-case-tail">
-                    <span class="todo-time">
-                        59:84
-                    </span>
-                    <button class="todo-button todo-right-button">
-                        <icon class="return-icon">
-                            &#x21bb;
-                        </icon>
-                    </button>
-                    <button class="todo-button todo-right-button">
-                        <icon class="three-points-icon">
-                            &#183;&#183;&#183;
-                        </icon>
-                    </button>
-                </div>
-            </div>  
-            
+                    <div class="todo-case-tail">
+                        <span class="todo-time">
+                            59:84
+                        </span>
+                        <button class="todo-button todo-right-button">
+                            <icon class="return-icon">
+                                &#x21bb;
+                            </icon>
+                        </button>
+                        <button class="todo-button todo-right-button">
+                            <icon class="three-points-icon">
+                                &#183;&#183;&#183;
+                            </icon>
+                        </button>
+                    </div>
+                </div> 
+            </div>
+
         </div>
         
         <h7 class="todo-border-header todo-border-header-rest">
@@ -200,7 +200,7 @@
         </h7>
         
         <div class="todo-border-tags">
-           <div class="category-boxes">
+           <div class="category-boxes category-boxes-done-todo">
                <button class="category-box">
                    yyhgjhvjhv
                </button>
