@@ -310,7 +310,8 @@ function createToDo() {
 function createMassiveBox() {
     let grouppedTodo = todoList.reduce((acc, cur)=>{
         acc[cur.todoCat] = acc[cur.todoCat] || {
-            todoCat: cur.todoCat
+            todoCat: cur.todoCat,
+            quantity: cur.quantity
         }
         return acc;
     },{})
@@ -323,7 +324,10 @@ function createToDoBox(grouppedTodo) {
     
     for (let key in grouppedTodo) {
         createdBox += '<button class="category-box">';
+        createdBox += '#';
         createdBox += grouppedTodo[key].todoCat;
+        createdBox += " - ";
+        createdBox += grouppedTodo[key].quantity;
         createdBox += '</button>';
     }
     document.querySelector(".category-boxes-todo").innerHTML = createdBox;
@@ -335,14 +339,21 @@ let doneTodoList = [];
 
 function lastItemDone() {
     let date = new Date;
+    
     if (todoList[0].quantity == 1) {
         doneTodoList.unshift(todoList.shift());
-        doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
+       // doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
     } else {
         doneTodoList.unshift(todoList[0]);
         doneTodoList[0].quantity = doneTodoList[0].quantity - 1;
-        doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
+       // doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
     }
+
+    let minute = ("0" + date.getHours()).slice(-2);
+    let second = ("0" + date.getMinutes()).slice(-2);
+    doneTodoList[0].date =  minute + ":" + second + "";
+        
+    
     
     createToDo();
     createMassiveBox();
@@ -354,6 +365,7 @@ function lastItemDone() {
 function createDoneItems() {
 
     let createdLists = '';
+
 
     for (let key in doneTodoList) {
         createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
@@ -374,11 +386,13 @@ function createDoneItems() {
     document.querySelector(".done-todo-quantiti").innerText = doneListLength;
     }
 
+//сделать подсчитанный todoDone
+
 //создать боксы done
 function createDoneMassiveBox() {
     let grouppedDoneTodo = doneTodoList.reduce((acc, cur)=>{
         acc[cur.todoCat] = acc[cur.todoCat] || {
-            todoCat: cur.todoCat
+            todoCat: cur.todoCat,
         }
         return acc;
     },{})
@@ -391,6 +405,7 @@ function createTodoDoneBox(grouppedDoneTodo) {
     
     for (let key in grouppedDoneTodo) {
         createdBox += '<button class="category-box">';
+        createdBox += '#';
         createdBox += grouppedDoneTodo[key].todoCat;
         createdBox += '</button>';
     }
@@ -425,12 +440,14 @@ function deletDoneTodoTasks() {
 }
 
 // клик на бокс - оставляет нужные дела;
-// очищаем список
+
 // запуск задания при кликах
 // перетаскивание заданий - верх-низ
-// текущее задание на мониторе
+
+// текущее задание на мониторе - почти
+
 // настроить появление длинного перерыва
 // передвижение длинного переыва
 // линия - сколько до длинного переыва
-// оформить бокс
+
 // время окончания очередного задания

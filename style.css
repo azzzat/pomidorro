@@ -42,11 +42,23 @@ body {
 .timer-clock {
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 40px;
+    padding-bottom: 0px;
     height: 100px;
     width: 400px;
     font-size: 100px;
     text-align: center;
+}
+
+.processing-todo-task {
+    padding-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: darkgray;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .timer-buttons{
