@@ -369,6 +369,7 @@ function createDoneItems() {
     
     document.querySelector(".todo-case-category-done").innerHTML = createdLists;
     
+    //подсчет количества сделанных заданий
     let doneListLength = doneTodoList.length;
     document.querySelector(".done-todo-quantiti").innerText = doneListLength;
     }
@@ -407,11 +408,23 @@ function repeatTask(key) {
     createMassiveBox();
 }
 
-//подсчет количества сделанных заданий
+//удалить задания
+function deletTodoTasks() {
+    todoList = [];
+    
+    createToDo();
+    createMassiveBox();
+}
 
+// удалить сделанные задания
+function deletDoneTodoTasks() {
+    doneTodoList = [];
+    
+    createDoneItems();
+    createDoneMassiveBox();
+}
 
 // клик на бокс - оставляет нужные дела;
-// количество сделанных заданий
 // очищаем список
 // запуск задания при кликах
 // перетаскивание заданий - верх-низ
