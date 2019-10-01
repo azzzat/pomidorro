@@ -350,7 +350,7 @@ function lastItemDone() {
     createDoneMassiveBox();
 }
 
-
+// сделанные задания
 function createDoneItems() {
 
     let createdLists = '';
@@ -368,6 +368,9 @@ function createDoneItems() {
     }
     
     document.querySelector(".todo-case-category-done").innerHTML = createdLists;
+    
+    let doneListLength = doneTodoList.length;
+    document.querySelector(".done-todo-quantiti").innerText = doneListLength;
     }
 
 //создать боксы done
@@ -402,8 +405,10 @@ function repeatTask(key) {
     checkTodo(categoryTodo, descriptionTodo);
     createToDo();
     createMassiveBox();
-    
 }
+
+//подсчет количества сделанных заданий
+
 
 // клик на бокс - оставляет нужные дела;
 // количество сделанных заданий
