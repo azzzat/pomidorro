@@ -184,6 +184,8 @@ function restRightButtonRest() {
     
     initiatePomidorro(new Date(Date.parse(new Date()) + 0.1*60*1000));
     state = "restRest";
+    
+    lastItemDone();
 }
 
 function pauseLeftButtonRest() {
@@ -514,3 +516,5 @@ function deletDoneTodoTasks() {
 // настроить появление длинного перерыва
 
 // время окончания очередного задания
+
+// можно поменять значения 
