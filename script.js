@@ -17,8 +17,13 @@ let remainingTime; // оставшееся время для того чтобы
 let state; // состояние режима работы - рабочее либо отдых
 let newWorkTime; // переменная для работы с launchPomidorro()
 let pomidorroDuration = 0.5*60*1000;
+
 let stortRestDuration = 0.1*60*1000;
 let longRestDuration = 0.2*60*1000;
+
+let restDuration = stortRestDuration;
+
+let longRest = 4;
 
 stopRightButtonWork();
 
@@ -177,7 +182,7 @@ function restRightButtonRest() {
     setBackgroundColor("rgb(86, 189, 86)");
     setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
-    initiatePomidorro(new Date(Date.parse(new Date()) + stortRestDuration));
+    initiatePomidorro(new Date(Date.parse(new Date()) + restDuration));
     state = "restRest";
 }
 
@@ -263,6 +268,11 @@ function plusButtonClick() {
     checkTodo(categoryTodo, descriptionTodo);
     createToDo();
     createMassiveBox();
+    descriptionTodoClear();
+}
+
+function descriptionTodoClear(){
+    document.querySelector(".todo-description-value").value="";
 }
 
 function checkTodo(categoryTodo, descriptionTodo) {
@@ -303,6 +313,11 @@ function createToDo() {
         createdLists += '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
     }
     document.querySelector(".todo-item-list").innerHTML = createdLists;
+    if(longRest == undefined) {
+        longRest = 4;
+    }
+    
+    setLongRestLine();
     }
 
 
@@ -352,20 +367,54 @@ function lastItemDone() {
     let minute = ("0" + date.getHours()).slice(-2);
     let second = ("0" + date.getMinutes()).slice(-2);
     doneTodoList[0].date =  minute + ":" + second + "";
-        
     
-    
+    restSettings();
     createToDo();
     createMassiveBox();
     createDoneItems();
     createDoneMassiveBox();
 }
 
+
+// настройка перерывов
+function restSettings() {
+    if (longRest <= 1) {
+       restDuration = longRestDuration;
+       longRest = 4;
+    } else{
+        longRest -= 1;
+    }
+}
+
+function setLongRestLine() {
+    if( (todoList[0]) && (todoList[0].quantity >= longRest)){
+        setRestLine(longRest, 1);
+    } else if ((todoList[0]) && (todoList[1]) && ((todoList[0].quantity + todoList[1].quantity) >= longRest)) {
+        setRestLine(longRest, 2);
+    } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity) >= longRest)) {
+        setRestLine(longRest, 3);
+    } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && (todoList[3]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity + todoList[3].quantity) >= longRest)) {
+        setRestLine(longRest, 4);
+    } else if (!(todoList[0]) || !(todoList[1]) || !(todoList[2]) || !(todoList[3])) {
+        console.log("нет");
+        }
+    }
+
+
+function setRestLine(number, position) {
+    let restLine = '<h7 class="todo-border-header todo-border-header-rest"> <a>Длинный перерыв -</a> <span> - Осталось ';
+    restLine += number;
+    restLine += ' </span> </h7>';
+
+    document.querySelector(".todo-item-list .todo-case-body:nth-child("+position+")").insertAdjacentHTML("afterEnd", restLine);
+}
+
+
+
 // сделанные задания
 function createDoneItems() {
 
     let createdLists = '';
-
 
     for (let key in doneTodoList) {
         createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
@@ -439,6 +488,9 @@ function deletDoneTodoTasks() {
     createDoneMassiveBox();
 }
 
+
+
+
 // клик на бокс - оставляет нужные дела;
 
 // запуск задания при кликах
@@ -447,7 +499,5 @@ function deletDoneTodoTasks() {
 // текущее задание на мониторе - почти
 
 // настроить появление длинного перерыва
-// передвижение длинного переыва
-// линия - сколько до длинного переыва
 
 // время окончания очередного задания
