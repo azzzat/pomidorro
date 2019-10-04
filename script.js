@@ -18,10 +18,10 @@ let state; // состояние режима работы - рабочее ли
 let newWorkTime; // переменная для работы с launchPomidorro()
 let pomidorroDuration = 0.5*60*1000;
 
-let stortRestDuration = 0.1*60*1000;
+let shortRestDuration = 0.1*60*1000;
 let longRestDuration = 0.2*60*1000;
 
-let restDuration = stortRestDuration;
+let restDuration = shortRestDuration;
 
 let longRest = 4;
 
@@ -43,7 +43,7 @@ function checkTime(timeValue) {
 }
 
 function checkState() {
-    if (state == "start") {
+    if (state == "startWork") {
         restRightButtonRest();}
         else{
         stopRightButtonWork()
@@ -182,7 +182,7 @@ function restRightButtonRest() {
     setBackgroundColor("rgb(86, 189, 86)");
     setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
     
-    initiatePomidorro(new Date(Date.parse(new Date()) + restDuration));
+    initiatePomidorro(new Date(Date.parse(new Date()) + 0.1*60*1000));
     state = "restRest";
 }
 
@@ -308,7 +308,9 @@ function createToDo() {
         createdLists += todoList[key].todoCat;
         createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
         createdLists += todoList[key].todoDesc;
-        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button"> <inon class="number-icon">';
+        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button" onClick=todoTaskRepeat(';
+        createdLists += key;
+        createdLists += ')> <inon class="number-icon">';
         createdLists += todoList[key].quantity;
         createdLists += '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
     }
@@ -396,7 +398,7 @@ function setLongRestLine() {
     } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && (todoList[3]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity + todoList[3].quantity) >= longRest)) {
         setRestLine(longRest, 4);
     } else if (!(todoList[0]) || !(todoList[1]) || !(todoList[2]) || !(todoList[3])) {
-        console.log("нет");
+        //console.log("нет");
         }
     }
 
@@ -471,6 +473,17 @@ function repeatTask(key) {
     createToDo();
     createMassiveBox();
 }
+
+//повтор задания при клике
+function todoTaskRepeat(key) {
+    let categoryTodo = todoList[key].todoCat;
+    let descriptionTodo = todoList[key].todoDesc;
+    
+    checkTodo(categoryTodo, descriptionTodo);
+    createToDo();
+    createMassiveBox();
+}
+
 
 //удалить задания
 function deletTodoTasks() {
