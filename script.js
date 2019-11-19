@@ -25,7 +25,7 @@ let restDuration = shortRestDuration;
 
 let longRest = 4;
 
-stopRightButtonWork();
+setCountborderViewWorkNotStarted();
 
 //отображение времени
 function showTime(timeValue) {
@@ -44,9 +44,9 @@ function checkTime(timeValue) {
 
 function checkState() {
     if (state == "startWork") {
-        restRightButtonRest();}
+        setCountdorderViewInRest2();}
         else{
-        stopRightButtonWork()
+        setCountborderViewWorkNotStarted()
         };
 }
 
@@ -65,55 +65,55 @@ function launchPomidorro() {
 
 function leftButtonClick(){
     if (state == "startWork"){
-        pauseLeftButtonWork();
+        setCountborderViewPausework();
     } else 
     if (state == "pauseWork") {
-        resumeLeftButtonWork();
+        setCountborderViewInworkAfterPause();
     } else 
     if (state == "resumeWork") {
-        pauseLeftButtonWork();
+        setCountborderViewPausework();
     } else 
     if (state == "stopWork"){
-        startLeftButtonWork();
+        setCountborderViewFirstInwork();
     } else 
     if (state == "restRest") {
-        pauseLeftButtonRest();
+        setCountborderViewInRest();
     } else 
     if (state == "pauseRest") {
-        resumeLeftButtonRest();
+        setCounborderViewRestInPause();
     } else 
     if (state == "resumeRest") {
-        pauseLeftButtonRest();
+        setCountborderViewInRest();
     }
 };
 
 function rightButtonClick(){
     if (state == "startWork"){
-        stopRightButtonWork();
+        setCountborderViewWorkNotStarted();
     } else 
     if (state == "pauseWork") {
-        restRightButtonRest();
+        setCountdorderViewInRest2();
     } else 
     if (state == "resumeWork") {
-        stopRightButtonWork();
+        setCountborderViewWorkNotStarted();
     } else 
     if (state == "restRest") {
-        stopRightButtonWork();
+        setCountborderViewWorkNotStarted();
     } else 
     if (state == "pauseRest") {
-        stopRightButtonWork();
+        setCountborderViewWorkNotStarted();
     } else 
     if (state == "resumeRest") {
-        stopRightButtonWork();
+        setCountborderViewWorkNotStarted();
     } else {}
 };
 
 
-function startLeftButtonWork() { 
-    idValueLeftButton("buttonLeftRed");
+function setCountborderViewFirstInwork() { 
+    setIdValueLeftButton("buttonLeftRed");
     setLeftButtonValue("ПАУЗА");
 
-    idValueRightButton("buttonRightRed");
+    setIdValueRightButton("buttonRightRed");
     setRightButtonValue("СТОП");
     
     setBackgroundColor("#d03540");
@@ -123,11 +123,11 @@ function startLeftButtonWork() {
     state = "startWork";
 };
 
-function pauseLeftButtonWork() {
-    idValueLeftButton("buttonLeftRed");
+function setCountborderViewPausework() {
+    setIdValueLeftButton("buttonLeftRed");
     setLeftButtonValue("ПРОДОЛЖИТЬ");
 
-    idValueRightButton("buttonRightRed");
+    setIdValueRightButton("buttonRightRed");
     setRightButtonValue("СДЕЛАНО");
     
     setBackgroundColor("#d03540");
@@ -138,11 +138,11 @@ function pauseLeftButtonWork() {
     state = "pauseWork";
 };
 
-function resumeLeftButtonWork() {
-    idValueLeftButton("buttonLeftRed");
+function setCountborderViewInworkAfterPause() {
+    setIdValueLeftButton("buttonLeftRed");
     setLeftButtonValue("ПАУЗА");
 
-    idValueRightButton("buttonRightRed");
+    setIdValueRightButton("buttonRightRed");
     setRightButtonValue("СТОП");
     
     setBackgroundColor("#d03540");
@@ -155,13 +155,13 @@ function resumeLeftButtonWork() {
     state = "resumeWork";
 }
 
-function stopRightButtonWork() {
+function setCountborderViewWorkNotStarted() {
     document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = "00:00";
 
-    idValueLeftButton("buttonLeftRed");
+    setIdValueLeftButton("buttonLeftRed");
     setLeftButtonValue("СТАРТ");
 
-    idValueRightButton("buttonRightStop");
+    setIdValueRightButton("buttonRightStop");
     setRightButtonValue("СТОП");
     
     setBackgroundColor("#d03540");
@@ -172,11 +172,11 @@ function stopRightButtonWork() {
     state= "stopWork";
 }
 
-function restRightButtonRest() {
-    idValueLeftButton("buttonLeftGreen");
+function setCountdorderViewInRest2() {
+    setIdValueLeftButton("buttonLeftGreen");
     setLeftButtonValue("ПАУЗА");
 
-    idValueRightButton("buttonRightGreen");
+    setIdValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
     setBackgroundColor("rgb(86, 189, 86)");
@@ -188,11 +188,11 @@ function restRightButtonRest() {
     lastItemDone();
 }
 
-function pauseLeftButtonRest() {
-    idValueLeftButton("buttonLeftGreen");
+function setCountborderViewInRest() {
+    setIdValueLeftButton("buttonLeftGreen");
     setLeftButtonValue("ПРОДОЛЖИТЬ");
 
-    idValueRightButton("buttonRightGreen");
+    setIdValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
     setBackgroundColor("rgb(86, 189, 86)");
@@ -203,11 +203,11 @@ function pauseLeftButtonRest() {
     state = "pauseRest";
 }
 
-function resumeLeftButtonRest() {
-    idValueLeftButton("buttonLeftGreen");
+function setCounborderViewRestInPause() {
+    setIdValueLeftButton("buttonLeftGreen");
     setLeftButtonValue("ПАУЗА");
 
-    idValueRightButton("buttonRightGreen");
+    setIdValueRightButton("buttonRightGreen");
     setRightButtonValue("ПРОПУСТИТЬ");
     
     setBackgroundColor("rgb(86, 189, 86)");
@@ -241,12 +241,12 @@ function setTitleValue(value) {
 }
 
 //задаем значение id для правой кнопки
-function idValueRightButton(value) {
+function setIdValueRightButton(value) {
     document.querySelector(".right-button").setAttribute('id', value);
 }
 
 //задаем значение id для левой кнопки
-function idValueLeftButton(value) {
+function setIdValueLeftButton(value) {
     document.querySelector(".left-button").setAttribute('id', value);
 }
 
@@ -260,7 +260,6 @@ let totalInformationList = {};
 //тут информация остальная:
 let todoList = [];
 
-// вызов функции при нажатии на кнопку
 function plusButtonClick() {
     
     let categoryTodo = document.querySelector(".todo-category-value").value;
@@ -271,6 +270,12 @@ function plusButtonClick() {
     createToDo();
     createMassiveBox();
     descriptionTodoClear();
+}
+
+function enterKeyClick() {
+    if (event.key == "Enter") {
+        plusButtonClick();
+    }
 }
 
 function descriptionTodoClear(){
