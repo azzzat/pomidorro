@@ -1,7 +1,8 @@
 'use strict';
 
 
-import {lastItemDone} from './scriptTodo.js';
+import {lastItemDone, todoList} from './scriptTodo.js';
+
 
 export let state; // состояние режима работы - рабочее либо отдых
 export let pomidorroDuration = 0.5*60*1000;
@@ -28,6 +29,8 @@ function showTime(timeValue) {
     let minute = ("0" + timeValue.min).slice(-2);
     let second = ("0" + timeValue.sec).slice(-2);
     document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML =  minute + ":" + second + "";
+    
+    showTodoDescription();
 }
 
 function checkTime(timeValue) {
@@ -173,10 +176,13 @@ export function setCountborderViewWorkNotStarted() {
     setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
     
+    //showTodoDescription();
+    
     clearInterval(pomidorroInterval);
     
     state= "stopWork";
 }
+
 
 export function setCountdorderViewInRest2() {
     setIdValueLeftButton("buttonLeftGreen");
@@ -254,4 +260,14 @@ function setIdValueRightButton(value) {
 //задаем значение id для левой кнопки
 function setIdValueLeftButton(value) {
     document.querySelector(".left-button").setAttribute('id', value);
+}
+
+export function showTodoDescription() {
+    if (todoList[0] == undefined) {
+        document.querySelector(".processing-todo-task").innerHTML = "";
+    } else if( state == "startWork" || state == "pauseWork" || state == "resumeWork" || state == "stopWork") {
+        document.querySelector(".processing-todo-task").innerHTML = todoList[0].todoDesc;}
+    else if (state == "restRest"|| state == "pauseRest" || state == "resumeRest") {
+        document.querySelector(".processing-todo-task").innerHTML = "";
+    }
 }

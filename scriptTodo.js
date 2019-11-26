@@ -1,12 +1,9 @@
 'use strict';
 
-
 export let longRest = 4;
 export let shortRestDuration = 0.1*60*1000;
 export let longRestDuration = 0.2*60*1000;
-
 export let restDuration = shortRestDuration;
-
 export let totalInformationList = {};
 //тут информация остальная:
 export let todoList = [];
@@ -16,7 +13,6 @@ export function plusButtonClick() {
     let categoryTodo = document.querySelector(".todo-category-value").value;
     let descriptionTodo = document.querySelector(".todo-description-value").value;
     
-     
     checkTodo(categoryTodo, descriptionTodo);
     createToDo();
     createMassiveBox();
@@ -53,9 +49,9 @@ export function checkTodo(categoryTodo, descriptionTodo) {
         let i = todoList.length;
         todoList[i] = todoListNew;} 
         else {
-                todoList.forEach(function(item, index, array){
-                if(item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo) {
-                item.quantity += 1} 
+            todoList.forEach(function(item, index, array){
+            if(item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo) {
+            item.quantity += 1}
         });
         }
 }
@@ -78,8 +74,6 @@ export function createToDo() {
         createdLists += '")> <inon class="number-icon">';
         createdLists += todoList[key].quantity;
         createdLists += '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
-        
-
     }
     
     document.querySelector(".todo-item-list").innerHTML = createdLists;
@@ -286,3 +280,4 @@ export function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
+

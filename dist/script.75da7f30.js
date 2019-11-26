@@ -449,6 +449,7 @@ exports.setCountborderViewWorkNotStarted = setCountborderViewWorkNotStarted;
 exports.setCountdorderViewInRest2 = setCountdorderViewInRest2;
 exports.setCountborderViewInRest = setCountborderViewInRest;
 exports.setCounborderViewRestInPause = setCounborderViewRestInPause;
+exports.showTodoDescription = showTodoDescription;
 exports.pomidorroInterval = exports.remainingTime = exports.pomidorroDuration = exports.state = void 0;
 
 var _scriptTodo = require("./scriptTodo.js");
@@ -483,6 +484,7 @@ function showTime(timeValue) {
   var minute = ("0" + timeValue.min).slice(-2);
   var second = ("0" + timeValue.sec).slice(-2);
   document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = minute + ":" + second + "";
+  showTodoDescription();
 }
 
 function checkTime(timeValue) {
@@ -609,7 +611,8 @@ function setCountborderViewWorkNotStarted() {
   setIdValueRightButton("buttonRightStop");
   setRightButtonValue("СТОП");
   setBackgroundColor("#d03540");
-  setTitleValue("ПОМИДОР");
+  setTitleValue("ПОМИДОР"); //showTodoDescription();
+
   clearInterval(pomidorroInterval);
   exports.state = state = "stopWork";
 }
@@ -678,6 +681,16 @@ function setIdValueRightButton(value) {
 function setIdValueLeftButton(value) {
   document.querySelector(".left-button").setAttribute('id', value);
 }
+
+function showTodoDescription() {
+  if (_scriptTodo.todoList[0] == undefined) {
+    document.querySelector(".processing-todo-task").innerHTML = "";
+  } else if (state == "startWork" || state == "pauseWork" || state == "resumeWork" || state == "stopWork") {
+    document.querySelector(".processing-todo-task").innerHTML = _scriptTodo.todoList[0].todoDesc;
+  } else if (state == "restRest" || state == "pauseRest" || state == "resumeRest") {
+    document.querySelector(".processing-todo-task").innerHTML = "";
+  }
+}
 },{"./scriptTodo.js":"scriptTodo.js"}],"script.js":[function(require,module,exports) {
 'use strict';
 
@@ -712,7 +725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59713" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61777" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
