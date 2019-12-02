@@ -431,7 +431,11 @@ function deletDoneTodoTasks() {
   createDoneMassiveBox();
 }
 
-document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
+document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); //перетаскивание строк
+
+function dragTodoItem() {
+  document.querySelector;
+}
 },{}],"scriptTop.js":[function(require,module,exports) {
 'use strict';
 
@@ -725,7 +729,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61777" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64559" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

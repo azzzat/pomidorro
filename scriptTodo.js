@@ -281,3 +281,8 @@ export function deletDoneTodoTasks() {
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
 
+//перетаскивание строк
+
+function dragTodoItem() {
+    document.querySelector
+}
