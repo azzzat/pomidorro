@@ -1,5 +1,7 @@
 'use strict';
 
+import {divElem, handler} from './Script-drag-and-drop.js';
+
 export let longRest = 4;
 export let shortRestDuration = 0.1*60*1000;
 export let longRestDuration = 0.2*60*1000;
@@ -65,7 +67,13 @@ export function createToDo() {
         if ( document.querySelector(`.repeat-button-${key}`) )
            {document.querySelector(`.repeat-button-${key}`).removeEventListener("click", function() {todoTaskRepeat(key)});}
         
-        createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
+        if(document.querySelector(".todo-item-list")[key]) {
+            console.log(`delete ${key}`);
+        }
+        
+        createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
+        createdLists += key;
+        createdLists += '"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
         createdLists += todoList[key].todoCat;
         createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
         createdLists += todoList[key].todoDesc;
@@ -85,6 +93,16 @@ export function createToDo() {
     for (let key in todoList) {
         document.querySelector(`.repeat-button-${key}`).addEventListener("click", function() {todoTaskRepeat(key)});
     };
+    
+    let divElem = document.querySelectorAll(".todo-case-bl");  // добавил для dragAndDropp
+    for (let i = 0; i < divElem.length; i++) {
+        divElem[i].addEventListener("mouseover", handler)
+//                                    function(event) {
+//        event.stopPropagation();
+//        handler();
+//        }
+            
+    }
     
     setLongRestLine();
     }
@@ -286,3 +304,5 @@ document.querySelector(".category-box-delete-done").addEventListener("click", de
 function dragTodoItem() {
     document.querySelector
 }
+
+

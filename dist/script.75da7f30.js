@@ -117,7 +117,117 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"scriptTodo.js":[function(require,module,exports) {
+})({"Script-drag-and-drop.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handler = handler;
+exports.divElem = void 0;
+
+var _scriptTodo = require("./scriptTodo.js");
+
+var divElem = document.querySelectorAll(".todo-case-bl"); //for (let i = 0; i < divElem.length; i++) {
+//    divElem[i].addEventListener("mouseover", handler);
+//}
+
+exports.divElem = divElem;
+console.log('1');
+console.log(divElem);
+
+document.onselectstart = function () {
+  return false;
+};
+
+function handler() {
+  event.currentTarget.onmousedown = function (event) {
+    exports.divElem = divElem = document.querySelectorAll(".todo-case-bl"); //не работает
+
+    console.log("2");
+    console.log(divElem);
+
+    for (var i = 0; i < divElem.length; i++) {
+      divElem[i].removeEventListener("mouseover", handler);
+    }
+
+    var cloneDiv = event.currentTarget.cloneNode(true);
+    cloneDiv.style.position = 'absolute';
+    cloneDiv.style.opacity = 0.5;
+    cloneDiv.style.zIndex = 100;
+    cloneDiv.style.top = event.currentTarget.offsetTop + "px";
+    cloneDiv.style.left = event.currentTarget.offsetLeft + "px";
+    cloneDiv.style.width = "500px";
+    var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять 
+
+    document.body.append(newDiv);
+    var newTodoList = _scriptTodo.todoList[cloneDiv.id]; // заменяемый див
+
+    cloneDiv.ondragstart = function () {
+      return false;
+    }; //не показывает
+
+
+    for (var _i = 0; _i < divElem.length; _i++) {
+      divElem[_i].addEventListener("mouseover", change);
+    }
+
+    function change() {
+      _scriptTodo.todoList.splice(cloneDiv.getAttribute('id'), 1);
+
+      cloneDiv.setAttribute('id', this.id); // id добавить
+
+      _scriptTodo.todoList.splice(this.id, 0, newTodoList);
+
+      function makeNewList() {
+        //убрать линию   
+        console.log('немного');
+
+        for (var _i2 = 0; _i2 < divElem.length; _i2++) {
+          divElem[_i2].setAttribute("id", _i2);
+        }
+
+        for (var _i3 = 0; _i3 < divElem.length; _i3++) {
+          divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _scriptTodo.todoList[_i3].todoCat;
+          divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _scriptTodo.todoList[_i3].todoDesc;
+          divElem[_i3].querySelector(".todo-case-tail").querySelector(".todo-case-text").querySelector(".number-icon").innerHTML = _scriptTodo.todoList[_i3].quantity;
+        }
+      }
+
+      ;
+      makeNewList();
+    }
+
+    document.onmouseup = function () {
+      document.onmousemove = function () {};
+
+      for (var _i4 = 0; _i4 < divElem.length; _i4++) {
+        divElem[_i4].removeEventListener("mouseover", change);
+      }
+
+      for (var _i5 = 0; _i5 < divElem.length; _i5++) {
+        divElem[_i5].addEventListener("mouseover", handler);
+      }
+
+      cloneDiv.style.pointerEvents = "auto";
+      newDiv.remove();
+    };
+
+    document.onmousemove = function (newEvent) {
+      var posLeft = newEvent.pageX - newDiv.offsetLeft;
+      var posTop = newEvent.pageY - newDiv.offsetTop;
+
+      document.onmousemove = function (newEvent) {
+        newDiv.style.top = newEvent.pageY - posTop + "px";
+        newDiv.style.left = newEvent.pageX - posLeft + "px";
+        cloneDiv.style.pointerEvents = "none";
+      };
+    };
+  };
+}
+
+;
+},{"./scriptTodo.js":"scriptTodo.js"}],"scriptTodo.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -142,6 +252,9 @@ exports.todoTaskRepeat = todoTaskRepeat;
 exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = exports.totalInformationList = exports.restDuration = exports.longRestDuration = exports.shortRestDuration = exports.longRest = void 0;
+
+var _ScriptDragAndDrop = require("./Script-drag-and-drop.js");
+
 var longRest = 4;
 exports.longRest = longRest;
 var shortRestDuration = 0.1 * 60 * 1000;
@@ -208,7 +321,13 @@ function createToDo() {
       });
     }
 
-    createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
+    if (document.querySelector(".todo-item-list")[key]) {
+      console.log("delete ".concat(key));
+    }
+
+    createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
+    createdLists += key;
+    createdLists += '"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
     createdLists += todoList[key].todoCat;
     createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
     createdLists += todoList[key].todoDesc;
@@ -240,6 +359,15 @@ function createToDo() {
   }
 
   ;
+  var divElem = document.querySelectorAll(".todo-case-bl"); // добавил для dragAndDropp
+
+  for (var i = 0; i < divElem.length; i++) {
+    divElem[i].addEventListener("mouseover", _ScriptDragAndDrop.handler); //                                    function(event) {
+    //        event.stopPropagation();
+    //        handler();
+    //        }
+  }
+
   setLongRestLine();
 } // создание блоков с группировкой задач
 
@@ -436,7 +564,7 @@ document.querySelector(".category-box-delete-done").addEventListener("click", de
 function dragTodoItem() {
   document.querySelector;
 }
-},{}],"scriptTop.js":[function(require,module,exports) {
+},{"./Script-drag-and-drop.js":"Script-drag-and-drop.js"}],"scriptTop.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -729,7 +857,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64559" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55448" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
