@@ -2,15 +2,12 @@ import {todoList} from './scriptTodo.js';
 
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
-//for (let i = 0; i < divElem.length; i++) {
-//    divElem[i].addEventListener("mouseover", handler);
-//}
-console.log('1');
-console.log(divElem);
 
 document.onselectstart = function() {
     return false;
 }
+
+let todoRightButton = document.querySelectorAll(".todo-right-button");
 
 
 export function handler() {
@@ -18,25 +15,25 @@ export function handler() {
  event.currentTarget.onmousedown = function(event){
      
         divElem = document.querySelectorAll(".todo-case-bl");                          //не работает
-        console.log("2");
-        console.log(divElem);
      
         for (let i = 0; i < divElem.length; i++) { 
             divElem[i].removeEventListener("mouseover", handler); 
         }
         
         let cloneDiv = event.currentTarget.cloneNode(true);
+        let elementsStyle = getComputedStyle(event.currentTarget);
         cloneDiv.style.position = 'absolute';
         cloneDiv.style.opacity = 0.5 ;
         cloneDiv.style.zIndex = 100;
         cloneDiv.style.top = event.currentTarget.offsetTop + "px";
         cloneDiv.style.left = event.currentTarget.offsetLeft + "px";
-        cloneDiv.style.width = "500px";
+        cloneDiv.style.width = elementsStyle.width;
+        cloneDiv.style.height = elementsStyle.height;
         let newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять 
         
         document.body.append(newDiv);
         
-        let newTodoList = todoList[cloneDiv.id]; // заменяемый див
+        let newTodoList = todoList[cloneDiv.id];
         
         cloneDiv.ondragstart = function() {
             return false;
@@ -48,15 +45,13 @@ export function handler() {
         
      
         function change() {
-            
             todoList.splice(cloneDiv.getAttribute('id'), 1);
             
             cloneDiv.setAttribute('id', this.id);                // id добавить
             todoList.splice(this.id, 0, newTodoList);
             
             
-            function makeNewList() {                            //убрать линию   
-                console.log('немного');
+            function makeNewList() {                            //убрать линию
                 for (let i = 0; i < divElem.length; i++) {
                     divElem[i].setAttribute("id", i);
                 }
@@ -65,7 +60,8 @@ export function handler() {
                 
                     divElem[i].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = todoList[i].todoDesc;
                     
-                    divElem[i].querySelector(".todo-case-tail").querySelector(".todo-case-text").querySelector(".number-icon").innerHTML = todoList[i].quantity;  
+                    let ars1 = divElem[i].querySelector(".todo-case-tail");
+                    ars1.querySelector(".number-icon").innerHTML = todoList[i].quantity;
                 }
             };
            makeNewList();

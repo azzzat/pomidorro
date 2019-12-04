@@ -128,40 +128,36 @@ exports.divElem = void 0;
 
 var _scriptTodo = require("./scriptTodo.js");
 
-var divElem = document.querySelectorAll(".todo-case-bl"); //for (let i = 0; i < divElem.length; i++) {
-//    divElem[i].addEventListener("mouseover", handler);
-//}
-
+var divElem = document.querySelectorAll(".todo-case-bl");
 exports.divElem = divElem;
-console.log('1');
-console.log(divElem);
 
 document.onselectstart = function () {
   return false;
 };
 
+var todoRightButton = document.querySelectorAll(".todo-right-button");
+
 function handler() {
   event.currentTarget.onmousedown = function (event) {
     exports.divElem = divElem = document.querySelectorAll(".todo-case-bl"); //не работает
-
-    console.log("2");
-    console.log(divElem);
 
     for (var i = 0; i < divElem.length; i++) {
       divElem[i].removeEventListener("mouseover", handler);
     }
 
     var cloneDiv = event.currentTarget.cloneNode(true);
+    var elementsStyle = getComputedStyle(event.currentTarget);
     cloneDiv.style.position = 'absolute';
     cloneDiv.style.opacity = 0.5;
     cloneDiv.style.zIndex = 100;
     cloneDiv.style.top = event.currentTarget.offsetTop + "px";
     cloneDiv.style.left = event.currentTarget.offsetLeft + "px";
-    cloneDiv.style.width = "500px";
+    cloneDiv.style.width = elementsStyle.width;
+    cloneDiv.style.height = elementsStyle.height;
     var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять 
 
     document.body.append(newDiv);
-    var newTodoList = _scriptTodo.todoList[cloneDiv.id]; // заменяемый див
+    var newTodoList = _scriptTodo.todoList[cloneDiv.id];
 
     cloneDiv.ondragstart = function () {
       return false;
@@ -180,9 +176,7 @@ function handler() {
       _scriptTodo.todoList.splice(this.id, 0, newTodoList);
 
       function makeNewList() {
-        //убрать линию   
-        console.log('немного');
-
+        //убрать линию
         for (var _i2 = 0; _i2 < divElem.length; _i2++) {
           divElem[_i2].setAttribute("id", _i2);
         }
@@ -190,7 +184,10 @@ function handler() {
         for (var _i3 = 0; _i3 < divElem.length; _i3++) {
           divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _scriptTodo.todoList[_i3].todoCat;
           divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _scriptTodo.todoList[_i3].todoDesc;
-          divElem[_i3].querySelector(".todo-case-tail").querySelector(".todo-case-text").querySelector(".number-icon").innerHTML = _scriptTodo.todoList[_i3].quantity;
+
+          var ars1 = divElem[_i3].querySelector(".todo-case-tail");
+
+          ars1.querySelector(".number-icon").innerHTML = _scriptTodo.todoList[_i3].quantity;
         }
       }
 
@@ -857,7 +854,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55448" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57982" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
