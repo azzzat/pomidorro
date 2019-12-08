@@ -2,7 +2,7 @@
 
 
 import {lastItemDone, todoList} from './scriptTodo.js';
-
+import {tmpTodoList} from './to-do/make-todo-list-smaller.js';
 
 export let state; // состояние режима работы - рабочее либо отдых
 export let pomidorroDuration = 0.5*60*1000;
@@ -30,7 +30,12 @@ function showTime(timeValue) {
     let second = ("0" + timeValue.sec).slice(-2);
     document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML =  minute + ":" + second + "";
     
-    showTodoDescription();
+    if(tmpTodoList[0]){
+       console.log(tmpTodoList[0]);
+       showTodoDescription(tmpTodoList);
+    } else { 
+        showTodoDescription(todoList);
+    }
 }
 
 function checkTime(timeValue) {
@@ -176,8 +181,6 @@ export function setCountborderViewWorkNotStarted() {
     setBackgroundColor("#d03540");
     setTitleValue("ПОМИДОР");
     
-    //showTodoDescription();
-    
     clearInterval(pomidorroInterval);
     
     state= "stopWork";
@@ -262,7 +265,7 @@ function setIdValueLeftButton(value) {
     document.querySelector(".left-button").setAttribute('id', value);
 }
 
-export function showTodoDescription() {
+export function showTodoDescription(todoList) {
     if (todoList[0] == undefined) {
         document.querySelector(".processing-todo-task").innerHTML = "";
     } else if( state == "startWork" || state == "pauseWork" || state == "resumeWork" || state == "stopWork") {

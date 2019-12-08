@@ -1,4 +1,4 @@
-import {todoList} from './scriptTodo.js';
+import {todoList} from '../scriptTodo.js';
 
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
@@ -32,7 +32,7 @@ export function handler() {
         let newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять 
         
         document.body.append(newDiv);
-        
+        console.log(todoList);
         let newTodoList = todoList[cloneDiv.id];
         
         cloneDiv.ondragstart = function() {

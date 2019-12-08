@@ -1,6 +1,7 @@
 'use strict';
 
-import {divElem, handler} from './Script-drag-and-drop.js';
+import {divElem, handler} from './to-do/Script-drag-and-drop.js';
+import {tmpTodoList, makeTodoSmaller, makeTodoBigger} from './to-do/make-todo-list-smaller.js';
 
 export let longRest = 4;
 export let shortRestDuration = 0.1*60*1000;
@@ -16,7 +17,7 @@ export function plusButtonClick() {
     let descriptionTodo = document.querySelector(".todo-description-value").value;
     
     checkTodo(categoryTodo, descriptionTodo);
-    createToDo();
+    createToDo(todoList);
     createMassiveBox();
     descriptionTodoClear();
 }
@@ -59,17 +60,13 @@ export function checkTodo(categoryTodo, descriptionTodo) {
 }
 
 //происходит создание строки ToDo
-export function createToDo() {
+export function createToDo(todoList) {
  
     let createdLists = "";
 
     for (let key in todoList) {
         if ( document.querySelector(`.repeat-button-${key}`) )
            {document.querySelector(`.repeat-button-${key}`).removeEventListener("click", function() {todoTaskRepeat(key)});}
-        
-        if(document.querySelector(".todo-item-list")[key]) {
-            console.log(`delete ${key}`);
-        }
         
         createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
         createdLists += key;
@@ -96,15 +93,10 @@ export function createToDo() {
     
     let divElem = document.querySelectorAll(".todo-case-bl");  // добавил для dragAndDropp
     for (let i = 0; i < divElem.length; i++) {
-        divElem[i].addEventListener("mouseover", handler)
-//                                    function(event) {
-//        event.stopPropagation();
-//        handler();
-//        }
-            
+        divElem[i].addEventListener("mouseover", handler)    
     }
     
-    setLongRestLine();
+    setLongRestLine(todoList);
     }
 
 
@@ -123,18 +115,31 @@ export function createMassiveBox() {
 
 export function createToDoBox(grouppedTodo) {
     let createdBox = "";
+    let indexNumber = 0;
     
     for (let key in grouppedTodo) {
         createdBox += '<button class="category-box">';
-        createdBox += '#';
+        createdBox += '<div class="makeList">&#35;</div> <a class="boxTodoA boxTodo';
+        createdBox += indexNumber++;
+        createdBox += '">';
         createdBox += grouppedTodo[key].todoCat;
-        createdBox += " - ";
-        createdBox += grouppedTodo[key].quantity;
+        createdBox += "</a> - ";
+        createdBox += grouppedTodo[key].quantity; //неправильное отображение
         createdBox += '</button>';
     }
     document.querySelector(".category-boxes-todo").innerHTML = createdBox;
-}
+    
+        let boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box'); //
 
+        for (let i = 0; i < boxesTodo.length; i++) {
+            boxesTodo[i].addEventListener("click", function(){makeTodoSmaller(i);}); //убрал a
+            }
+        
+        for (let i = 0; i < boxesTodo.length; i++) {
+            boxesTodo[i].querySelector('.makeList').addEventListener("mouseover", makeTodoBigger);
+            }
+    
+}
 
 // перенос строки в сделанное 
 export let doneTodoList = []; 
@@ -145,7 +150,6 @@ export function lastItemDone() {
     let second = ("0" + date.getMinutes()).slice(-2);
     
     if (todoList.length == 0) {
-        console.log("отсчёт без дел");
     } else if (todoList[0].quantity == 1){
         doneTodoList.unshift(todoList.shift());
         // doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
@@ -158,7 +162,7 @@ export function lastItemDone() {
     }
     
     restSettings();
-    createToDo();
+    createToDo(todoList);
     createMassiveBox();
     createDoneItems();
     createDoneMassiveBox();
@@ -176,7 +180,7 @@ export function restSettings() {
     }
 }
 
-export function setLongRestLine() {
+export function setLongRestLine(todoList) {
     if( (todoList[0]) && (todoList[0].quantity >= longRest)){
         setRestLine(longRest, 1);
     } else if ((todoList[0]) && (todoList[1]) && ((todoList[0].quantity + todoList[1].quantity) >= longRest)) {
@@ -186,7 +190,6 @@ export function setLongRestLine() {
     } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && (todoList[3]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity + todoList[3].quantity) >= longRest)) {
         setRestLine(longRest, 4);
     } else if (!(todoList[0]) || !(todoList[1]) || !(todoList[2]) || !(todoList[3])) {
-        //console.log("нет");
         }
     }
 
@@ -264,7 +267,7 @@ export function repeatTask(key) {
     let descriptionTodo = doneTodoList[key].todoDesc;
     
     checkTodo(categoryTodo, descriptionTodo);
-    createToDo();
+    createTodo(todoList);
     createMassiveBox();
 }
 
@@ -274,7 +277,7 @@ export function todoTaskRepeat(key) {
     let descriptionTodo = todoList[key].todoDesc;
     
     checkTodo(categoryTodo, descriptionTodo);
-    createToDo();
+    createTodo(todoList);
     createMassiveBox();
 }
 
@@ -283,7 +286,7 @@ export function todoTaskRepeat(key) {
 export function deletTodoTasks() {
     todoList = [];
     
-    createToDo();
+    createTodo(todoList);
     createMassiveBox();
 }
 
@@ -300,9 +303,22 @@ export function deletDoneTodoTasks() {
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
 
 //перетаскивание строк
-
 function dragTodoItem() {
     document.querySelector
 }
 
-
+// из модуля
+//export let tmpTodoList = [];
+//
+//export function makeTodoSmaller(boxNumber) {
+//    
+//    tmpTodoList = [];
+//    
+//    for (let key of todoList) {
+//        if (key.todoCat === document.querySelector(`.boxTodo${boxNumber}`).innerText){
+//            tmpTodoList.push(key);
+//            }
+//        };
+//    
+//    createToDo(tmpTodoList);
+//}

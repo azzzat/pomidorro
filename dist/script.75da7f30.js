@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"Script-drag-and-drop.js":[function(require,module,exports) {
+})({"to-do/Script-drag-and-drop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -126,7 +126,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.handler = handler;
 exports.divElem = void 0;
 
-var _scriptTodo = require("./scriptTodo.js");
+var _scriptTodo = require("../scriptTodo.js");
 
 var divElem = document.querySelectorAll(".todo-case-bl");
 exports.divElem = divElem;
@@ -157,6 +157,7 @@ function handler() {
     var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять 
 
     document.body.append(newDiv);
+    console.log(_scriptTodo.todoList);
     var newTodoList = _scriptTodo.todoList[cloneDiv.id];
 
     cloneDiv.ondragstart = function () {
@@ -224,7 +225,68 @@ function handler() {
 }
 
 ;
-},{"./scriptTodo.js":"scriptTodo.js"}],"scriptTodo.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js"}],"to-do/make-todo-list-smaller.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.makeTodoSmaller = makeTodoSmaller;
+exports.makeTodoBigger = makeTodoBigger;
+exports.tmpTodoList = void 0;
+
+var _scriptTodo = require("../scriptTodo.js");
+
+var tmpTodoList = [];
+exports.tmpTodoList = tmpTodoList;
+
+function makeTodoSmaller(boxNumber) {
+  exports.tmpTodoList = tmpTodoList = [];
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = _scriptTodo.todoList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var key = _step.value;
+
+      if (key.todoCat === document.querySelector(".boxTodo".concat(boxNumber)).innerText) {
+        tmpTodoList.push(key);
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return != null) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  ;
+  (0, _scriptTodo.createToDo)(tmpTodoList);
+  var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
+
+  for (var i = 0; i < boxesTodo.length; i++) {
+    boxesTodo[i].querySelector('.makeList').innerHTML = '&#10060;';
+  }
+}
+
+function makeTodoBigger(event) {} //  console.log(event);
+//    
+//  event.currentTarget.onmousedown = function() {
+//      createToDo(todoList);
+//      createMassiveBox();
+//  }
+//  tmpTodoList = []; 
+//всё должно меняться с todoList
+},{"../scriptTodo.js":"scriptTodo.js"}],"scriptTodo.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -250,7 +312,9 @@ exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = exports.totalInformationList = exports.restDuration = exports.longRestDuration = exports.shortRestDuration = exports.longRest = void 0;
 
-var _ScriptDragAndDrop = require("./Script-drag-and-drop.js");
+var _ScriptDragAndDrop = require("./to-do/Script-drag-and-drop.js");
+
+var _makeTodoListSmaller = require("./to-do/make-todo-list-smaller.js");
 
 var longRest = 4;
 exports.longRest = longRest;
@@ -270,7 +334,7 @@ function plusButtonClick() {
   var categoryTodo = document.querySelector(".todo-category-value").value;
   var descriptionTodo = document.querySelector(".todo-description-value").value;
   checkTodo(categoryTodo, descriptionTodo);
-  createToDo();
+  createToDo(todoList);
   createMassiveBox();
   descriptionTodoClear();
 }
@@ -308,7 +372,7 @@ function checkTodo(categoryTodo, descriptionTodo) {
 } //происходит создание строки ToDo
 
 
-function createToDo() {
+function createToDo(todoList) {
   var createdLists = "";
 
   var _loop = function _loop(key) {
@@ -316,10 +380,6 @@ function createToDo() {
       document.querySelector(".repeat-button-".concat(key)).removeEventListener("click", function () {
         todoTaskRepeat(key);
       });
-    }
-
-    if (document.querySelector(".todo-item-list")[key]) {
-      console.log("delete ".concat(key));
     }
 
     createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
@@ -359,13 +419,10 @@ function createToDo() {
   var divElem = document.querySelectorAll(".todo-case-bl"); // добавил для dragAndDropp
 
   for (var i = 0; i < divElem.length; i++) {
-    divElem[i].addEventListener("mouseover", _ScriptDragAndDrop.handler); //                                    function(event) {
-    //        event.stopPropagation();
-    //        handler();
-    //        }
+    divElem[i].addEventListener("mouseover", _ScriptDragAndDrop.handler);
   }
 
-  setLongRestLine();
+  setLongRestLine(todoList);
 } // создание блоков с группировкой задач
 
 
@@ -382,17 +439,36 @@ function createMassiveBox() {
 
 function createToDoBox(grouppedTodo) {
   var createdBox = "";
+  var indexNumber = 0;
 
   for (var key in grouppedTodo) {
     createdBox += '<button class="category-box">';
-    createdBox += '#';
+    createdBox += '<div class="makeList">&#35;</div> <a class="boxTodoA boxTodo';
+    createdBox += indexNumber++;
+    createdBox += '">';
     createdBox += grouppedTodo[key].todoCat;
-    createdBox += " - ";
-    createdBox += grouppedTodo[key].quantity;
+    createdBox += "</a> - ";
+    createdBox += grouppedTodo[key].quantity; //неправильное отображение
+
     createdBox += '</button>';
   }
 
   document.querySelector(".category-boxes-todo").innerHTML = createdBox;
+  var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box'); //
+
+  var _loop3 = function _loop3(i) {
+    boxesTodo[i].addEventListener("click", function () {
+      (0, _makeTodoListSmaller.makeTodoSmaller)(i);
+    }); //убрал a
+  };
+
+  for (var i = 0; i < boxesTodo.length; i++) {
+    _loop3(i);
+  }
+
+  for (var _i = 0; _i < boxesTodo.length; _i++) {
+    boxesTodo[_i].querySelector('.makeList').addEventListener("mouseover", _makeTodoListSmaller.makeTodoBigger);
+  }
 } // перенос строки в сделанное 
 
 
@@ -404,9 +480,7 @@ function lastItemDone() {
   var minute = ("0" + date.getHours()).slice(-2);
   var second = ("0" + date.getMinutes()).slice(-2);
 
-  if (todoList.length == 0) {
-    console.log("отсчёт без дел");
-  } else if (todoList[0].quantity == 1) {
+  if (todoList.length == 0) {} else if (todoList[0].quantity == 1) {
     doneTodoList.unshift(todoList.shift()); // doneTodoList[0].date = date.getHours() + ":" + date.getMinutes();
 
     doneTodoList[0].date = minute + ":" + second + "";
@@ -418,7 +492,7 @@ function lastItemDone() {
   }
 
   restSettings();
-  createToDo();
+  createToDo(todoList);
   createMassiveBox();
   createDoneItems();
   createDoneMassiveBox();
@@ -434,7 +508,7 @@ function restSettings() {
   }
 }
 
-function setLongRestLine() {
+function setLongRestLine(todoList) {
   if (todoList[0] && todoList[0].quantity >= longRest) {
     setRestLine(longRest, 1);
   } else if (todoList[0] && todoList[1] && todoList[0].quantity + todoList[1].quantity >= longRest) {
@@ -443,8 +517,7 @@ function setLongRestLine() {
     setRestLine(longRest, 3);
   } else if (todoList[0] && todoList[1] && todoList[2] && todoList[3] && todoList[0].quantity + todoList[1].quantity + todoList[2].quantity + todoList[3].quantity >= longRest) {
     setRestLine(longRest, 4);
-  } else if (!todoList[0] || !todoList[1] || !todoList[2] || !todoList[3]) {//console.log("нет");
-  }
+  } else if (!todoList[0] || !todoList[1] || !todoList[2] || !todoList[3]) {}
 }
 
 function setRestLine(number, position) {
@@ -458,7 +531,7 @@ function setRestLine(number, position) {
 function createDoneItems() {
   var createdLists = '';
 
-  var _loop3 = function _loop3(key) {
+  var _loop4 = function _loop4(key) {
     if (document.querySelector(".todo-done-button-".concat(key))) {
       document.querySelector(".todo-done-button-".concat(key)).removeEventListener("click", function () {
         repeatTask(key);
@@ -477,19 +550,19 @@ function createDoneItems() {
   };
 
   for (var key in doneTodoList) {
-    _loop3(key);
+    _loop4(key);
   }
 
   document.querySelector(".todo-case-category-done").innerHTML = createdLists;
 
-  var _loop4 = function _loop4(_key2) {
+  var _loop5 = function _loop5(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
       repeatTask(_key2);
     });
   };
 
   for (var _key2 in doneTodoList) {
-    _loop4(_key2);
+    _loop5(_key2);
   }
 
   ; //подсчет количества сделанных заданий
@@ -528,7 +601,7 @@ function repeatTask(key) {
   var categoryTodo = doneTodoList[key].todoCat;
   var descriptionTodo = doneTodoList[key].todoDesc;
   checkTodo(categoryTodo, descriptionTodo);
-  createToDo();
+  createTodo(todoList);
   createMassiveBox();
 } //повтор задания при клике
 
@@ -537,14 +610,14 @@ function todoTaskRepeat(key) {
   var categoryTodo = todoList[key].todoCat;
   var descriptionTodo = todoList[key].todoDesc;
   checkTodo(categoryTodo, descriptionTodo);
-  createToDo();
+  createTodo(todoList);
   createMassiveBox();
 } //удалить задания
 
 
 function deletTodoTasks() {
   exports.todoList = todoList = [];
-  createToDo();
+  createTodo(todoList);
   createMassiveBox();
 }
 
@@ -560,8 +633,22 @@ document.querySelector(".category-box-delete-done").addEventListener("click", de
 
 function dragTodoItem() {
   document.querySelector;
-}
-},{"./Script-drag-and-drop.js":"Script-drag-and-drop.js"}],"scriptTop.js":[function(require,module,exports) {
+} // из модуля
+//export let tmpTodoList = [];
+//
+//export function makeTodoSmaller(boxNumber) {
+//    
+//    tmpTodoList = [];
+//    
+//    for (let key of todoList) {
+//        if (key.todoCat === document.querySelector(`.boxTodo${boxNumber}`).innerText){
+//            tmpTodoList.push(key);
+//            }
+//        };
+//    
+//    createToDo(tmpTodoList);
+//}
+},{"./to-do/Script-drag-and-drop.js":"to-do/Script-drag-and-drop.js","./to-do/make-todo-list-smaller.js":"to-do/make-todo-list-smaller.js"}],"scriptTop.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -582,6 +669,8 @@ exports.showTodoDescription = showTodoDescription;
 exports.pomidorroInterval = exports.remainingTime = exports.pomidorroDuration = exports.state = void 0;
 
 var _scriptTodo = require("./scriptTodo.js");
+
+var _makeTodoListSmaller = require("./to-do/make-todo-list-smaller.js");
 
 var state; // состояние режима работы - рабочее либо отдых
 
@@ -613,7 +702,13 @@ function showTime(timeValue) {
   var minute = ("0" + timeValue.min).slice(-2);
   var second = ("0" + timeValue.sec).slice(-2);
   document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = minute + ":" + second + "";
-  showTodoDescription();
+
+  if (_makeTodoListSmaller.tmpTodoList[0]) {
+    console.log(_makeTodoListSmaller.tmpTodoList[0]);
+    showTodoDescription(_makeTodoListSmaller.tmpTodoList);
+  } else {
+    showTodoDescription(_scriptTodo.todoList);
+  }
 }
 
 function checkTime(timeValue) {
@@ -740,8 +835,7 @@ function setCountborderViewWorkNotStarted() {
   setIdValueRightButton("buttonRightStop");
   setRightButtonValue("СТОП");
   setBackgroundColor("#d03540");
-  setTitleValue("ПОМИДОР"); //showTodoDescription();
-
+  setTitleValue("ПОМИДОР");
   clearInterval(pomidorroInterval);
   exports.state = state = "stopWork";
 }
@@ -811,16 +905,16 @@ function setIdValueLeftButton(value) {
   document.querySelector(".left-button").setAttribute('id', value);
 }
 
-function showTodoDescription() {
-  if (_scriptTodo.todoList[0] == undefined) {
+function showTodoDescription(todoList) {
+  if (todoList[0] == undefined) {
     document.querySelector(".processing-todo-task").innerHTML = "";
   } else if (state == "startWork" || state == "pauseWork" || state == "resumeWork" || state == "stopWork") {
-    document.querySelector(".processing-todo-task").innerHTML = _scriptTodo.todoList[0].todoDesc;
+    document.querySelector(".processing-todo-task").innerHTML = todoList[0].todoDesc;
   } else if (state == "restRest" || state == "pauseRest" || state == "resumeRest") {
     document.querySelector(".processing-todo-task").innerHTML = "";
   }
 }
-},{"./scriptTodo.js":"scriptTodo.js"}],"script.js":[function(require,module,exports) {
+},{"./scriptTodo.js":"scriptTodo.js","./to-do/make-todo-list-smaller.js":"to-do/make-todo-list-smaller.js"}],"script.js":[function(require,module,exports) {
 'use strict';
 
 require("./scriptTop.js");
@@ -854,7 +948,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57982" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62407" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
