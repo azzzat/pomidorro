@@ -237,21 +237,34 @@ exports.tmpTodoList = void 0;
 
 var _scriptTodo = require("../scriptTodo.js");
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var tmpTodoList = [];
 exports.tmpTodoList = tmpTodoList;
 
 function makeTodoSmaller(boxNumber) {
-  exports.tmpTodoList = tmpTodoList = [];
+  exports.tmpTodoList = tmpTodoList = JSON.parse(JSON.stringify(_scriptTodo.todoList));
+
+  while (0 < _scriptTodo.todoList.length) {
+    _scriptTodo.todoList.pop();
+  }
+
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
 
   try {
-    for (var _iterator = _scriptTodo.todoList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    for (var _iterator = tmpTodoList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var key = _step.value;
 
       if (key.todoCat === document.querySelector(".boxTodo".concat(boxNumber)).innerText) {
-        tmpTodoList.push(key);
+        _scriptTodo.todoList.push(key);
       }
     }
   } catch (err) {
@@ -270,22 +283,47 @@ function makeTodoSmaller(boxNumber) {
   }
 
   ;
-  (0, _scriptTodo.createToDo)(tmpTodoList);
+  (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
+  (0, _scriptTodo.createMassiveBox)();
   var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
 
   for (var i = 0; i < boxesTodo.length; i++) {
-    boxesTodo[i].querySelector('.makeList').innerHTML = '&#10060;';
+    boxesTodo[i].onclick = console.lod();
+  }
+
+  for (var _i = 0; _i < boxesTodo.length; _i++) {
+    boxesTodo[_i].querySelector('.makeList').innerHTML = '&#10060;';
+  }
+
+  for (var _i2 = 0; _i2 < boxesTodo.length; _i2++) {
+    boxesTodo[_i2].querySelector('.makeList').addEventListener("mouseover", makeTodoBigger, {
+      once: true
+    });
   }
 }
 
-function makeTodoBigger(event) {} //  console.log(event);
-//    
-//  event.currentTarget.onmousedown = function() {
-//      createToDo(todoList);
-//      createMassiveBox();
-//  }
-//  tmpTodoList = []; 
-//всё должно меняться с todoList
+function makeTodoBigger(event) {
+  event.currentTarget.onmousedown = function () {
+    while (0 < _scriptTodo.todoList.length) {
+      // если добавят в todoList 
+      _scriptTodo.todoList.pop();
+    }
+
+    _scriptTodo.todoList.push.apply(_scriptTodo.todoList, _toConsumableArray(tmpTodoList));
+
+    (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
+    (0, _scriptTodo.createMassiveBox)();
+    var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
+
+    for (var i = 0; i < boxesTodo.length; i++) {
+      boxesTodo[i].querySelector('.makeList').removeEventListener("mouseover", makeTodoBigger, {
+        once: true
+      });
+    }
+
+    exports.tmpTodoList = tmpTodoList = [];
+  };
+} //всё должно меняться с todoList
 },{"../scriptTodo.js":"scriptTodo.js"}],"scriptTodo.js":[function(require,module,exports) {
 'use strict';
 
@@ -454,20 +492,16 @@ function createToDoBox(grouppedTodo) {
   }
 
   document.querySelector(".category-boxes-todo").innerHTML = createdBox;
-  var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box'); //
+  var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
 
   var _loop3 = function _loop3(i) {
-    boxesTodo[i].addEventListener("click", function () {
+    boxesTodo[i].onclick = function () {
       (0, _makeTodoListSmaller.makeTodoSmaller)(i);
-    }); //убрал a
+    };
   };
 
   for (var i = 0; i < boxesTodo.length; i++) {
     _loop3(i);
-  }
-
-  for (var _i = 0; _i < boxesTodo.length; _i++) {
-    boxesTodo[_i].querySelector('.makeList').addEventListener("mouseover", _makeTodoListSmaller.makeTodoBigger);
   }
 } // перенос строки в сделанное 
 
@@ -629,12 +663,7 @@ function deletDoneTodoTasks() {
   createDoneMassiveBox();
 }
 
-document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); //перетаскивание строк
-
-function dragTodoItem() {
-  document.querySelector;
-} // из модуля
-//export let tmpTodoList = [];
+document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); //export let tmpTodoList = [];
 //
 //export function makeTodoSmaller(boxNumber) {
 //    
@@ -702,13 +731,7 @@ function showTime(timeValue) {
   var minute = ("0" + timeValue.min).slice(-2);
   var second = ("0" + timeValue.sec).slice(-2);
   document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = minute + ":" + second + "";
-
-  if (_makeTodoListSmaller.tmpTodoList[0]) {
-    console.log(_makeTodoListSmaller.tmpTodoList[0]);
-    showTodoDescription(_makeTodoListSmaller.tmpTodoList);
-  } else {
-    showTodoDescription(_scriptTodo.todoList);
-  }
+  showTodoDescription(_scriptTodo.todoList);
 }
 
 function checkTime(timeValue) {
@@ -948,7 +971,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62407" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49630" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

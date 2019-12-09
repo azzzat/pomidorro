@@ -30,12 +30,7 @@ function showTime(timeValue) {
     let second = ("0" + timeValue.sec).slice(-2);
     document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML =  minute + ":" + second + "";
     
-    if(tmpTodoList[0]){
-       console.log(tmpTodoList[0]);
-       showTodoDescription(tmpTodoList);
-    } else { 
-        showTodoDescription(todoList);
-    }
+    showTodoDescription(todoList);
 }
 
 function checkTime(timeValue) {

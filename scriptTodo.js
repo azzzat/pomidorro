@@ -129,14 +129,9 @@ export function createToDoBox(grouppedTodo) {
     }
     document.querySelector(".category-boxes-todo").innerHTML = createdBox;
     
-        let boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box'); //
-
+        let boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
         for (let i = 0; i < boxesTodo.length; i++) {
-            boxesTodo[i].addEventListener("click", function(){makeTodoSmaller(i);}); //убрал a
-            }
-        
-        for (let i = 0; i < boxesTodo.length; i++) {
-            boxesTodo[i].querySelector('.makeList').addEventListener("mouseover", makeTodoBigger);
+            boxesTodo[i].onclick = function() {makeTodoSmaller(i)};
             }
     
 }
@@ -302,12 +297,7 @@ export function deletDoneTodoTasks() {
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
 
-//перетаскивание строк
-function dragTodoItem() {
-    document.querySelector
-}
 
-// из модуля
 //export let tmpTodoList = [];
 //
 //export function makeTodoSmaller(boxNumber) {
