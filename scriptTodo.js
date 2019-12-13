@@ -1,63 +1,23 @@
 'use strict';
 
-import {divElem, handler} from './to-do/Script-drag-and-drop.js';
-import {tmpTodoList, makeTodoSmaller, makeTodoBigger} from './to-do/make-todo-list-smaller.js';
+import {divElem, handler} from './to-do/Drag-and-drop.js';
+import {tmpTodoList, makeTodoBigger} from './to-do/Make-todo-by-group.js';
+import {repeatTask, enterKeyClick, todoTaskRepeat, plusButtonClick} from './to-do/Task-repeate.js';
+import {createMassiveBox} from './to-do/Create-boxes-under-todolist.js';
+import {restSettings, setLongRestLine, longRest} from './to-do/Make-short-long-rest.js';
+import {createDoneMassiveBox} from './to-do/Create-boxes-under-doneList.js';
 
-export let longRest = 4;
-export let shortRestDuration = 0.1*60*1000;
-export let longRestDuration = 0.2*60*1000;
-export let restDuration = shortRestDuration;
-export let totalInformationList = {};
-//тут информация остальная:
+import {addEventPlusButtonClick, addEventEnterKeyClick, removeEventTodoTaskRepeat, addEventTodoTaskRepeat, addEventHandler, addEventRepeatTask, removeEventRepeatTask, addEventDeleteTodoTasks, addEventDeleteDoneTodoTask} from './main.js';
+
 export let todoList = [];
 
-export function plusButtonClick() {
-    
-    let categoryTodo = document.querySelector(".todo-category-value").value;
-    let descriptionTodo = document.querySelector(".todo-description-value").value;
-    
-    checkTodo(categoryTodo, descriptionTodo);
-    createToDo(todoList);
-    createMassiveBox();
-    descriptionTodoClear();
-}
-
-export function enterKeyClick() {
-    if (event.key == "Enter") {
-        plusButtonClick();
-    }
-}
 
 document.querySelector(".todo-input-button").addEventListener("click", plusButtonClick);
+//addEventPlusButtonClick();
 
 document.querySelector(".todo-description-value").addEventListener("keypress", enterKeyClick);
+//addEventEnterKeyClick();
 
-export function descriptionTodoClear(){
-    document.querySelector(".todo-description-value").value="";
-}
-
-export function checkTodo(categoryTodo, descriptionTodo) {
-    if (
-         (todoList.find(
-             function(item, index, array){
-             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
-         ))  == undefined
-         ){
-        let todoListNew = {};
-    
-        todoListNew.todoCat = categoryTodo;
-        todoListNew.todoDesc = descriptionTodo;
-        todoListNew.quantity = 1;
-        
-        let i = todoList.length;
-        todoList[i] = todoListNew;} 
-        else {
-            todoList.forEach(function(item, index, array){
-            if(item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo) {
-            item.quantity += 1}
-        });
-        }
-}
 
 //происходит создание строки ToDo
 export function createToDo(todoList) {
@@ -67,6 +27,7 @@ export function createToDo(todoList) {
     for (let key in todoList) {
         if ( document.querySelector(`.repeat-button-${key}`) )
            {document.querySelector(`.repeat-button-${key}`).removeEventListener("click", function() {todoTaskRepeat(key)});}
+        //removeEventTodoTaskRepeat();
         
         createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
         createdLists += key;
@@ -74,9 +35,9 @@ export function createToDo(todoList) {
         createdLists += todoList[key].todoCat;
         createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
         createdLists += todoList[key].todoDesc;
-        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button repeat-button-';
+        createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button button-number repeat-button-';
         createdLists += key;
-        createdLists += '")> <inon class="number-icon">';
+        createdLists += '")> <icon class="number-icon">';
         createdLists += todoList[key].quantity;
         createdLists += '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
     }
@@ -87,54 +48,21 @@ export function createToDo(todoList) {
         longRest = 4;
     }
     
-    for (let key in todoList) {
-        document.querySelector(`.repeat-button-${key}`).addEventListener("click", function() {todoTaskRepeat(key)});
+    for (let key in todoList) {                                                                                       //перенес в make-toto-smaller
+        document.querySelector(`.repeat-button-${key}`).addEventListener("mousedown", function() {todoTaskRepeat(key)});
     };
     
-    let divElem = document.querySelectorAll(".todo-case-bl");  // добавил для dragAndDropp
+//    addEventTodoTaskRepeat(todoList);
+    let divElem = document.querySelectorAll(".todo-case-bl");  // добавил для dragAndDropp - ДОБАВИТЬ
+    
     for (let i = 0; i < divElem.length; i++) {
-        divElem[i].addEventListener("mouseover", handler)    
+        divElem[i].addEventListener("mouseover", function() {handler()}); 
     }
-    
+//    addEventHandler();
     setLongRestLine(todoList);
-    }
-
-
-// создание блоков с группировкой задач
-export function createMassiveBox() {
-    let grouppedTodo = todoList.reduce((acc, cur)=>{
-        acc[cur.todoCat] = acc[cur.todoCat] || {
-            todoCat: cur.todoCat,
-            quantity: cur.quantity
-        }
-        return acc;
-    },{})
-    
-    createToDoBox(grouppedTodo);
 }
 
-export function createToDoBox(grouppedTodo) {
-    let createdBox = "";
-    let indexNumber = 0;
-    
-    for (let key in grouppedTodo) {
-        createdBox += '<button class="category-box">';
-        createdBox += '<div class="makeList">&#35;</div> <a class="boxTodoA boxTodo';
-        createdBox += indexNumber++;
-        createdBox += '">';
-        createdBox += grouppedTodo[key].todoCat;
-        createdBox += "</a> - ";
-        createdBox += grouppedTodo[key].quantity; //неправильное отображение
-        createdBox += '</button>';
-    }
-    document.querySelector(".category-boxes-todo").innerHTML = createdBox;
-    
-        let boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
-        for (let i = 0; i < boxesTodo.length; i++) {
-            boxesTodo[i].onclick = function() {makeTodoSmaller(i)};
-            }
-    
-}
+
 
 // перенос строки в сделанное 
 export let doneTodoList = []; 
@@ -164,38 +92,6 @@ export function lastItemDone() {
 }
 
 
-// настройка перерывов
-export function restSettings() {
-    if (longRest <= 1) {
-       restDuration = longRestDuration;
-       longRest = 4;
-    } else{
-        longRest -= 1;
-        //restDuration = shortRestDuration;
-    }
-}
-
-export function setLongRestLine(todoList) {
-    if( (todoList[0]) && (todoList[0].quantity >= longRest)){
-        setRestLine(longRest, 1);
-    } else if ((todoList[0]) && (todoList[1]) && ((todoList[0].quantity + todoList[1].quantity) >= longRest)) {
-        setRestLine(longRest, 2);
-    } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity) >= longRest)) {
-        setRestLine(longRest, 3);
-    } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && (todoList[3]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity + todoList[3].quantity) >= longRest)) {
-        setRestLine(longRest, 4);
-    } else if (!(todoList[0]) || !(todoList[1]) || !(todoList[2]) || !(todoList[3])) {
-        }
-    }
-
-
-export function setRestLine(number, position) {
-    let restLine = '<h7 class="todo-border-header todo-border-header-rest"> <a>Длинный перерыв -</a> <span> - Осталось ';
-    restLine += number;
-    restLine += ' </span> </h7>';
-
-    document.querySelector(".todo-item-list .todo-case-body:nth-child("+position+")").insertAdjacentHTML("afterEnd", restLine);
-}
 
 // сделанные задания
 export function createDoneItems() {
@@ -205,6 +101,7 @@ export function createDoneItems() {
     for (let key in doneTodoList) {
         if ( document.querySelector(`.todo-done-button-${key}`) )
            {document.querySelector(`.todo-done-button-${key}`).removeEventListener("click", function() {repeatTask(key)});}
+        //removeEventTodoTaskRepeat();
         
         createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
         createdLists += doneTodoList[key].todoCat;
@@ -223,69 +120,23 @@ export function createDoneItems() {
     for (let key in doneTodoList) {
         document.querySelector(`.todo-done-button-${key}`).addEventListener("click", function() {repeatTask(key)});
     };
+//    addEventRepeatTask();
     
     //подсчет количества сделанных заданий
     let doneListLength = doneTodoList.length;
     document.querySelector(".done-todo-quantiti").innerText = doneListLength;
-    }
-
-//сделать подсчитанный todoDone
-
-//создать боксы done
-export function createDoneMassiveBox() {
-    let grouppedDoneTodo = doneTodoList.reduce((acc, cur)=>{
-        acc[cur.todoCat] = acc[cur.todoCat] || {
-            todoCat: cur.todoCat,
-        }
-        return acc;
-    },{})
-    
-    createTodoDoneBox(grouppedDoneTodo);
 }
-
-export function createTodoDoneBox(grouppedDoneTodo) {
-    let createdBox = "";
-    
-    for (let key in grouppedDoneTodo) {
-        createdBox += '<button class="category-box">';
-        createdBox += '#';
-        createdBox += grouppedDoneTodo[key].todoCat;
-        createdBox += '</button>';
-    }
-    document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
-}
-
-
-// повтор задания 
-export function repeatTask(key) {
-    let categoryTodo = doneTodoList[key].todoCat;
-    let descriptionTodo = doneTodoList[key].todoDesc;
-    
-    checkTodo(categoryTodo, descriptionTodo);
-    createTodo(todoList);
-    createMassiveBox();
-}
-
-//повтор задания при клике
-export function todoTaskRepeat(key) {
-    let categoryTodo = todoList[key].todoCat;
-    let descriptionTodo = todoList[key].todoDesc;
-    
-    checkTodo(categoryTodo, descriptionTodo);
-    createTodo(todoList);
-    createMassiveBox();
-}
-
 
 //удалить задания
 export function deletTodoTasks() {
     todoList = [];
     
-    createTodo(todoList);
+    createToDo(todoList);
     createMassiveBox();
 }
 
 document.querySelector(".category-box-delete-border").addEventListener("click", deletTodoTasks);
+//addEventRepeatTask();
 
 // удалить сделанные задания
 export function deletDoneTodoTasks() {
@@ -297,6 +148,181 @@ export function deletDoneTodoTasks() {
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
 
+////-это в Make-short-long-rest.js
+//export let longRest = 4;
+//export let shortRestDuration = 0.1*60*1000;
+//export let longRestDuration = 0.2*60*1000;
+//export let restDuration = shortRestDuration;
+//тут информация остальная:
+
+
+//// - перенес в Task-repeate.js
+//export function plusButtonClick() {
+//    
+//    let categoryTodo = document.querySelector(".todo-category-value").value;
+//    let descriptionTodo = document.querySelector(".todo-description-value").value;
+//    
+//    checkTodo(categoryTodo, descriptionTodo);
+//    createToDo(todoList);
+//    createMassiveBox();
+//    descriptionTodoClear();
+//}
+//
+//export function enterKeyClick() {
+//    if (event.key == "Enter") {
+//        plusButtonClick();
+//    }
+//}
+
+//export function descriptionTodoClear(){
+//    document.querySelector(".todo-description-value").value="";
+//}
+
+//// - перенес в Task-repeate.js
+//export function checkTodo(categoryTodo, descriptionTodo) {
+//    if (
+//         (todoList.find(
+//             function(item, index, array){
+//             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
+//         ))  == undefined
+//         ){
+//        let todoListNew = {};
+//    
+//        todoListNew.todoCat = categoryTodo;
+//        todoListNew.todoDesc = descriptionTodo;
+//        todoListNew.quantity = 1;
+//        
+//        let i = todoList.length;
+//        todoList[i] = todoListNew;} 
+//        else {
+//            todoList.forEach(function(item, index, array){
+//            if(item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo) {
+//            item.quantity += 1}
+//        });
+//    }
+//}
+
+
+//// - переместил в Create-boxes-under-todolist.js
+// создание блоков с группировкой задач
+//export function createMassiveBox() {
+//    let grouppedTodo = todoList.reduce((acc, cur)=>{
+//        acc[cur.todoCat] = acc[cur.todoCat] || {
+//            todoCat: cur.todoCat,
+//            quantity: cur.quantity
+//        }
+//        return acc;
+//    },{})
+//    
+//    createToDoBox(grouppedTodo);
+//}
+//
+//export function createToDoBox(grouppedTodo) {
+//    let createdBox = "";
+//    let indexNumber = 0;
+//    
+//    for (let key in grouppedTodo) {
+//        createdBox += '<button class="category-box">';
+//        createdBox += '<div class="makeList">&#35;</div> <a class="boxTodoA boxTodo';
+//        createdBox += indexNumber++;
+//        createdBox += '">';
+//        createdBox += grouppedTodo[key].todoCat;
+//        createdBox += "</a> - ";
+//        createdBox += grouppedTodo[key].quantity; //неправильное отображение
+//        createdBox += '</button>';
+//    }
+//    document.querySelector(".category-boxes-todo").innerHTML = createdBox;
+//    
+//        let boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
+//        for (let i = 0; i < boxesTodo.length; i++) {
+//            boxesTodo[i].onclick = function() {makeTodoSmaller(i)};
+//            }
+//    
+//}
+
+//// настройка перерывов
+//export function restSettings() {
+//    if (longRest <= 1) {
+//       restDuration = longRestDuration;
+//       longRest = 4;
+//    } else{
+//        longRest -= 1;
+//        //restDuration = shortRestDuration;
+//    }
+//}
+//
+//export function setLongRestLine(todoList) {
+//    if( (todoList[0]) && (todoList[0].quantity >= longRest)){
+//        setRestLine(longRest, 1);
+//    } else if ((todoList[0]) && (todoList[1]) && ((todoList[0].quantity + todoList[1].quantity) >= longRest)) {
+//        setRestLine(longRest, 2);
+//    } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity) >= longRest)) {
+//        setRestLine(longRest, 3);
+//    } else if ((todoList[0]) && (todoList[1]) && (todoList[2]) && (todoList[3]) && ((todoList[0].quantity + todoList[1].quantity + todoList[2].quantity + todoList[3].quantity) >= longRest)) {
+//        setRestLine(longRest, 4);
+//    } else if (!(todoList[0]) || !(todoList[1]) || !(todoList[2]) || !(todoList[3])) {
+//        }
+//    }
+//
+//
+//export function setRestLine(number, position) {
+//    let restLine = '<h7 class="todo-border-header todo-border-header-rest"> <a>Длинный перерыв -</a> <span> - Осталось ';
+//    restLine += number;
+//    restLine += ' </span> </h7>';
+//
+//    document.querySelector(".todo-item-list .todo-case-body:nth-child("+position+")").insertAdjacentHTML("afterEnd", restLine);
+//}
+
+//сделать подсчитанный todoDone
+
+//// - перенес в Create-boxes-under-doneList.js
+////создать боксы done
+//export function createDoneMassiveBox() {
+//    let grouppedDoneTodo = doneTodoList.reduce((acc, cur)=>{
+//        acc[cur.todoCat] = acc[cur.todoCat] || {
+//            todoCat: cur.todoCat,
+//        }
+//        return acc;
+//    },{})
+//    
+//    createToDoDoneBox(grouppedDoneTodo);
+//}
+//
+//export function createToDoDoneBox(grouppedDoneTodo) {
+//    let createdBox = "";
+//    
+//    for (let key in grouppedDoneTodo) {
+//        createdBox += '<button class="category-box">';
+//        createdBox += '#';
+//        createdBox += grouppedDoneTodo[key].todoCat;
+//        createdBox += '</button>';
+//    }
+//    document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
+//}
+
+////-ЭТО В Task-repeate.js
+//// повтор задания 
+//export function repeatTask(key) {
+//    let categoryTodo = doneTodoList[key].todoCat;
+//    let descriptionTodo = doneTodoList[key].todoDesc;
+//    
+//    checkTodo(categoryTodo, descriptionTodo);
+//    createToDo(todoList);
+//    createMassiveBox();
+//}
+//
+////повтор задания при клике
+//export function todoTaskRepeat(key) {
+//    let categoryTodo = todoList[key].todoCat;
+//    let descriptionTodo = todoList[key].todoDesc;
+//    
+//    checkTodo(categoryTodo, descriptionTodo);
+//    createToDo(todoList);
+//    createMassiveBox();
+//}
+
+
+//addEventDeleteDoneTodoTask();
 
 //export let tmpTodoList = [];
 //

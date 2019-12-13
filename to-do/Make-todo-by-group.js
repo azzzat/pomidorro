@@ -1,7 +1,13 @@
 'use strict';
 
-import {todoList, createToDo, createMassiveBox} from '../scriptTodo.js';
+import {todoList, createToDo} from '../scriptTodo.js';
+import {createMassiveBox} from './Create-boxes-under-todolist.js';
+
+
 export let tmpTodoList = [];
+
+// переделать всё!!!!!!!!!!
+
 
 export function makeTodoSmaller(boxNumber) {
     
@@ -22,7 +28,7 @@ export function makeTodoSmaller(boxNumber) {
   createMassiveBox();
       let boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
       for (let i = 0; i < boxesTodo.length; i++) {
-            boxesTodo[i].onclick = console.lod(); 
+            boxesTodo[i].onclick = console.log(); 
             }
       for (let i=0; i<boxesTodo.length; i++) {
             boxesTodo[i].querySelector('.makeList').innerHTML = '&#10060;';

@@ -1,4 +1,4 @@
-import {todoList} from '../scriptTodo.js';
+import {todoList, todoTaskRepeat} from '../scriptTodo.js';
 
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
@@ -11,7 +11,15 @@ let todoRightButton = document.querySelectorAll(".todo-right-button");
 
 
 export function handler() {
-    
+
+//if ( event.target !== document.querySelector(`.button-number`)){
+//    console.log("ytttttt");
+//} else if(event.target === document.querySelector(`.button-number`)){
+//    event.target.onmousedown = function() {todoTaskRepeat(rowNumber); console.log("working");};
+//} else {};
+//document.querySelector(`.repeat-button-${key}`).addEventListener("click", function() {todoTaskRepeat(key)});
+
+
  event.currentTarget.onmousedown = function(event){
      
         divElem = document.querySelectorAll(".todo-case-bl");                          //не работает

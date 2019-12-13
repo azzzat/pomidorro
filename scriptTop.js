@@ -2,7 +2,7 @@
 
 
 import {lastItemDone, todoList} from './scriptTodo.js';
-import {tmpTodoList} from './to-do/make-todo-list-smaller.js';
+import {tmpTodoList} from './to-do/Make-todo-by-group.js';
 
 export let state; // состояние режима работы - рабочее либо отдых
 export let pomidorroDuration = 0.5*60*1000;

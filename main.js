@@ -5,6 +5,7 @@ import {} from './scriptTop.js';
 import {} from './scriptTodo.js';
 
 //plusButtonClick, enterKeyClick, todoTaskRepeat, handler, repeatTask, deletTodoTasks, deletDoneTodoTasks
+
 //export function addEventPlusButtonClick() {
 //    document.querySelector(".todo-input-button").addEventListener("click", plusButtonClick);
 //}
@@ -51,9 +52,19 @@ import {} from './scriptTodo.js';
 //export function addEventDeleteDoneTodoTask() {
 //    document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
 //}
-
-
-
-
+//
+//function initEventListeners() {
+//    addEventPlusButtonClick();
+//    addEventEnterKeyClick();
+//    removeEventTodoTaskRepeat();
+//    addEventTodoTaskRepeat(todoList);
+//    addEventHandler();
+//    addEventRepeatTask();
+//    removeEventRepeatTask();
+//    addEventDeleteTodoTasks();
+//    addEventDeleteDoneTodoTask();
+//}
+//
+//initEventListeners();
 
 // время окончания очередного задания
