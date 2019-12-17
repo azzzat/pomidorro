@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"to-do/Drag-and-drop.js":[function(require,module,exports) {
+})({"to-do/drag-and-drop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -231,7 +231,7 @@ function handler() {
 }
 
 ;
-},{"../scriptTodo.js":"scriptTodo.js"}],"to-do/Create-boxes-under-todolist.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js"}],"to-do/create-boxes-under-todolist.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -242,7 +242,7 @@ exports.createToDoBox = createToDoBox;
 
 var _scriptTodo = require("../scriptTodo.js");
 
-var _MakeTodoByGroup = require("./Make-todo-by-group.js");
+var _makeTodoByGroup = require("./make-todo-by-group.js");
 
 // создание блоков с группировкой задач
 function createMassiveBox() {
@@ -278,7 +278,7 @@ function createToDoBox(grouppedTodo) {
 
   var _loop = function _loop(i) {
     boxesTodo[i].onclick = function () {
-      (0, _MakeTodoByGroup.makeTodoSmaller)(i);
+      (0, _makeTodoByGroup.makeTodoSmaller)(i);
     };
   };
 
@@ -286,7 +286,7 @@ function createToDoBox(grouppedTodo) {
     _loop(i);
   }
 }
-},{"../scriptTodo.js":"scriptTodo.js","./Make-todo-by-group.js":"to-do/Make-todo-by-group.js"}],"to-do/Make-todo-by-group.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js","./make-todo-by-group.js":"to-do/make-todo-by-group.js"}],"to-do/make-todo-by-group.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -298,7 +298,7 @@ exports.tmpTodoList = void 0;
 
 var _scriptTodo = require("../scriptTodo.js");
 
-var _CreateBoxesUnderTodolist = require("./Create-boxes-under-todolist.js");
+var _createBoxesUnderTodolist = require("./create-boxes-under-todolist.js");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -348,7 +348,7 @@ function makeTodoSmaller(boxNumber) {
 
   ;
   (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
-  (0, _CreateBoxesUnderTodolist.createMassiveBox)();
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
   var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
 
   for (var i = 0; i < boxesTodo.length; i++) {
@@ -376,7 +376,7 @@ function makeTodoBigger(event) {
     _scriptTodo.todoList.push.apply(_scriptTodo.todoList, _toConsumableArray(tmpTodoList));
 
     (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
-    (0, _CreateBoxesUnderTodolist.createMassiveBox)();
+    (0, _createBoxesUnderTodolist.createMassiveBox)();
     var boxesTodo = document.querySelector('.category-boxes-todo').querySelectorAll('.category-box');
 
     for (var i = 0; i < boxesTodo.length; i++) {
@@ -388,36 +388,35 @@ function makeTodoBigger(event) {
     exports.tmpTodoList = tmpTodoList = [];
   };
 } //всё должно меняться с todoList
-},{"../scriptTodo.js":"scriptTodo.js","./Create-boxes-under-todolist.js":"to-do/Create-boxes-under-todolist.js"}],"to-do/Task-repeate.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js"}],"to-do/task-repeate.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.repeatTask = repeatTask;
-exports.todoTaskRepeat = todoTaskRepeat;
 exports.plusButtonClick = plusButtonClick;
 
 var _scriptTodo = require("../scriptTodo.js");
 
-var _CreateBoxesUnderTodolist = require("./Create-boxes-under-todolist.js");
+var _createBoxesUnderTodolist = require("./create-boxes-under-todolist.js");
 
-function repeatTask(key) {
-  var categoryTodo = _scriptTodo.doneTodoList[key].todoCat;
-  var descriptionTodo = _scriptTodo.doneTodoList[key].todoDesc;
+function repeatTask(list, key) {
+  var categoryTodo = list[key].todoCat;
+  var descriptionTodo = list[key].todoDesc;
   checkTodo(categoryTodo, descriptionTodo);
   (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
-  (0, _CreateBoxesUnderTodolist.createMassiveBox)();
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
 } //повтор задания при клике
-
-
-function todoTaskRepeat(key) {
-  var categoryTodo = _scriptTodo.todoList[key].todoCat;
-  var descriptionTodo = _scriptTodo.todoList[key].todoDesc;
-  checkTodo(categoryTodo, descriptionTodo);
-  (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
-  (0, _CreateBoxesUnderTodolist.createMassiveBox)();
-} //повтор задания при клике на плюс
+//export function todoTaskRepeat(key) {
+//    let categoryTodo = todoList[key].todoCat;
+//    let descriptionTodo = todoList[key].todoDesc;
+//    
+//    checkTodo(categoryTodo, descriptionTodo);
+//    createToDo(todoList);
+//    createMassiveBox();
+//}
+//повтор задания при клике на плюс
 
 
 function plusButtonClick() {
@@ -425,25 +424,28 @@ function plusButtonClick() {
   var descriptionTodo = document.querySelector(".todo-description-value").value;
   checkTodo(categoryTodo, descriptionTodo);
   (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
-  (0, _CreateBoxesUnderTodolist.createMassiveBox)();
-  descriptionTodoClear();
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
+  clearTodoDescription();
 }
 
-function descriptionTodoClear() {
+function clearTodoDescription() {
   document.querySelector(".todo-description-value").value = "";
-}
+} // тут пока не стал ничего менять
+
 
 function checkTodo(categoryTodo, descriptionTodo) {
-  if (_scriptTodo.todoList.find(function (item, index, array) {
-    return item.todoCat == categoryTodo && item.todoDesc == descriptionTodo;
-  }) == undefined) {
-    var todoListNew = {};
-    todoListNew.todoCat = categoryTodo;
-    todoListNew.todoDesc = descriptionTodo;
-    todoListNew.quantity = 1;
-    var i = _scriptTodo.todoList.length;
-    _scriptTodo.todoList[i] = todoListNew;
-  } else {
+  if (checkTodoCondition(categoryTodo, descriptionTodo) //         (todoList.find(
+  //             function(item, index, array){
+  //             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
+  //         ))  == undefined
+  ) {
+      var newTodoItem = {};
+      newTodoItem.todoCat = categoryTodo;
+      newTodoItem.todoDesc = descriptionTodo;
+      newTodoItem.quantity = 1;
+      var i = _scriptTodo.todoList.length;
+      _scriptTodo.todoList[i] = newTodoItem;
+    } else {
     _scriptTodo.todoList.forEach(function (item, index, array) {
       if (item.todoCat == categoryTodo && item.todoDesc == descriptionTodo) {
         item.quantity += 1;
@@ -452,12 +454,21 @@ function checkTodo(categoryTodo, descriptionTodo) {
   }
 }
 
+function checkTodoCondition(categoryTodo, descriptionTodo) {
+  console.log("работает");
+  return _scriptTodo.todoList.find(function (item, index, array) {
+    return item.todoCat == categoryTodo && item.todoDesc == descriptionTodo;
+  }) == undefined;
+}
+
+;
+
 function enterKeyClick() {
   if (event.key == "Enter") {
     plusButtonClick();
   }
 }
-},{"../scriptTodo.js":"scriptTodo.js","./Create-boxes-under-todolist.js":"to-do/Create-boxes-under-todolist.js"}],"to-do/Make-short-long-rest.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js"}],"to-do/make-short-long-rest.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -506,7 +517,7 @@ function setRestLine(number, position) {
   restLine += ' </span> </h7>';
   document.querySelector(".todo-item-list .todo-case-body:nth-child(" + position + ")").insertAdjacentHTML("afterEnd", restLine);
 }
-},{"../scriptTodo":"scriptTodo.js"}],"to-do/Create-boxes-under-doneList.js":[function(require,module,exports) {
+},{"../scriptTodo":"scriptTodo.js"}],"to-do/create-boxes-under-doneList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -553,25 +564,25 @@ exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = void 0;
 
-var _DragAndDrop = require("./to-do/Drag-and-drop.js");
+var _dragAndDrop = require("./to-do/drag-and-drop.js");
 
-var _MakeTodoByGroup = require("./to-do/Make-todo-by-group.js");
+var _makeTodoByGroup = require("./to-do/make-todo-by-group.js");
 
-var _TaskRepeate = require("./to-do/Task-repeate.js");
+var _taskRepeate = require("./to-do/task-repeate.js");
 
-var _CreateBoxesUnderTodolist = require("./to-do/Create-boxes-under-todolist.js");
+var _createBoxesUnderTodolist = require("./to-do/create-boxes-under-todolist.js");
 
-var _MakeShortLongRest = require("./to-do/Make-short-long-rest.js");
+var _makeShortLongRest = require("./to-do/make-short-long-rest.js");
 
-var _CreateBoxesUnderDoneList = require("./to-do/Create-boxes-under-doneList.js");
+var _createBoxesUnderDoneList = require("./to-do/create-boxes-under-doneList.js");
 
 var _main = require("./main.js");
 
 var todoList = [];
 exports.todoList = todoList;
-document.querySelector(".todo-input-button").addEventListener("click", _TaskRepeate.plusButtonClick); //addEventPlusButtonClick();
+document.querySelector(".todo-input-button").addEventListener("click", _taskRepeate.plusButtonClick); //addEventPlusButtonClick();
 
-document.querySelector(".todo-description-value").addEventListener("keypress", _TaskRepeate.enterKeyClick); //addEventEnterKeyClick();
+document.querySelector(".todo-description-value").addEventListener("keypress", _taskRepeate.enterKeyClick); //addEventEnterKeyClick();
 //происходит создание строки ToDo
 
 function createToDo(todoList) {
@@ -580,7 +591,7 @@ function createToDo(todoList) {
   var _loop = function _loop(key) {
     if (document.querySelector(".repeat-button-".concat(key))) {
       document.querySelector(".repeat-button-".concat(key)).removeEventListener("click", function () {
-        (0, _TaskRepeate.todoTaskRepeat)(key);
+        (0, _taskRepeate.repeatTask)(todoList, key);
       });
     } //removeEventTodoTaskRepeat();
 
@@ -604,8 +615,8 @@ function createToDo(todoList) {
 
   document.querySelector(".todo-item-list").innerHTML = createdLists;
 
-  if (_MakeShortLongRest.longRest == undefined) {
-    _MakeShortLongRest.longRest = (4, function () {
+  if (_makeShortLongRest.longRest == undefined) {
+    _makeShortLongRest.longRest = (4, function () {
       throw new Error('"' + "longRest" + '" is read-only.');
     }());
   }
@@ -613,7 +624,7 @@ function createToDo(todoList) {
   var _loop2 = function _loop2(_key) {
     //перенес в make-toto-smaller
     document.querySelector(".repeat-button-".concat(_key)).addEventListener("mousedown", function () {
-      (0, _TaskRepeate.todoTaskRepeat)(_key);
+      (0, _taskRepeate.repeatTask)(todoList, _key);
     });
   };
 
@@ -627,12 +638,12 @@ function createToDo(todoList) {
 
   for (var i = 0; i < divElem.length; i++) {
     divElem[i].addEventListener("mouseover", function () {
-      (0, _DragAndDrop.handler)();
+      (0, _dragAndDrop.handler)();
     });
   } //    addEventHandler();
 
 
-  (0, _MakeShortLongRest.setLongRestLine)(todoList);
+  (0, _makeShortLongRest.setLongRestLine)(todoList);
 } // перенос строки в сделанное 
 
 
@@ -655,11 +666,11 @@ function lastItemDone() {
     doneTodoList[0].date = minute + ":" + second + "";
   }
 
-  (0, _MakeShortLongRest.restSettings)();
+  (0, _makeShortLongRest.restSettings)();
   createToDo(todoList);
-  (0, _CreateBoxesUnderTodolist.createMassiveBox)();
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
   createDoneItems();
-  (0, _CreateBoxesUnderDoneList.createDoneMassiveBox)();
+  (0, _createBoxesUnderDoneList.createDoneMassiveBox)();
 } // сделанные задания
 
 
@@ -669,7 +680,7 @@ function createDoneItems() {
   var _loop3 = function _loop3(key) {
     if (document.querySelector(".todo-done-button-".concat(key))) {
       document.querySelector(".todo-done-button-".concat(key)).removeEventListener("click", function () {
-        (0, _TaskRepeate.repeatTask)(key);
+        (0, _taskRepeate.repeatTask)(doneTodoList, key);
       });
     } //removeEventTodoTaskRepeat();
 
@@ -693,7 +704,7 @@ function createDoneItems() {
 
   var _loop4 = function _loop4(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
-      (0, _TaskRepeate.repeatTask)(_key2);
+      (0, _taskRepeate.repeatTask)(doneTodoList, _key2);
     });
   };
 
@@ -712,7 +723,7 @@ function createDoneItems() {
 function deletTodoTasks() {
   exports.todoList = todoList = [];
   createToDo(todoList);
-  (0, _CreateBoxesUnderTodolist.createMassiveBox)();
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
 }
 
 document.querySelector(".category-box-delete-border").addEventListener("click", deletTodoTasks); //addEventRepeatTask();
@@ -721,7 +732,7 @@ document.querySelector(".category-box-delete-border").addEventListener("click", 
 function deletDoneTodoTasks() {
   exports.doneTodoList = doneTodoList = [];
   createDoneItems();
-  (0, _CreateBoxesUnderDoneList.createDoneMassiveBox)();
+  (0, _createBoxesUnderDoneList.createDoneMassiveBox)();
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); ////-это в Make-short-long-rest.js
@@ -901,7 +912,7 @@ document.querySelector(".category-box-delete-done").addEventListener("click", de
 //    
 //    createToDo(tmpTodoList);
 //}
-},{"./to-do/Drag-and-drop.js":"to-do/Drag-and-drop.js","./to-do/Make-todo-by-group.js":"to-do/Make-todo-by-group.js","./to-do/Task-repeate.js":"to-do/Task-repeate.js","./to-do/Create-boxes-under-todolist.js":"to-do/Create-boxes-under-todolist.js","./to-do/Make-short-long-rest.js":"to-do/Make-short-long-rest.js","./to-do/Create-boxes-under-doneList.js":"to-do/Create-boxes-under-doneList.js","./main.js":"main.js"}],"scriptTop.js":[function(require,module,exports) {
+},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/make-todo-by-group.js":"to-do/make-todo-by-group.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js","./main.js":"main.js"}],"scriptTop.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -923,7 +934,7 @@ exports.pomidorroInterval = exports.remainingTime = exports.pomidorroDuration = 
 
 var _scriptTodo = require("./scriptTodo.js");
 
-var _MakeTodoByGroup = require("./to-do/Make-todo-by-group.js");
+var _makeTodoByGroup = require("./to-do/make-todo-by-group.js");
 
 var state; // состояние режима работы - рабочее либо отдых
 
@@ -1161,7 +1172,7 @@ function showTodoDescription(todoList) {
     document.querySelector(".processing-todo-task").innerHTML = "";
   }
 }
-},{"./scriptTodo.js":"scriptTodo.js","./to-do/Make-todo-by-group.js":"to-do/Make-todo-by-group.js"}],"main.js":[function(require,module,exports) {
+},{"./scriptTodo.js":"scriptTodo.js","./to-do/make-todo-by-group.js":"to-do/make-todo-by-group.js"}],"main.js":[function(require,module,exports) {
 'use strict';
 
 require("./scriptTop.js");
@@ -1195,7 +1206,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51805" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62717" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,11 +1,11 @@
 "use strict";
 
 import {todoList, doneTodoList, descriptionTodo, createToDo} from '../scriptTodo.js';
-import {createMassiveBox} from './Create-boxes-under-todolist.js';
+import {createMassiveBox} from './create-boxes-under-todolist.js';
 
-export function repeatTask(key) {
-    let categoryTodo = doneTodoList[key].todoCat;
-    let descriptionTodo = doneTodoList[key].todoDesc;
+export function repeatTask(list, key) {
+    let categoryTodo = list[key].todoCat;
+    let descriptionTodo = list[key].todoDesc;
     
     checkTodo(categoryTodo, descriptionTodo);
     createToDo(todoList);
@@ -13,14 +13,14 @@ export function repeatTask(key) {
 }
 
 //повтор задания при клике
-export function todoTaskRepeat(key) {
-    let categoryTodo = todoList[key].todoCat;
-    let descriptionTodo = todoList[key].todoDesc;
-    
-    checkTodo(categoryTodo, descriptionTodo);
-    createToDo(todoList);
-    createMassiveBox();
-}
+//export function todoTaskRepeat(key) {
+//    let categoryTodo = todoList[key].todoCat;
+//    let descriptionTodo = todoList[key].todoDesc;
+//    
+//    checkTodo(categoryTodo, descriptionTodo);
+//    createToDo(todoList);
+//    createMassiveBox();
+//}
 
 //повтор задания при клике на плюс
 export function plusButtonClick() {
@@ -30,35 +30,46 @@ export function plusButtonClick() {
     checkTodo(categoryTodo, descriptionTodo);
     createToDo(todoList);
     createMassiveBox();
-    descriptionTodoClear();
+    clearTodoDescription();
 }
 
-function descriptionTodoClear(){
+function clearTodoDescription(){
     document.querySelector(".todo-description-value").value="";
 }
+// тут пока не стал ничего менять
 
 function checkTodo(categoryTodo, descriptionTodo) {
     if (
-         (todoList.find(
-             function(item, index, array){
-             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
-         ))  == undefined
+        checkTodoCondition(categoryTodo, descriptionTodo)
+//         (todoList.find(
+//             function(item, index, array){
+//             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
+//         ))  == undefined
          ){
-        let todoListNew = {};
+        let newTodoItem = {};
     
-        todoListNew.todoCat = categoryTodo;
-        todoListNew.todoDesc = descriptionTodo;
-        todoListNew.quantity = 1;
+        newTodoItem.todoCat = categoryTodo;
+        newTodoItem.todoDesc = descriptionTodo;
+        newTodoItem.quantity = 1;
         
         let i = todoList.length;
-        todoList[i] = todoListNew;} 
+        todoList[i] = newTodoItem;}
         else {
             todoList.forEach(function(item, index, array){
             if(item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo) {
             item.quantity += 1}
         });
     }
+    
 }
+
+function checkTodoCondition(categoryTodo, descriptionTodo) {
+    console.log("работает");
+    return (todoList.find(
+             function(item, index, array){
+             return (item.todoCat ==categoryTodo && item.todoDesc == descriptionTodo)}
+         )  == undefined)
+};
 
 function enterKeyClick() {
     if (event.key == "Enter") {

@@ -1,7 +1,7 @@
 "use strict";
 
 import {todoList} from '../scriptTodo.js';
-import {makeTodoSmaller} from './Make-todo-by-group.js';
+import {makeTodoSmaller} from './make-todo-by-group.js';
 
 // создание блоков с группировкой задач
 export function createMassiveBox() {
