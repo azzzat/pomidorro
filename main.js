@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-import {} from './scriptTop.js';
+import {} from "./scriptTop.js";
 
-import {} from './scriptTodo.js';
+import {} from "./scriptTodo.js";
 
 //plusButtonClick, enterKeyClick, todoTaskRepeat, handler, repeatTask, deletTodoTasks, deletDoneTodoTasks
 
@@ -29,7 +29,7 @@ import {} from './scriptTodo.js';
 //export function addEventHandler() {
 //    let divElem = document.querySelectorAll(".todo-case-bl");  // добавил для dragAndDropp
 //    for (let i = 0; i < divElem.length; i++) {
-//        divElem[i].addEventListener("mouseover", handler)    
+//        divElem[i].addEventListener("mouseover", handler)
 //    }
 //}
 //
@@ -40,7 +40,7 @@ import {} from './scriptTodo.js';
 //}
 //
 //export function removeEventRepeatTask() {
-//        if ( document.querySelector(`.todo-done-button-${key}`) ) { 
+//        if ( document.querySelector(`.todo-done-button-${key}`) ) {
 //               document.querySelector(`.todo-done-button-${key}`).removeEventListener("click", function() {repeatTask(key)});
 //        }
 //}

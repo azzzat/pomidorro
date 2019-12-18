@@ -153,14 +153,14 @@ function handler() {
 
     var cloneDiv = event.currentTarget.cloneNode(true);
     var elementsStyle = getComputedStyle(event.currentTarget);
-    cloneDiv.style.position = 'absolute';
+    cloneDiv.style.position = "absolute";
     cloneDiv.style.opacity = 0.5;
     cloneDiv.style.zIndex = 100;
     cloneDiv.style.top = event.currentTarget.offsetTop + "px";
     cloneDiv.style.left = event.currentTarget.offsetLeft + "px";
     cloneDiv.style.width = elementsStyle.width;
     cloneDiv.style.height = elementsStyle.height;
-    var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять 
+    var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять
 
     document.body.append(newDiv);
     console.log(_scriptTodo.todoList);
@@ -176,9 +176,9 @@ function handler() {
     }
 
     function change() {
-      _scriptTodo.todoList.splice(cloneDiv.getAttribute('id'), 1);
+      _scriptTodo.todoList.splice(cloneDiv.getAttribute("id"), 1);
 
-      cloneDiv.setAttribute('id', this.id); // id добавить
+      cloneDiv.setAttribute("id", this.id); // id добавить
 
       _scriptTodo.todoList.splice(this.id, 0, newTodoList);
 
@@ -198,7 +198,6 @@ function handler() {
         }
       }
 
-      ;
       makeNewList();
     }
 
@@ -229,8 +228,6 @@ function handler() {
     };
   };
 }
-
-;
 },{"../scriptTodo.js":"scriptTodo.js"}],"to-do/create-boxes-under-todolist.js":[function(require,module,exports) {
 "use strict";
 
@@ -1206,7 +1203,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62717" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51170" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
