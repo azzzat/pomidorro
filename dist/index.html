@@ -1,108 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="/style.e308ff8e.css">
     <script defer="" src="/main.1f19ae8e.js"></script>
-<script src="/style.e308ff8e.js"></script></head>
-<body>
+  <script src="/style.e308ff8e.js"></script></head>
+  <body>
     <div class="count-border-main">
-        <div class="count-border-head">
-            <div class="settings"></div>
-            <div class="title">ПOМИДОР</div>   
+      <div class="count-border-head">
+        <div class="settings"></div>
+        <div class="title">ПOМИДОР</div>
+      </div>
+
+      <div class="timer-clock">00:30</div>
+      <div class="processing-todo-task"></div>
+
+      <div class="timer-buttons">
+        <div type="button" class="left-button">
+          <span>СТАРТ</span>
         </div>
 
-        <div class="timer-clock">00:30</div>
-        <div class="processing-todo-task">
-            
+        <div type="button" class="right-button">
+          <span>СТОП</span>
         </div>
-        
-        <div class="timer-buttons">
-           
-            <div type="button" class="left-button">
-                <span>СТАРТ</span>
-            </div>
-            
-            <div type="button" class="right-button">
-                <span>СТОП</span>
-            </div>
-        </div>
+      </div>
     </div>
-    
-    
-    
+
     <div class="todo-border">
-        <h4 class="todo-border-header">
-           ЗАПЛАНИРОВАНО   
-           <span title="Quantity"></span> 
-        </h4> 
-    
-        
-        
-        <div class="todo-body">
-            <div class="todo-category">
-                <input class="todo-input todo-category-value" type="text" placeholder="Категория">
-            </div>
-            
-            <div class="todo-description">
-                <div class="todo-input-box">
-                    <input class="todo-input todo-with-button todo-description-value" type="text" placeholder="Короткое описание">
-                    <button class="todo-button todo-input-button">
-                         <icon class="plus-icon">
-                            &#43;
-                         </icon>
-                    </button>
-                </div>
-                <button class="todo-button todo-right-button">
-                   <icon class="star-icon">
-                        &#9734;
-                   </icon>
-                </button>
-            </div>
+      <h4 class="todo-border-header">
+        ЗАПЛАНИРОВАНО
+        <span title="Quantity"></span>
+      </h4>
+
+      <div class="todo-body">
+        <div class="todo-category">
+          <input class="todo-input todo-category-value" type="text" placeholder="Категория">
         </div>
-        
-        
-        <div class="todo-item-list">
-            
-        </div>
-        
-        <div class="todo-border-tags">
-           <div class="category-boxes category-boxes-todo">
-            
-           </div>
-            
-            <button class="category-box-delete category-box-delete-border">
-                Очистить список
+
+        <div class="todo-description">
+          <div class="todo-input-box">
+            <input class="todo-input todo-with-button todo-description-value" type="text" placeholder="Короткое описание">
+            <button class="todo-button todo-input-button">
+              <icon class="plus-icon">
+                &#43;
+              </icon>
             </button>
-            
-            
+          </div>
+          <button class="todo-button todo-right-button">
+            <icon class="star-icon">
+              &#9734;
+            </icon>
+          </button>
         </div>
-        <a class="click-to-sort">
-            Кликните номер для добавления. Перетаскивайте для сортировки
-        </a>
-        
-        <div class="history-border">
-            
-            <h4 class="todo-border-header">
-                СДЕЛАНО &#160;
-                <span class="done-todo-quantiti" title="кол-во">
-                      0
-                </span>
-            </h4>
-            
-            <div class="history-border-table">
-                <div class="history-border-table-category">
-                    категория
-                </div>
-                
-                <div class="history-border-table-description">
-                    описание
-                </div>                
-            </div>
-           
-            <h7 class="todo-border-header-green">
-<!--
+      </div>
+
+      <div class="todo-item-list"></div>
+
+      <div class="todo-border-tags">
+        <div class="category-boxes category-boxes-todo"></div>
+
+        <button class="category-box-delete category-box-delete-border">
+          Очистить список
+        </button>
+      </div>
+      <a class="click-to-sort">
+        Кликните номер для добавления. Перетаскивайте для сортировки
+      </a>
+
+      <div class="history-border">
+        <h4 class="todo-border-header">
+          СДЕЛАНО &#160;
+          <span class="done-todo-quantiti" title="кол-во">
+            0
+          </span>
+        </h4>
+
+        <div class="history-border-table">
+          <div class="history-border-table-category">
+            категория
+          </div>
+
+          <div class="history-border-table-description">
+            описание
+          </div>
+        </div>
+
+        <h7 class="todo-border-header-green">
+          <!--
                 <icon fa="coffee"></icon>
                     "Перерыв"
                     
@@ -110,14 +95,11 @@
                     Осталось 3
                 </span>
 -->
-            </h7>
-            <div class="todo-case-category-done">
+        </h7>
+        <div class="todo-case-category-done"></div>
+      </div>
 
-            </div>
-
-        </div>
-        
-<!--
+      <!--
         <h7 class="todo-border-header todo-border-header-rest">
             <icon fa="coffee"></icon>
             "Фокус"
@@ -126,19 +108,18 @@
             </span>
         </h7>
 -->
-        
-        <div class="todo-border-tags">
-           <div class="category-boxes category-boxes-done-todo">
-                          
-           </div>
 
-            <button class="category-box-delete category-box-delete-done">
-                Очистить список
-            </button>
-            
-            </div>
+      <div class="todo-border-tags">
+        <div class="category-boxes category-boxes-done-todo"></div>
 
-            <a class="click-to-sort">
-                Кликни для редактирования
-            </a>
-</div></body></html>
+        <button class="category-box-delete category-box-delete-done">
+          Очистить список
+        </button>
+      </div>
+
+      <a class="click-to-sort">
+        Кликни для редактирования
+      </a>
+    </div>
+  </body>
+</html>

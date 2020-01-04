@@ -2,6 +2,8 @@
 
 import { lastItemDone, todoList } from "./scriptTodo.js";
 import { tmpTodoList } from "./to-do/make-todo-by-group.js";
+import { choseList } from "./to-do/choseList.js";
+import { deleteItemFromTodoList } from "./scriptTodo.js";
 
 export let state; // состояние режима работы - рабочее либо отдых
 export let pomidorroDuration = 0.5 * 60 * 1000;
@@ -30,7 +32,7 @@ function showTime(timeValue) {
     .querySelector(".count-border-main")
     .querySelector(".timer-clock").innerHTML = minute + ":" + second + "";
 
-  showTodoDescription(todoList);
+  showTodoDescription(choseList());
 }
 
 function checkTime(timeValue) {
@@ -187,7 +189,8 @@ export function setCountdorderViewInRest2() {
   initiatePomidorro(new Date(Date.parse(new Date()) + 0.1 * 60 * 1000));
   state = "restRest";
 
-  lastItemDone();
+  deleteItemFromTodoList();
+  lastItemDone(choseList());
 }
 
 export function setCountborderViewInRest() {

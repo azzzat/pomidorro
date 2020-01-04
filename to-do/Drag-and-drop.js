@@ -1,7 +1,7 @@
 import { todoList, todoTaskRepeat } from "../scriptTodo.js";
+import { choseList } from "./choseList.js";
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
-
 document.onselectstart = function() {
   return false;
 };
@@ -17,7 +17,7 @@ export function handler() {
   //document.querySelector(`.repeat-button-${key}`).addEventListener("click", function() {todoTaskRepeat(key)});
 
   event.currentTarget.onmousedown = function(event) {
-    divElem = document.querySelectorAll(".todo-case-bl"); //не работает
+    divElem = document.querySelectorAll(".todo-case-bl");
 
     for (let i = 0; i < divElem.length; i++) {
       divElem[i].removeEventListener("mouseover", handler);
@@ -37,8 +37,7 @@ export function handler() {
       .appendChild(cloneDiv); //поменять
 
     document.body.append(newDiv);
-    console.log(todoList);
-    let newTodoList = todoList[cloneDiv.id];
+    let newTodoList = choseList()[cloneDiv.id];
 
     cloneDiv.ondragstart = function() {
       return false;
@@ -49,10 +48,10 @@ export function handler() {
     }
 
     function change() {
-      todoList.splice(cloneDiv.getAttribute("id"), 1);
+      choseList().splice(cloneDiv.getAttribute("id"), 1);
 
       cloneDiv.setAttribute("id", this.id); // id добавить
-      todoList.splice(this.id, 0, newTodoList);
+      choseList().splice(this.id, 0, newTodoList);
 
       function makeNewList() {
         //убрать линию
@@ -62,14 +61,20 @@ export function handler() {
         for (let i = 0; i < divElem.length; i++) {
           divElem[i]
             .querySelector(".todo-case-category")
-            .querySelector(".todo-case-text").innerHTML = todoList[i].todoCat;
+            .querySelector(".todo-case-text").innerHTML = choseList()[
+            i
+          ].todoCat;
 
           divElem[i]
             .querySelector(".todo-case-description")
-            .querySelector(".todo-case-text").innerHTML = todoList[i].todoDesc;
+            .querySelector(".todo-case-text").innerHTML = choseList()[
+            i
+          ].todoDesc;
 
           let ars1 = divElem[i].querySelector(".todo-case-tail");
-          ars1.querySelector(".number-icon").innerHTML = todoList[i].quantity;
+          ars1.querySelector(".number-icon").innerHTML = choseList()[
+            i
+          ].quantity;
         }
       }
       makeNewList();
