@@ -623,7 +623,9 @@ document.querySelector(".todo-description-value").addEventListener("keypress", _
 //происходит создание строки ToDo
 
 function createToDo(todoList) {
-  var createdLists = "";
+  //let createdLists = "";
+  var createdLists = document.querySelector(".todo-item-list");
+  createdLists.innerHTML = "";
 
   var _loop = function _loop(key) {
     if (document.querySelector(".repeat-button-".concat(key))) {
@@ -631,26 +633,64 @@ function createToDo(todoList) {
         (0, _taskRepeate.repeatTask)(todoList, key);
       });
     } //removeEventTodoTaskRepeat();
+    //let createdLists = document.querySelector(".todo-item-list");
 
 
-    createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
-    createdLists += key;
-    createdLists += '"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
-    createdLists += todoList[key].todoCat;
-    createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
-    createdLists += todoList[key].todoDesc;
-    createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button button-number repeat-button-';
-    createdLists += key;
-    createdLists += '")> <icon class="number-icon">';
-    createdLists += todoList[key].quantity;
-    createdLists += '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
+    function element(el) {
+      return document.createElement(el);
+    }
+
+    var firstDiv = createdLists.appendChild(element("div"));
+    firstDiv.className = "todo-body todo-case-body todo-case-bl";
+    firstDiv.id = key;
+    var innerFirstDiv = firstDiv.appendChild(element("div"));
+    innerFirstDiv.className = "todo-case-category";
+    var innerFirstDivInput = innerFirstDiv.appendChild(element("input"));
+    innerFirstDivInput.className = "todo-input";
+    innerFirstDivInput.setAttribute("style", "display:none");
+    var innerFirstDivDiv = innerFirstDiv.appendChild(element("div"));
+    innerFirstDivDiv.className = "todo-case-text";
+    innerFirstDivDiv.innerHTML = todoList[key].todoCat;
+    var innerSecondDiv = firstDiv.appendChild(element("div"));
+    innerSecondDiv.className = "todo-case-description";
+    var innerSecondDivDiv = innerSecondDiv.appendChild(element("div"));
+    innerSecondDivDiv.className = "todo-case-text";
+    innerSecondDivDiv.innerHTML = todoList[key].todoDesc;
+    var innerThirdDiv = firstDiv.appendChild(element("div"));
+    innerThirdDiv.className = "todo-case-tail";
+    var innerThirdDivSpan = innerThirdDiv.appendChild(element("span"));
+    innerThirdDivSpan.className = "todo-time";
+    innerThirdDivSpan.innerHTML = "59.84";
+    var innerThirdDivFirstButton = innerThirdDiv.appendChild(element("button"));
+    innerThirdDivFirstButton.className = "todo-button todo-right-button button-number repeat-button-".concat(key);
+    var innerThirdDivFirstButtonIcon = innerThirdDivFirstButton.appendChild(element("icon"));
+    innerThirdDivFirstButtonIcon.className = "number-icon";
+    innerThirdDivFirstButtonIcon.innerHTML = todoList[key].quantity;
+    var innerThirdDivSecondButton = firstDiv.appendChild(element("button"));
+    innerThirdDivSecondButton.className = "todo-button todo-right-button";
+    var innerThirdDivSecondButtonIcon = innerThirdDivSecondButton.appendChild(element("icon"));
+    innerThirdDivSecondButtonIcon.className = "three-points-icon";
+    innerThirdDivSecondButtonIcon.innerHTML = "&#183;&#183;&#183"; // createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
+    // createdLists += key;
+    // createdLists +=
+    //  '"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
+    // createdLists += todoList[key].todoCat;
+    // createdLists +=
+    //  '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
+    // createdLists += todoList[key].todoDesc;
+    // createdLists +=
+    //  '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button button-number repeat-button-';
+    // createdLists += key;
+    // createdLists += '")> <icon class="number-icon">';
+    // createdLists += todoList[key].quantity;
+    // createdLists +=
+    //  '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
   };
 
   for (var key in todoList) {
     _loop(key);
-  }
+  } // document.querySelector(".todo-item-list").innerHTML = createdLists;
 
-  document.querySelector(".todo-item-list").innerHTML = createdLists;
 
   if (_makeShortLongRest.longRest == undefined) {
     _makeShortLongRest.longRest = (4, function () {
@@ -723,7 +763,9 @@ function deleteItemFromTodoList() {
 
 
 function createDoneItems() {
-  var createdLists = "";
+  // let createdLists = "";
+  var createdList = document.querySelector(".todo-case-category-done");
+  createdList.innerHTML = "";
 
   var _loop3 = function _loop3(key) {
     if (document.querySelector(".todo-done-button-".concat(key))) {
@@ -733,22 +775,56 @@ function createDoneItems() {
     } //removeEventTodoTaskRepeat();
 
 
-    createdLists += '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
-    createdLists += doneTodoList[key].todoCat;
-    createdLists += '</div> </div> <div class="todo-case-description"> <div class="todo-case-description-text">';
-    createdLists += doneTodoList[key].todoDesc;
-    createdLists += '</div> </div> <div class="todo-case-tail"> <span class="todo-time">';
-    createdLists += doneTodoList[key].date;
-    createdLists += '</span> <button class="todo-button todo-right-button todo-done-button-';
-    createdLists += key;
-    createdLists += '"> <icon class="return-icon"> &#x21bb; </icon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div> ';
+    function element(el) {
+      return document.createElement(el);
+    }
+
+    var parentDiv = createdList.appendChild(element("div"));
+    parentDiv.className = "todo-body todo-case-body";
+    var firstChildDiv = parentDiv.appendChild(element("div"));
+    firstChildDiv.className = "todo-case-category";
+    var firstChildDivDiv = firstChildDiv.appendChild(element("div"));
+    firstChildDivDiv.className = "todo-case-category-text";
+    firstChildDivDiv.innerHTML = doneTodoList[key].todoCat;
+    var secondChildDiv = parentDiv.appendChild(element("div"));
+    secondChildDiv.className = "todo-case-description";
+    var secondChildDivDiv = secondChildDiv.appendChild(element("div"));
+    secondChildDivDiv.className = "todo-case-description-text";
+    secondChildDivDiv.innerText = doneTodoList[key].todoDesc;
+    var thirdChildDiv = parentDiv.appendChild(element("div"));
+    thirdChildDiv.className = "todo-case-tail";
+    var thirdChildDivSpan = thirdChildDiv.appendChild(element("span"));
+    thirdChildDivSpan.className = "todo-time";
+    thirdChildDivSpan.innerHTML = doneTodoList[key].date;
+    var thirdChildDivFirstButton = thirdChildDiv.appendChild(element("button"));
+    thirdChildDivFirstButton.className = "todo-button todo-right-button todo-done-button-".concat(key);
+    var thirdChildDivFirstButtonSpan = thirdChildDivFirstButton.appendChild(element("icon"));
+    thirdChildDivFirstButtonSpan.className = "return-icon";
+    thirdChildDivFirstButtonSpan.innerHTML = "&#x21bb;";
+    var thirdChildDivSecondButton = thirdChildDiv.appendChild(element("button"));
+    thirdChildDivSecondButton.className = "todo-button todo-right-button";
+    var thirdChildDivSecondButtonSpan = thirdChildDivSecondButton.appendChild(element("icon"));
+    thirdChildDivSecondButtonSpan.className = "three-points-icon";
+    thirdChildDivSecondButtonSpan.innerHTML = "&#183;&#183;&#183;"; // createdLists +=
+    //   '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
+    // createdLists += doneTodoList[key].todoCat;
+    // createdLists +=
+    //   '</div> </div> <div class="todo-case-description"> <div class="todo-case-description-text">';
+    // createdLists += doneTodoList[key].todoDesc;
+    // createdLists +=
+    //   '</div> </div> <div class="todo-case-tail"> <span class="todo-time">';
+    // createdLists += doneTodoList[key].date;
+    // createdLists +=
+    //   '</span> <button class="todo-button todo-right-button todo-done-button-';
+    // createdLists += key;
+    // createdLists +=
+    //   '"> <icon class="return-icon"> &#x21bb; </icon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div> ';
   };
 
   for (var key in doneTodoList) {
     _loop3(key);
-  }
+  } // document.querySelector(".todo-case-category-done").innerHTML = createdLists;
 
-  document.querySelector(".todo-case-category-done").innerHTML = createdLists;
 
   var _loop4 = function _loop4(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
@@ -783,6 +859,11 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); //повтор задания в пустой todoList
+//изменить время
+//убрать время
+//поправить работу со tmpTodo
+//enter
+//innerHtml поменять
 },{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/make-todo-by-group.js":"to-do/make-todo-by-group.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js","./main.js":"main.js","./to-do/choseList.js":"to-do/choseList.js"}],"scriptTop.js":[function(require,module,exports) {
 "use strict";
 
@@ -1070,7 +1151,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61340" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61701" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
