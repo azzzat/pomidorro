@@ -90,7 +90,10 @@ export function createToDo(todoList) {
 
     let innerThirdDivSpan = innerThirdDiv.appendChild(element("span"));
     innerThirdDivSpan.className = "todo-time";
-    innerThirdDivSpan.innerHTML = "59.84";
+    let time = 25 * 60 * 1000 * todoList[key].quantity;
+    let min = Math.floor((time / 1000 / 60) % 60);
+    let hr = Math.floor((time / 1000 / 60 / 60) % 60);
+    innerThirdDivSpan.innerHTML = hr + ":" + min;
 
     let innerThirdDivFirstButton = innerThirdDiv.appendChild(element("button"));
     innerThirdDivFirstButton.className = `todo-button todo-right-button button-number repeat-button-${key}`;
@@ -322,8 +325,5 @@ document
   .addEventListener("click", deletDoneTodoTasks);
 
 //повтор задания в пустой todoList
-//изменить время
-//убрать время
 //поправить работу со tmpTodo
-//enter
-//innerHtml поменять
+// убрать, добавить комменты

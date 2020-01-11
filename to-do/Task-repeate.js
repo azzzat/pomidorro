@@ -72,7 +72,7 @@ function checkTodoCondition(categoryTodo, descriptionTodo) {
   );
 }
 
-function enterKeyClick() {
+export function enterKeyClick() {
   if (event.key == "Enter") {
     plusButtonClick();
   }

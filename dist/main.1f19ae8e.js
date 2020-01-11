@@ -433,6 +433,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.repeatTask = repeatTask;
 exports.plusButtonClick = plusButtonClick;
+exports.enterKeyClick = enterKeyClick;
 
 var _scriptTodo = require("../scriptTodo.js");
 
@@ -660,7 +661,10 @@ function createToDo(todoList) {
     innerThirdDiv.className = "todo-case-tail";
     var innerThirdDivSpan = innerThirdDiv.appendChild(element("span"));
     innerThirdDivSpan.className = "todo-time";
-    innerThirdDivSpan.innerHTML = "59.84";
+    var time = 25 * 60 * 1000 * todoList[key].quantity;
+    var min = Math.floor(time / 1000 / 60 % 60);
+    var hr = Math.floor(time / 1000 / 60 / 60 % 60);
+    innerThirdDivSpan.innerHTML = hr + ":" + min;
     var innerThirdDivFirstButton = innerThirdDiv.appendChild(element("button"));
     innerThirdDivFirstButton.className = "todo-button todo-right-button button-number repeat-button-".concat(key);
     var innerThirdDivFirstButtonIcon = innerThirdDivFirstButton.appendChild(element("icon"));
@@ -859,11 +863,8 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); //повтор задания в пустой todoList
-//изменить время
-//убрать время
 //поправить работу со tmpTodo
-//enter
-//innerHtml поменять
+// убрать, добавить комменты
 },{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/make-todo-by-group.js":"to-do/make-todo-by-group.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js","./main.js":"main.js","./to-do/choseList.js":"to-do/choseList.js"}],"scriptTop.js":[function(require,module,exports) {
 "use strict";
 
@@ -893,7 +894,7 @@ var _choseList = require("./to-do/choseList.js");
 var state; // состояние режима работы - рабочее либо отдых
 
 exports.state = state;
-var pomidorroDuration = 0.5 * 60 * 1000; // новый модуль
+var pomidorroDuration = 25 * 60 * 1000; // новый модуль
 
 exports.pomidorroDuration = pomidorroDuration;
 var newWorkTime; // переменная для работы с launchPomidorro()
@@ -1049,7 +1050,7 @@ function setCountdorderViewInRest2() {
   setRightButtonValue("ПРОПУСТИТЬ");
   setBackgroundColor("rgb(86, 189, 86)");
   setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
-  initiatePomidorro(new Date(Date.parse(new Date()) + 0.1 * 60 * 1000));
+  initiatePomidorro(new Date(Date.parse(new Date()) + 5 * 60 * 1000));
   exports.state = state = "restRest";
   (0, _scriptTodo.deleteItemFromTodoList)();
   (0, _scriptTodo.lastItemDone)((0, _choseList.choseList)());
@@ -1151,7 +1152,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61701" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52442" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

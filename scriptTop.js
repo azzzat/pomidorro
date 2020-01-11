@@ -6,7 +6,7 @@ import { choseList } from "./to-do/choseList.js";
 import { deleteItemFromTodoList } from "./scriptTodo.js";
 
 export let state; // состояние режима работы - рабочее либо отдых
-export let pomidorroDuration = 0.5 * 60 * 1000;
+export let pomidorroDuration = 25 * 60 * 1000;
 
 // новый модуль
 let newWorkTime; // переменная для работы с launchPomidorro()
@@ -186,7 +186,7 @@ export function setCountdorderViewInRest2() {
   setBackgroundColor("rgb(86, 189, 86)");
   setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
 
-  initiatePomidorro(new Date(Date.parse(new Date()) + 0.1 * 60 * 1000));
+  initiatePomidorro(new Date(Date.parse(new Date()) + 5 * 60 * 1000));
   state = "restRest";
 
   deleteItemFromTodoList();
