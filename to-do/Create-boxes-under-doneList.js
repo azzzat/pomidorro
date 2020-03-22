@@ -1,6 +1,5 @@
-import { todoList, doneTodoList } from "../scriptTodo.js";
+import { doneTodoList } from "../scriptTodo.js";
 
-//создать боксы done
 export function createDoneMassiveBox() {
   let grouppedDoneTodo = doneTodoList.reduce((acc, cur) => {
     acc[cur.todoCat] = acc[cur.todoCat] || {

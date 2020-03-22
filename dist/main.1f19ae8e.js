@@ -117,204 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"to-do/create-boxes-under-todolist.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createMassiveBox = createMassiveBox;
-exports.createToDoBox = createToDoBox;
-
-var _scriptTodo = require("../scriptTodo.js");
-
-var _makeTodoByGroup = require("./make-todo-by-group.js");
-
-// создание блоков с группировкой задач
-function createMassiveBox() {
-  var grouppedTodo = _scriptTodo.todoList.reduce(function (acc, cur) {
-    acc[cur.todoCat] = acc[cur.todoCat] || {
-      todoCat: cur.todoCat,
-      quantity: cur.quantity
-    };
-    return acc;
-  }, {});
-
-  createToDoBox(grouppedTodo);
-}
-
-function createToDoBox(grouppedTodo) {
-  var createdBox = "";
-  var indexNumber = 0;
-
-  for (var key in grouppedTodo) {
-    createdBox += '<button class="category-box">';
-    createdBox += '<div class="makeList">&#35;</div> <a class="boxTodoA boxTodo';
-    createdBox += indexNumber++;
-    createdBox += '">';
-    createdBox += grouppedTodo[key].todoCat;
-    createdBox += "</a> - ";
-    createdBox += grouppedTodo[key].quantity; //неправильное отображение
-
-    createdBox += "</button>";
-  }
-
-  document.querySelector(".category-boxes-todo").innerHTML = createdBox;
-  var boxesTodo = document.querySelector(".category-boxes-todo").querySelectorAll(".category-box");
-
-  var _loop = function _loop(i) {
-    boxesTodo[i].onclick = function () {
-      (0, _makeTodoByGroup.makeTodoSmaller)(i);
-    };
-  };
-
-  for (var i = 0; i < boxesTodo.length; i++) {
-    _loop(i);
-  }
-}
-},{"../scriptTodo.js":"scriptTodo.js","./make-todo-by-group.js":"to-do/make-todo-by-group.js"}],"to-do/make-todo-by-group.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.makeTodoSmaller = makeTodoSmaller;
-exports.tmpTodoList = void 0;
-
-var _scriptTodo = require("../scriptTodo.js");
-
-var _createBoxesUnderTodolist = require("./create-boxes-under-todolist.js");
-
-var tmpTodoList = []; // переделать всё!!!!!!!!!!
-
-exports.tmpTodoList = tmpTodoList;
-
-function makeTodoSmaller(boxNumber) {
-  exports.tmpTodoList = tmpTodoList = [];
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = _scriptTodo.todoList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var key = _step.value;
-
-      if (key.todoCat === document.querySelector(".boxTodo".concat(boxNumber)).innerText) {
-        tmpTodoList.push(key);
-      }
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return != null) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-
-  (0, _scriptTodo.createToDo)(tmpTodoList); // tmpTodoList = JSON.parse(JSON.stringify(todoList));
-  // while (0 < todoList.length) {
-  //   todoList.pop();
-  // }
-  // for (let key of tmpTodoList) {
-  //   if (
-  //     key.todoCat === document.querySelector(`.boxTodo${boxNumber}`).innerText
-  //   ) {
-  //     todoList.push(key);
-  //   }
-  // }
-  // createToDo(todoList);
-  // createMassiveBox();
-  // let boxesTodo = document
-  //   .querySelector(".category-boxes-todo")
-  //   .querySelectorAll(".category-box");
-  // for (let i = 0; i < boxesTodo.length; i++) {
-  //   boxesTodo[i].onclick = console.log();
-  // }
-  // for (let i = 0; i < boxesTodo.length; i++) {
-  //   boxesTodo[i].querySelector(".makeList").innerHTML = "&#10060;";
-  // }
-  // for (let i = 0; i < boxesTodo.length; i++) {
-  //   boxesTodo[i]
-  //     .querySelector(".makeList")
-  //     .addEventListener("mouseover", makeTodoBigger, { once: true });
-  // }
-} // export function makeTodoSmaller(boxNumber) {
-//   tmpTodoList = JSON.parse(JSON.stringify(todoList));
-//   while (0 < todoList.length) {
-//     todoList.pop();
-//   }
-//   for (let key of tmpTodoList) {
-//     if (
-//       key.todoCat === document.querySelector(`.boxTodo${boxNumber}`).innerText
-//     ) {
-//       todoList.push(key);
-//     }
-//   }
-//   createToDo(todoList);
-//   createMassiveBox();
-//   let boxesTodo = document
-//     .querySelector(".category-boxes-todo")
-//     .querySelectorAll(".category-box");
-//   for (let i = 0; i < boxesTodo.length; i++) {
-//     boxesTodo[i].onclick = console.log();
-//   }
-//   for (let i = 0; i < boxesTodo.length; i++) {
-//     boxesTodo[i].querySelector(".makeList").innerHTML = "&#10060;";
-//   }
-//   for (let i = 0; i < boxesTodo.length; i++) {
-//     boxesTodo[i]
-//       .querySelector(".makeList")
-//       .addEventListener("mouseover", makeTodoBigger, { once: true });
-//   }
-// }
-// export function makeTodoBigger(event) {
-//   event.currentTarget.onmousedown = function() {
-//     while (0 < todoList.length) {
-//       // если добавят в todoList
-//       todoList.pop();
-//     }
-//     todoList.push(...tmpTodoList);
-//     createToDo(todoList);
-//     createMassiveBox();
-//     let boxesTodo = document
-//       .querySelector(".category-boxes-todo")
-//       .querySelectorAll(".category-box");
-//     for (let i = 0; i < boxesTodo.length; i++) {
-//       boxesTodo[i]
-//         .querySelector(".makeList")
-//         .removeEventListener("mouseover", makeTodoBigger, { once: true });
-//     }
-//     tmpTodoList = [];
-//   };
-// }
-//всё должно меняться с todoList
-},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js"}],"to-do/choseList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.choseList = choseList;
-
-var _makeTodoByGroup = require("./make-todo-by-group");
-
-var _scriptTodo = require("../scriptTodo");
-
-function choseList() {
-  if (_makeTodoByGroup.tmpTodoList[0]) {
-    return _makeTodoByGroup.tmpTodoList;
-  } else {
-    return _scriptTodo.todoList;
-  }
-}
-},{"./make-todo-by-group":"to-do/make-todo-by-group.js","../scriptTodo":"scriptTodo.js"}],"to-do/drag-and-drop.js":[function(require,module,exports) {
+})({"to-do/drag-and-drop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -324,8 +127,6 @@ exports.handler = handler;
 exports.divElem = void 0;
 
 var _scriptTodo = require("../scriptTodo.js");
-
-var _choseList = require("./choseList.js");
 
 var divElem = document.querySelectorAll(".todo-case-bl");
 exports.divElem = divElem;
@@ -337,12 +138,6 @@ document.onselectstart = function () {
 var todoRightButton = document.querySelectorAll(".todo-right-button");
 
 function handler() {
-  //if ( event.target !== document.querySelector(`.button-number`)){
-  //    console.log("ytttttt");
-  //} else if(event.target === document.querySelector(`.button-number`)){
-  //    event.target.onmousedown = function() {todoTaskRepeat(rowNumber); console.log("working");};
-  //} else {};
-  //document.querySelector(`.repeat-button-${key}`).addEventListener("click", function() {todoTaskRepeat(key)});
   event.currentTarget.onmousedown = function (event) {
     exports.divElem = divElem = document.querySelectorAll(".todo-case-bl");
 
@@ -359,39 +154,37 @@ function handler() {
     cloneDiv.style.left = event.currentTarget.offsetLeft + "px";
     cloneDiv.style.width = elementsStyle.width;
     cloneDiv.style.height = elementsStyle.height;
-    var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv); //поменять
-
+    var newDiv = document.querySelector(".todo-item-list").appendChild(cloneDiv);
     document.body.append(newDiv);
-    var newTodoList = (0, _choseList.choseList)()[cloneDiv.id];
+    var newTodoList = _scriptTodo.todoList[cloneDiv.id];
 
     cloneDiv.ondragstart = function () {
       return false;
-    }; //не показывает
-
+    };
 
     for (var _i = 0; _i < divElem.length; _i++) {
       divElem[_i].addEventListener("mouseover", change);
     }
 
     function change() {
-      (0, _choseList.choseList)().splice(cloneDiv.getAttribute("id"), 1);
-      cloneDiv.setAttribute("id", this.id); // id добавить
+      _scriptTodo.todoList.splice(cloneDiv.getAttribute("id"), 1);
 
-      (0, _choseList.choseList)().splice(this.id, 0, newTodoList);
+      cloneDiv.setAttribute("id", this.id);
+
+      _scriptTodo.todoList.splice(this.id, 0, newTodoList);
 
       function makeNewList() {
-        //убрать линию
         for (var _i2 = 0; _i2 < divElem.length; _i2++) {
           divElem[_i2].setAttribute("id", _i2);
         }
 
         for (var _i3 = 0; _i3 < divElem.length; _i3++) {
-          divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = (0, _choseList.choseList)()[_i3].todoCat;
-          divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = (0, _choseList.choseList)()[_i3].todoDesc;
+          divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _scriptTodo.todoList[_i3].todoCat;
+          divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _scriptTodo.todoList[_i3].todoDesc;
 
           var ars1 = divElem[_i3].querySelector(".todo-case-tail");
 
-          ars1.querySelector(".number-icon").innerHTML = (0, _choseList.choseList)()[_i3].quantity;
+          ars1.querySelector(".number-icon").innerHTML = _scriptTodo.todoList[_i3].quantity;
         }
       }
 
@@ -425,7 +218,46 @@ function handler() {
     };
   };
 }
-},{"../scriptTodo.js":"scriptTodo.js","./choseList.js":"to-do/choseList.js"}],"to-do/task-repeate.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js"}],"to-do/create-boxes-under-todolist.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createMassiveBox = createMassiveBox;
+exports.createToDoBox = createToDoBox;
+
+var _scriptTodo = require("../scriptTodo.js");
+
+function createMassiveBox() {
+  var grouppedTodo = _scriptTodo.todoList.reduce(function (acc, cur) {
+    acc[cur.todoCat] = acc[cur.todoCat] || {
+      todoCat: cur.todoCat,
+      quantity: cur.quantity
+    };
+    return acc;
+  }, {});
+
+  createToDoBox(grouppedTodo);
+}
+
+function createToDoBox(grouppedTodo) {
+  var indexNumber = 0;
+  var createdBox = document.querySelector(".category-boxes-todo");
+  createdBox.innerHTML = "";
+
+  for (var key in grouppedTodo) {
+    var firstChildButton = createdBox.appendChild(document.createElement("button"));
+    firstChildButton.className = "category-box";
+    var firstChildButtonDiv = firstChildButton.appendChild(document.createElement("div"));
+    firstChildButtonDiv.className = "makeList";
+    firstChildButtonDiv.innerHTML = "&#35;";
+    var firstChildButtonFirstA = firstChildButton.appendChild(document.createElement("a"));
+    firstChildButtonFirstA.className = "boxTodoA boxTodo".concat(indexNumber++);
+    firstChildButtonFirstA.innerHTML = grouppedTodo[key].todoCat;
+  }
+}
+},{"../scriptTodo.js":"scriptTodo.js"}],"to-do/task-repeate.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -439,12 +271,10 @@ var _scriptTodo = require("../scriptTodo.js");
 
 var _createBoxesUnderTodolist = require("./create-boxes-under-todolist.js");
 
-var _choseList = require("./choseList.js");
-
 function repeatTask(list, key) {
   var categoryTodo = list[key].todoCat;
   var descriptionTodo = list[key].todoDesc;
-  checkTodo(categoryTodo, descriptionTodo);
+  checkTodo(categoryTodo, descriptionTodo, _scriptTodo.todoList);
   (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
   (0, _createBoxesUnderTodolist.createMassiveBox)();
 } //повтор задания при клике
@@ -462,17 +292,15 @@ function repeatTask(list, key) {
 function plusButtonClick() {
   var categoryTodo = document.querySelector(".todo-category-value").value;
   var descriptionTodo = document.querySelector(".todo-description-value").value;
-  checkTodo(categoryTodo, descriptionTodo, (0, _choseList.choseList)());
-  (0, _scriptTodo.createToDo)((0, _choseList.choseList)());
-  (0, _createBoxesUnderTodolist.createMassiveBox)(); // может убрать
-
+  checkTodo(categoryTodo, descriptionTodo, _scriptTodo.todoList);
+  (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
   clearTodoDescription();
 }
 
 function clearTodoDescription() {
   document.querySelector(".todo-description-value").value = "";
-} // тут пока не стал ничего менять
-
+}
 
 function checkTodo(categoryTodo, descriptionTodo, todoList) {
   if (checkTodoCondition(categoryTodo, descriptionTodo)) {
@@ -481,9 +309,9 @@ function checkTodo(categoryTodo, descriptionTodo, todoList) {
     newTodoItem.todoDesc = descriptionTodo;
     newTodoItem.quantity = 1;
     var i = todoList.length;
-    (0, _choseList.choseList)()[i] = newTodoItem;
+    todoList[i] = newTodoItem;
   } else {
-    (0, _choseList.choseList)().forEach(function (item, index, array) {
+    todoList.forEach(function (item, index, array) {
       if (item.todoCat == categoryTodo && item.todoDesc == descriptionTodo) {
         item.quantity += 1;
       }
@@ -492,7 +320,6 @@ function checkTodo(categoryTodo, descriptionTodo, todoList) {
 }
 
 function checkTodoCondition(categoryTodo, descriptionTodo) {
-  console.log("работает");
   return _scriptTodo.todoList.find(function (item, index, array) {
     return item.todoCat == categoryTodo && item.todoDesc == descriptionTodo;
   }) == undefined;
@@ -503,7 +330,7 @@ function enterKeyClick() {
     plusButtonClick();
   }
 }
-},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./choseList.js":"to-do/choseList.js"}],"to-do/make-short-long-rest.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js"}],"to-do/make-short-long-rest.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -562,7 +389,6 @@ exports.createDoneMassiveBox = createDoneMassiveBox;
 
 var _scriptTodo = require("../scriptTodo.js");
 
-//создать боксы done
 function createDoneMassiveBox() {
   var grouppedDoneTodo = _scriptTodo.doneTodoList.reduce(function (acc, cur) {
     acc[cur.todoCat] = acc[cur.todoCat] || {
@@ -594,15 +420,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createToDo = createToDo;
 exports.lastItemDone = lastItemDone;
-exports.deleteItemFromTodoList = deleteItemFromTodoList;
 exports.createDoneItems = createDoneItems;
 exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = void 0;
 
 var _dragAndDrop = require("./to-do/drag-and-drop.js");
-
-var _makeTodoByGroup = require("./to-do/make-todo-by-group.js");
 
 var _taskRepeate = require("./to-do/task-repeate.js");
 
@@ -612,19 +435,12 @@ var _makeShortLongRest = require("./to-do/make-short-long-rest.js");
 
 var _createBoxesUnderDoneList = require("./to-do/create-boxes-under-doneList.js");
 
-var _main = require("./main.js");
-
-var _choseList = require("./to-do/choseList.js");
-
 var todoList = [];
 exports.todoList = todoList;
-document.querySelector(".todo-input-button").addEventListener("click", _taskRepeate.plusButtonClick); //addEventPlusButtonClick();
-
-document.querySelector(".todo-description-value").addEventListener("keypress", _taskRepeate.enterKeyClick); //addEventEnterKeyClick();
-//происходит создание строки ToDo
+document.querySelector(".todo-input-button").addEventListener("click", _taskRepeate.plusButtonClick);
+document.querySelector(".todo-description-value").addEventListener("keypress", _taskRepeate.enterKeyClick);
 
 function createToDo(todoList) {
-  //let createdLists = "";
   var createdLists = document.querySelector(".todo-item-list");
   createdLists.innerHTML = "";
 
@@ -633,9 +449,7 @@ function createToDo(todoList) {
       document.querySelector(".repeat-button-".concat(key)).removeEventListener("click", function () {
         (0, _taskRepeate.repeatTask)(todoList, key);
       });
-    } //removeEventTodoTaskRepeat();
-    //let createdLists = document.querySelector(".todo-item-list");
-
+    }
 
     function element(el) {
       return document.createElement(el);
@@ -673,28 +487,13 @@ function createToDo(todoList) {
     var innerThirdDivSecondButton = firstDiv.appendChild(element("button"));
     innerThirdDivSecondButton.className = "todo-button todo-right-button";
     var innerThirdDivSecondButtonIcon = innerThirdDivSecondButton.appendChild(element("icon"));
-    innerThirdDivSecondButtonIcon.className = "three-points-icon";
-    innerThirdDivSecondButtonIcon.innerHTML = "&#183;&#183;&#183"; // createdLists += '<div class="todo-body todo-case-body todo-case-bl"  id="';
-    // createdLists += key;
-    // createdLists +=
-    //  '"> <div class="todo-case-category"> <input class="todo-input" style="display: none;"> <div class="todo-case-text"> ';
-    // createdLists += todoList[key].todoCat;
-    // createdLists +=
-    //  '</div> </div> <div class="todo-case-description"> <div class="todo-case-text">';
-    // createdLists += todoList[key].todoDesc;
-    // createdLists +=
-    //  '</div> </div> <div class="todo-case-tail"> <span class="todo-time"> 59:84 </span><button class="todo-button todo-right-button button-number repeat-button-';
-    // createdLists += key;
-    // createdLists += '")> <icon class="number-icon">';
-    // createdLists += todoList[key].quantity;
-    // createdLists +=
-    //  '</inon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div>';
+    innerThirdDivSecondButtonIcon.className = "delete-icon";
+    innerThirdDivSecondButtonIcon.innerHTML = "&#10007;";
   };
 
   for (var key in todoList) {
     _loop(key);
-  } // document.querySelector(".todo-item-list").innerHTML = createdLists;
-
+  }
 
   if (_makeShortLongRest.longRest == undefined) {
     _makeShortLongRest.longRest = (4, function () {
@@ -703,7 +502,6 @@ function createToDo(todoList) {
   }
 
   var _loop2 = function _loop2(_key) {
-    //перенес в make-toto-smaller
     document.querySelector(".repeat-button-".concat(_key)).addEventListener("mousedown", function () {
       (0, _taskRepeate.repeatTask)(todoList, _key);
     });
@@ -711,21 +509,18 @@ function createToDo(todoList) {
 
   for (var _key in todoList) {
     _loop2(_key);
-  } //    addEventTodoTaskRepeat(todoList);
+  }
 
-
-  var divElem = document.querySelectorAll(".todo-case-bl"); // добавил для dragAndDropp - ДОБАВИТЬ
+  var divElem = document.querySelectorAll(".todo-case-bl");
 
   for (var i = 0; i < divElem.length; i++) {
     divElem[i].addEventListener("mouseover", function () {
       (0, _dragAndDrop.handler)();
     });
-  } //    addEventHandler();
-
+  }
 
   (0, _makeShortLongRest.setLongRestLine)(todoList);
-} // перенос строки в сделанное
-
+}
 
 var doneTodoList = [];
 exports.doneTodoList = doneTodoList;
@@ -733,10 +528,9 @@ exports.doneTodoList = doneTodoList;
 function lastItemDone(todoList) {
   var date = new Date();
   var minute = ("0" + date.getHours()).slice(-2);
-  var second = ("0" + date.getMinutes()).slice(-2); //убирает текущее задание
+  var second = ("0" + date.getMinutes()).slice(-2);
 
   if (todoList.length == 0) {} else if (todoList[0].quantity == 1) {
-    console.log(todoList[0].quantity);
     doneTodoList.unshift(todoList.shift());
     doneTodoList[0].date = minute + ":" + second + "";
   } else {
@@ -752,22 +546,7 @@ function lastItemDone(todoList) {
   (0, _createBoxesUnderDoneList.createDoneMassiveBox)();
 }
 
-function deleteItemFromTodoList() {
-  if ((0, _choseList.choseList)() == _makeTodoByGroup.tmpTodoList && todoList.length !== 0) {
-    todoList.forEach(function (item, i, arr) {
-      if (arr[i].todoCat == _makeTodoByGroup.tmpTodoList[0].todoCat && arr[i].todoDesc == _makeTodoByGroup.tmpTodoList[0].todoDesc) {
-        if (arr[i].quantity == 1) {
-          arr.splice(i, 1);
-        } else {//arr[i].quantity = arr[i].quantity - 1;
-        }
-      }
-    });
-  }
-} // сделанные задания
-
-
 function createDoneItems() {
-  // let createdLists = "";
   var createdList = document.querySelector(".todo-case-category-done");
   createdList.innerHTML = "";
 
@@ -776,8 +555,7 @@ function createDoneItems() {
       document.querySelector(".todo-done-button-".concat(key)).removeEventListener("click", function () {
         (0, _taskRepeate.repeatTask)(doneTodoList, key);
       });
-    } //removeEventTodoTaskRepeat();
-
+    }
 
     function element(el) {
       return document.createElement(el);
@@ -808,27 +586,13 @@ function createDoneItems() {
     var thirdChildDivSecondButton = thirdChildDiv.appendChild(element("button"));
     thirdChildDivSecondButton.className = "todo-button todo-right-button";
     var thirdChildDivSecondButtonSpan = thirdChildDivSecondButton.appendChild(element("icon"));
-    thirdChildDivSecondButtonSpan.className = "three-points-icon";
-    thirdChildDivSecondButtonSpan.innerHTML = "&#183;&#183;&#183;"; // createdLists +=
-    //   '<div class="todo-body todo-case-body"> <div class="todo-case-category"> <div class="todo-case-category-text">';
-    // createdLists += doneTodoList[key].todoCat;
-    // createdLists +=
-    //   '</div> </div> <div class="todo-case-description"> <div class="todo-case-description-text">';
-    // createdLists += doneTodoList[key].todoDesc;
-    // createdLists +=
-    //   '</div> </div> <div class="todo-case-tail"> <span class="todo-time">';
-    // createdLists += doneTodoList[key].date;
-    // createdLists +=
-    //   '</span> <button class="todo-button todo-right-button todo-done-button-';
-    // createdLists += key;
-    // createdLists +=
-    //   '"> <icon class="return-icon"> &#x21bb; </icon> </button> <button class="todo-button todo-right-button"> <icon class="three-points-icon"> &#183;&#183;&#183; </icon> </button> </div> </div> ';
+    thirdChildDivSecondButtonSpan.className = "delete-icon";
+    thirdChildDivSecondButtonSpan.innerHTML = "&#10007;";
   };
 
   for (var key in doneTodoList) {
     _loop3(key);
-  } // document.querySelector(".todo-case-category-done").innerHTML = createdLists;
-
+  }
 
   var _loop4 = function _loop4(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
@@ -838,14 +602,11 @@ function createDoneItems() {
 
   for (var _key2 in doneTodoList) {
     _loop4(_key2);
-  } //    addEventRepeatTask();
-  //подсчет количества сделанных заданий
-
+  }
 
   var doneListLength = doneTodoList.length;
   document.querySelector(".done-todo-quantiti").innerText = doneListLength;
-} //удалить задания
-
+}
 
 function deletTodoTasks() {
   exports.todoList = todoList = [];
@@ -853,8 +614,7 @@ function deletTodoTasks() {
   (0, _createBoxesUnderTodolist.createMassiveBox)();
 }
 
-document.querySelector(".category-box-delete-border").addEventListener("click", deletTodoTasks); //addEventRepeatTask();
-// удалить сделанные задания
+document.querySelector(".category-box-delete-border").addEventListener("click", deletTodoTasks);
 
 function deletDoneTodoTasks() {
   exports.doneTodoList = doneTodoList = [];
@@ -862,10 +622,8 @@ function deletDoneTodoTasks() {
   (0, _createBoxesUnderDoneList.createDoneMassiveBox)();
 }
 
-document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks); //повтор задания в пустой todoList
-//поправить работу со tmpTodo
-// убрать, добавить комменты
-},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/make-todo-by-group.js":"to-do/make-todo-by-group.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js","./main.js":"main.js","./to-do/choseList.js":"to-do/choseList.js"}],"scriptTop.js":[function(require,module,exports) {
+document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
+},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js"}],"scriptTop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -886,10 +644,6 @@ exports.showTodoDescription = showTodoDescription;
 exports.pomidorroInterval = exports.remainingTime = exports.pomidorroDuration = exports.state = void 0;
 
 var _scriptTodo = require("./scriptTodo.js");
-
-var _makeTodoByGroup = require("./to-do/make-todo-by-group.js");
-
-var _choseList = require("./to-do/choseList.js");
 
 var state; // состояние режима работы - рабочее либо отдых
 
@@ -921,7 +675,7 @@ function showTime(timeValue) {
   var minute = ("0" + timeValue.min).slice(-2);
   var second = ("0" + timeValue.sec).slice(-2);
   document.querySelector(".count-border-main").querySelector(".timer-clock").innerHTML = minute + ":" + second + "";
-  showTodoDescription((0, _choseList.choseList)());
+  showTodoDescription(_scriptTodo.todoList);
 }
 
 function checkTime(timeValue) {
@@ -1052,8 +806,7 @@ function setCountdorderViewInRest2() {
   setTitleValue("СДЕЛАЙТЕ КОРОТКИЙ ПЕРЕРЫВ");
   initiatePomidorro(new Date(Date.parse(new Date()) + 5 * 60 * 1000));
   exports.state = state = "restRest";
-  (0, _scriptTodo.deleteItemFromTodoList)();
-  (0, _scriptTodo.lastItemDone)((0, _choseList.choseList)());
+  (0, _scriptTodo.lastItemDone)(_scriptTodo.todoList);
 }
 
 function setCountborderViewInRest() {
@@ -1118,7 +871,7 @@ function showTodoDescription(todoList) {
     document.querySelector(".processing-todo-task").innerHTML = "";
   }
 }
-},{"./scriptTodo.js":"scriptTodo.js","./to-do/make-todo-by-group.js":"to-do/make-todo-by-group.js","./to-do/choseList.js":"to-do/choseList.js"}],"main.js":[function(require,module,exports) {
+},{"./scriptTodo.js":"scriptTodo.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 require("./scriptTop.js");
@@ -1152,7 +905,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52442" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65319" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

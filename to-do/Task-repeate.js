@@ -7,13 +7,12 @@ import {
   createToDo
 } from "../scriptTodo.js";
 import { createMassiveBox } from "./create-boxes-under-todolist.js";
-import { choseList } from "./choseList.js";
 
 export function repeatTask(list, key) {
   let categoryTodo = list[key].todoCat;
   let descriptionTodo = list[key].todoDesc;
 
-  checkTodo(categoryTodo, descriptionTodo);
+  checkTodo(categoryTodo, descriptionTodo, todoList);
   createToDo(todoList);
   createMassiveBox();
 }
@@ -33,16 +32,15 @@ export function plusButtonClick() {
   let categoryTodo = document.querySelector(".todo-category-value").value;
   let descriptionTodo = document.querySelector(".todo-description-value").value;
 
-  checkTodo(categoryTodo, descriptionTodo, choseList());
-  createToDo(choseList());
-  createMassiveBox(); // может убрать
+  checkTodo(categoryTodo, descriptionTodo, todoList);
+  createToDo(todoList);
+  createMassiveBox();
   clearTodoDescription();
 }
 
 function clearTodoDescription() {
   document.querySelector(".todo-description-value").value = "";
 }
-// тут пока не стал ничего менять
 
 function checkTodo(categoryTodo, descriptionTodo, todoList) {
   if (checkTodoCondition(categoryTodo, descriptionTodo)) {
@@ -53,9 +51,9 @@ function checkTodo(categoryTodo, descriptionTodo, todoList) {
     newTodoItem.quantity = 1;
 
     let i = todoList.length;
-    choseList()[i] = newTodoItem;
+    todoList[i] = newTodoItem;
   } else {
-    choseList().forEach(function(item, index, array) {
+    todoList.forEach(function(item, index, array) {
       if (item.todoCat == categoryTodo && item.todoDesc == descriptionTodo) {
         item.quantity += 1;
       }
@@ -64,7 +62,6 @@ function checkTodo(categoryTodo, descriptionTodo, todoList) {
 }
 
 function checkTodoCondition(categoryTodo, descriptionTodo) {
-  console.log("работает");
   return (
     todoList.find(function(item, index, array) {
       return item.todoCat == categoryTodo && item.todoDesc == descriptionTodo;

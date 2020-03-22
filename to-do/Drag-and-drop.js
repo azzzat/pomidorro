@@ -1,5 +1,4 @@
 import { todoList, todoTaskRepeat } from "../scriptTodo.js";
-import { choseList } from "./choseList.js";
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
 document.onselectstart = function() {
@@ -9,13 +8,6 @@ document.onselectstart = function() {
 let todoRightButton = document.querySelectorAll(".todo-right-button");
 
 export function handler() {
-  //if ( event.target !== document.querySelector(`.button-number`)){
-  //    console.log("ytttttt");
-  //} else if(event.target === document.querySelector(`.button-number`)){
-  //    event.target.onmousedown = function() {todoTaskRepeat(rowNumber); console.log("working");};
-  //} else {};
-  //document.querySelector(`.repeat-button-${key}`).addEventListener("click", function() {todoTaskRepeat(key)});
-
   event.currentTarget.onmousedown = function(event) {
     divElem = document.querySelectorAll(".todo-case-bl");
 
@@ -34,47 +26,40 @@ export function handler() {
     cloneDiv.style.height = elementsStyle.height;
     let newDiv = document
       .querySelector(".todo-item-list")
-      .appendChild(cloneDiv); //поменять
+      .appendChild(cloneDiv);
 
     document.body.append(newDiv);
-    let newTodoList = choseList()[cloneDiv.id];
+    let newTodoList = todoList[cloneDiv.id];
 
     cloneDiv.ondragstart = function() {
       return false;
     };
-    //не показывает
+
     for (let i = 0; i < divElem.length; i++) {
       divElem[i].addEventListener("mouseover", change);
     }
 
     function change() {
-      choseList().splice(cloneDiv.getAttribute("id"), 1);
+      todoList.splice(cloneDiv.getAttribute("id"), 1);
 
-      cloneDiv.setAttribute("id", this.id); // id добавить
-      choseList().splice(this.id, 0, newTodoList);
+      cloneDiv.setAttribute("id", this.id);
+      todoList.splice(this.id, 0, newTodoList);
 
       function makeNewList() {
-        //убрать линию
         for (let i = 0; i < divElem.length; i++) {
           divElem[i].setAttribute("id", i);
         }
         for (let i = 0; i < divElem.length; i++) {
           divElem[i]
             .querySelector(".todo-case-category")
-            .querySelector(".todo-case-text").innerHTML = choseList()[
-            i
-          ].todoCat;
+            .querySelector(".todo-case-text").innerHTML = todoList[i].todoCat;
 
           divElem[i]
             .querySelector(".todo-case-description")
-            .querySelector(".todo-case-text").innerHTML = choseList()[
-            i
-          ].todoDesc;
+            .querySelector(".todo-case-text").innerHTML = todoList[i].todoDesc;
 
           let ars1 = divElem[i].querySelector(".todo-case-tail");
-          ars1.querySelector(".number-icon").innerHTML = choseList()[
-            i
-          ].quantity;
+          ars1.querySelector(".number-icon").innerHTML = todoList[i].quantity;
         }
       }
       makeNewList();
