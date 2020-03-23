@@ -330,6 +330,37 @@ function enterKeyClick() {
     plusButtonClick();
   }
 }
+},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js"}],"to-do/task-delete.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.minusButtonClick = minusButtonClick;
+
+var _scriptTodo = require("../scriptTodo.js");
+
+var _createBoxesUnderTodolist = require("./create-boxes-under-todolist.js");
+
+function minusButtonClick(id) {
+  var categoryTodo = document.getElementById(id).querySelector(".todo-case-text-category").innerHTML;
+  var descriptionTodo = document.getElementById(id).querySelector(".todo-case-text-description").innerHTML;
+  checkTodo(categoryTodo, descriptionTodo, id);
+  (0, _scriptTodo.createToDo)(_scriptTodo.todoList);
+  (0, _createBoxesUnderTodolist.createMassiveBox)();
+}
+
+function checkTodo(categoryTodo, descriptionTodo, id) {
+  _scriptTodo.todoList.forEach(function (item, index, array) {
+    if (item.todoCat == categoryTodo && item.todoDesc == descriptionTodo) {
+      if (item.quantity == 1) {
+        _scriptTodo.todoList.splice(id, 1);
+      } else {
+        item.quantity -= 1;
+      }
+    }
+  });
+}
 },{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js"}],"to-do/make-short-long-rest.js":[function(require,module,exports) {
 "use strict";
 
@@ -429,12 +460,15 @@ var _dragAndDrop = require("./to-do/drag-and-drop.js");
 
 var _taskRepeate = require("./to-do/task-repeate.js");
 
+var _taskDelete = require("./to-do/task-delete.js");
+
 var _createBoxesUnderTodolist = require("./to-do/create-boxes-under-todolist.js");
 
 var _makeShortLongRest = require("./to-do/make-short-long-rest.js");
 
 var _createBoxesUnderDoneList = require("./to-do/create-boxes-under-doneList.js");
 
+//добавил
 var todoList = [];
 exports.todoList = todoList;
 document.querySelector(".todo-input-button").addEventListener("click", _taskRepeate.plusButtonClick);
@@ -464,12 +498,12 @@ function createToDo(todoList) {
     innerFirstDivInput.className = "todo-input";
     innerFirstDivInput.setAttribute("style", "display:none");
     var innerFirstDivDiv = innerFirstDiv.appendChild(element("div"));
-    innerFirstDivDiv.className = "todo-case-text";
+    innerFirstDivDiv.className = "todo-case-text todo-case-text-category";
     innerFirstDivDiv.innerHTML = todoList[key].todoCat;
     var innerSecondDiv = firstDiv.appendChild(element("div"));
     innerSecondDiv.className = "todo-case-description";
     var innerSecondDivDiv = innerSecondDiv.appendChild(element("div"));
-    innerSecondDivDiv.className = "todo-case-text";
+    innerSecondDivDiv.className = "todo-case-text todo-case-text-description";
     innerSecondDivDiv.innerHTML = todoList[key].todoDesc;
     var innerThirdDiv = firstDiv.appendChild(element("div"));
     innerThirdDiv.className = "todo-case-tail";
@@ -485,7 +519,7 @@ function createToDo(todoList) {
     innerThirdDivFirstButtonIcon.className = "number-icon";
     innerThirdDivFirstButtonIcon.innerHTML = todoList[key].quantity;
     var innerThirdDivSecondButton = firstDiv.appendChild(element("button"));
-    innerThirdDivSecondButton.className = "todo-button todo-right-button";
+    innerThirdDivSecondButton.className = "todo-button todo-right-button minus-button-".concat(key);
     var innerThirdDivSecondButtonIcon = innerThirdDivSecondButton.appendChild(element("icon"));
     innerThirdDivSecondButtonIcon.className = "delete-icon";
     innerThirdDivSecondButtonIcon.innerHTML = "&#10007;";
@@ -504,6 +538,9 @@ function createToDo(todoList) {
   var _loop2 = function _loop2(_key) {
     document.querySelector(".repeat-button-".concat(_key)).addEventListener("mousedown", function () {
       (0, _taskRepeate.repeatTask)(todoList, _key);
+    });
+    document.querySelector(".minus-button-".concat(_key)).addEventListener("mousedown", function () {
+      (0, _taskDelete.minusButtonClick)(_key);
     });
   };
 
@@ -623,7 +660,7 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
-},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js"}],"scriptTop.js":[function(require,module,exports) {
+},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js"}],"scriptTop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -905,7 +942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65319" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51249" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

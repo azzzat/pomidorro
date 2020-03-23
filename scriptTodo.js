@@ -6,6 +6,8 @@ import {
   enterKeyClick,
   plusButtonClick
 } from "./to-do/task-repeate.js";
+//добавил
+import { minusButtonClick } from "./to-do/task-delete.js";
 import { createMassiveBox } from "./to-do/create-boxes-under-todolist.js";
 import {
   restSettings,
@@ -53,14 +55,14 @@ export function createToDo(todoList) {
     innerFirstDivInput.setAttribute("style", "display:none");
 
     let innerFirstDivDiv = innerFirstDiv.appendChild(element("div"));
-    innerFirstDivDiv.className = "todo-case-text";
+    innerFirstDivDiv.className = "todo-case-text todo-case-text-category";
     innerFirstDivDiv.innerHTML = todoList[key].todoCat;
 
     let innerSecondDiv = firstDiv.appendChild(element("div"));
     innerSecondDiv.className = "todo-case-description";
 
     let innerSecondDivDiv = innerSecondDiv.appendChild(element("div"));
-    innerSecondDivDiv.className = "todo-case-text";
+    innerSecondDivDiv.className = "todo-case-text todo-case-text-description";
     innerSecondDivDiv.innerHTML = todoList[key].todoDesc;
 
     let innerThirdDiv = firstDiv.appendChild(element("div"));
@@ -83,7 +85,7 @@ export function createToDo(todoList) {
     innerThirdDivFirstButtonIcon.innerHTML = todoList[key].quantity;
 
     let innerThirdDivSecondButton = firstDiv.appendChild(element("button"));
-    innerThirdDivSecondButton.className = "todo-button todo-right-button";
+    innerThirdDivSecondButton.className = `todo-button todo-right-button minus-button-${key}`;
 
     let innerThirdDivSecondButtonIcon = innerThirdDivSecondButton.appendChild(
       element("icon")
@@ -101,6 +103,11 @@ export function createToDo(todoList) {
       .querySelector(`.repeat-button-${key}`)
       .addEventListener("mousedown", function() {
         repeatTask(todoList, key);
+      });
+    document
+      .querySelector(`.minus-button-${key}`)
+      .addEventListener("mousedown", function() {
+        minusButtonClick(key);
       });
   }
 
