@@ -15,6 +15,7 @@ import {
   longRest
 } from "./to-do/make-short-long-rest.js";
 import { createDoneMassiveBox } from "./to-do/create-boxes-under-doneList.js";
+import { deleteTaskButtonClick } from "./to-do/done-task-delete.js";
 
 export let todoList = [];
 
@@ -91,7 +92,7 @@ export function createToDo(todoList) {
       element("icon")
     );
     innerThirdDivSecondButtonIcon.className = "delete-icon";
-    innerThirdDivSecondButtonIcon.innerHTML = "&#10007;";
+    innerThirdDivSecondButtonIcon.innerHTML = "&#8722;";
   }
 
   if (longRest == undefined) {
@@ -198,7 +199,7 @@ export function createDoneItems() {
     let thirdChildDivSecondButton = thirdChildDiv.appendChild(
       element("button")
     );
-    thirdChildDivSecondButton.className = "todo-button todo-right-button";
+    thirdChildDivSecondButton.className = `todo-button todo-right-button delete-done-task-${key}`;
 
     let thirdChildDivSecondButtonSpan = thirdChildDivSecondButton.appendChild(
       element("icon")
@@ -212,6 +213,12 @@ export function createDoneItems() {
       .querySelector(`.todo-done-button-${key}`)
       .addEventListener("click", function() {
         repeatTask(doneTodoList, key);
+      });
+
+    document
+      .querySelector(`.delete-done-task-${key}`)
+      .addEventListener("click", function() {
+        deleteTaskButtonClick(key);
       });
   }
 

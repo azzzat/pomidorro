@@ -443,7 +443,25 @@ function createToDoDoneBox(grouppedDoneTodo) {
 
   document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
 }
-},{"../scriptTodo.js":"scriptTodo.js"}],"scriptTodo.js":[function(require,module,exports) {
+},{"../scriptTodo.js":"scriptTodo.js"}],"to-do/done-task-delete.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.deleteTaskButtonClick = deleteTaskButtonClick;
+
+var _scriptTodo = require("../scriptTodo.js");
+
+var _createBoxesUnderDoneList = require("./create-boxes-under-doneList.js");
+
+function deleteTaskButtonClick(id) {
+  _scriptTodo.doneTodoList.splice(id, 1);
+
+  (0, _scriptTodo.createDoneItems)();
+  (0, _createBoxesUnderDoneList.createDoneMassiveBox)();
+}
+},{"../scriptTodo.js":"scriptTodo.js","./create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js"}],"scriptTodo.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -467,6 +485,8 @@ var _createBoxesUnderTodolist = require("./to-do/create-boxes-under-todolist.js"
 var _makeShortLongRest = require("./to-do/make-short-long-rest.js");
 
 var _createBoxesUnderDoneList = require("./to-do/create-boxes-under-doneList.js");
+
+var _doneTaskDelete = require("./to-do/done-task-delete.js");
 
 //добавил
 var todoList = [];
@@ -522,7 +542,7 @@ function createToDo(todoList) {
     innerThirdDivSecondButton.className = "todo-button todo-right-button minus-button-".concat(key);
     var innerThirdDivSecondButtonIcon = innerThirdDivSecondButton.appendChild(element("icon"));
     innerThirdDivSecondButtonIcon.className = "delete-icon";
-    innerThirdDivSecondButtonIcon.innerHTML = "&#10007;";
+    innerThirdDivSecondButtonIcon.innerHTML = "&#8722;";
   };
 
   for (var key in todoList) {
@@ -621,7 +641,7 @@ function createDoneItems() {
     thirdChildDivFirstButtonSpan.className = "return-icon";
     thirdChildDivFirstButtonSpan.innerHTML = "&#x21bb;";
     var thirdChildDivSecondButton = thirdChildDiv.appendChild(element("button"));
-    thirdChildDivSecondButton.className = "todo-button todo-right-button";
+    thirdChildDivSecondButton.className = "todo-button todo-right-button delete-done-task-".concat(key);
     var thirdChildDivSecondButtonSpan = thirdChildDivSecondButton.appendChild(element("icon"));
     thirdChildDivSecondButtonSpan.className = "delete-icon";
     thirdChildDivSecondButtonSpan.innerHTML = "&#10007;";
@@ -634,6 +654,9 @@ function createDoneItems() {
   var _loop4 = function _loop4(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
       (0, _taskRepeate.repeatTask)(doneTodoList, _key2);
+    });
+    document.querySelector(".delete-done-task-".concat(_key2)).addEventListener("click", function () {
+      (0, _doneTaskDelete.deleteTaskButtonClick)(_key2);
     });
   };
 
@@ -660,7 +683,7 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
-},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js"}],"scriptTop.js":[function(require,module,exports) {
+},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/create-boxes-under-todolist.js":"to-do/create-boxes-under-todolist.js","./to-do/make-short-long-rest.js":"to-do/make-short-long-rest.js","./to-do/create-boxes-under-doneList.js":"to-do/create-boxes-under-doneList.js","./to-do/done-task-delete.js":"to-do/done-task-delete.js"}],"scriptTop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -942,7 +965,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51249" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53368" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
