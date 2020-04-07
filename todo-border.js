@@ -1,11 +1,11 @@
 "use strict";
 
-import { handler } from "./to-do/draganddrop";
+import { handler } from "./to-do/drag-and-drop";
 import {
   repeatTask,
   enterKeyClick,
   plusButtonClick
-} from "./to-do/task-repeate.js";
+} from "./to-do/task-repeat.js";
 import { minusButtonClick } from "./to-do/task-delete.js";
 import { createMassiveBox } from "./to-do/boxes-under-todolist.js";
 import {
