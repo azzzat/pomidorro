@@ -1,3 +1,5 @@
+"use strict";
+
 import { todoList } from "../todo-border.js";
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
