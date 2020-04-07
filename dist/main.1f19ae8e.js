@@ -142,7 +142,9 @@ function handler() {
     exports.divElem = divElem = document.querySelectorAll(".todo-case-bl");
 
     for (var i = 0; i < divElem.length; i++) {
-      divElem[i].removeEventListener("mouseover", handler);
+      divElem[i].removeEventListener("mouseover", function () {
+        handler();
+      });
     }
 
     var cloneDiv = event.currentTarget.cloneNode(true);
@@ -199,7 +201,9 @@ function handler() {
       }
 
       for (var _i5 = 0; _i5 < divElem.length; _i5++) {
-        divElem[_i5].addEventListener("mouseover", handler);
+        divElem[_i5].addEventListener("mouseover", function () {
+          handler();
+        });
       }
 
       cloneDiv.style.pointerEvents = "auto";
@@ -938,7 +942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55316" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55384" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
