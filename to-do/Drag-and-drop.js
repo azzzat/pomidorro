@@ -7,7 +7,7 @@ document.onselectstart = function() {
 
 let todoRightButton = document.querySelectorAll(".todo-right-button");
 
-export function handler() {
+function handler() {
   event.currentTarget.onmousedown = function(event) {
     divElem = document.querySelectorAll(".todo-case-bl");
 
@@ -89,3 +89,5 @@ export function handler() {
     };
   };
 }
+
+export default handler;

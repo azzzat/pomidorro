@@ -123,8 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.handler = handler;
-exports.divElem = void 0;
+exports.default = exports.divElem = void 0;
 
 var _todoBorder = require("../todo-border.js");
 
@@ -218,6 +217,9 @@ function handler() {
     };
   };
 }
+
+var _default = handler;
+exports.default = _default;
 },{"../todo-border.js":"todo-border.js"}],"to-do/boxes-under-todolist.js":[function(require,module,exports) {
 "use strict";
 
@@ -464,7 +466,7 @@ exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = void 0;
 
-var _dragAndDrop = require("./to-do/drag-and-drop.js");
+var _dragAndDrop = require("./to-do/drag-and-drop");
 
 var _taskRepeate = require("./to-do/task-repeate.js");
 
@@ -672,7 +674,7 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
-},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
+},{"./to-do/drag-and-drop":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -938,7 +940,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54322" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54875" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
