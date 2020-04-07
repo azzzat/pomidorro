@@ -1,21 +1,20 @@
 "use strict";
 
-import { divElem, handler } from "./to-do/drag-and-drop.js";
+import { handler } from "./to-do/drag-and-drop.js";
 import {
   repeatTask,
   enterKeyClick,
   plusButtonClick
 } from "./to-do/task-repeate.js";
-//добавил
 import { minusButtonClick } from "./to-do/task-delete.js";
-import { createMassiveBox } from "./to-do/create-boxes-under-todolist.js";
+import { createMassiveBox } from "./to-do/boxes-under-todolist.js";
 import {
   restSettings,
   setLongRestLine,
   longRest
-} from "./to-do/make-short-long-rest.js";
-import { createDoneMassiveBox } from "./to-do/create-boxes-under-doneList.js";
-import { deleteTaskButtonClick } from "./to-do/done-task-delete.js";
+} from "./to-do/short-long-rest.js";
+import { createDoneMassiveBox } from "./to-do/boxes-under-donelist.js";
+import { deleteTaskButtonClick } from "./to-do/deleting-button.js";
 
 export let todoList = [];
 

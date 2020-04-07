@@ -54,7 +54,10 @@
     "string.prototype.trimstart": "^1.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=development parcel index.html ",
+    "build": "cross-env NODE_ENV=production parcel build index.html --public-url ./",
+    "dev": "parcel index.html"
   },
   "repository": {
     "type": "git",

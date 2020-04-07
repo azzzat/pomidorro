@@ -1,6 +1,6 @@
 "use strict";
 
-import { todoList } from "../scriptTodo.js";
+import { todoList } from "../todo-border.js";
 
 export function createMassiveBox() {
   let grouppedTodo = todoList.reduce((acc, cur) => {

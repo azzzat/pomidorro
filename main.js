@@ -1,5 +1,5 @@
 "use strict";
 
-import {} from "./scriptTop.js";
+import {} from "./watch-border.js";
 
-import {} from "./scriptTodo.js";
+import {} from "./todo-border.js";
