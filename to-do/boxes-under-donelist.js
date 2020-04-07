@@ -1,4 +1,4 @@
-import { doneTodoList } from "../scriptTodo.js";
+import { doneTodoList } from "../todo-border.js";
 
 export function createDoneMassiveBox() {
   let grouppedDoneTodo = doneTodoList.reduce((acc, cur) => {

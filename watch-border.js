@@ -1,14 +1,12 @@
 "use strict";
 
-import { lastItemDone, todoList } from "./scriptTodo.js";
+import { lastItemDone, todoList } from "./todo-border.js";
 
-export let state; // состояние режима работы - рабочее либо отдых
+export let state;
 export let pomidorroDuration = 25 * 60 * 1000;
-
-// новый модуль
-let newWorkTime; // переменная для работы с launchPomidorro()
-export let remainingTime; // оставшееся время для того чтобы можно было ставить на паузу
-export let pomidorroInterval; //переменная для setInterval
+let newWorkTime;
+export let remainingTime;
+export let pomidorroInterval;
 
 function getTime(workTime) {
   let time = Date.parse(workTime) - Date.parse(new Date());
@@ -40,24 +38,19 @@ function checkTime(timeValue) {
 }
 
 export function initiatePomidorro(workTime) {
-  newWorkTime = workTime; //перезапись переменной для работы с launchPomidorro()
+  newWorkTime = workTime;
   launchPomidorro();
   pomidorroInterval = setInterval(launchPomidorro, 1000);
 }
 
 function launchPomidorro() {
   let timeValue = getTime(newWorkTime);
-  showTime(timeValue); //отображаем время
-  checkTime(timeValue); //проверят не закончилось ли время
-  remainingTime = timeValue.time; //запись в переменную оставшегося времени
+  showTime(timeValue);
+  checkTime(timeValue);
+  remainingTime = timeValue.time;
 }
 
-// этот модуль
-
 setCountborderViewWorkNotStarted();
-
-//отображение времени
-// действие при истечении времени таймера:
 
 export function checkState() {
   if (state == "startWork") {
@@ -221,32 +214,26 @@ export function setCounborderViewRestInPause() {
   state = "resumeRest";
 }
 
-// цвет фонa
 function setBackgroundColor(color) {
   document.querySelector(".count-border-main").style.backgroundColor = color;
 }
 
-// надпись на правой кнопке
 function setRightButtonValue(buttonValue) {
   document.querySelector(".right-button").innerHTML = buttonValue;
 }
 
-//надпись на левой кнопке
 function setLeftButtonValue(buttonValue) {
   document.querySelector(".left-button").innerHTML = buttonValue;
 }
 
-//надпись на верхней части блока помидорро
 function setTitleValue(value) {
   document.querySelector(".title").innerHTML = value;
 }
 
-//задаем значение id для правой кнопки
 function setIdValueRightButton(value) {
   document.querySelector(".right-button").setAttribute("id", value);
 }
 
-//задаем значение id для левой кнопки
 function setIdValueLeftButton(value) {
   document.querySelector(".left-button").setAttribute("id", value);
 }

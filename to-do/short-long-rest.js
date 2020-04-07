@@ -1,6 +1,6 @@
 "use strict";
 
-import { todoList } from "../scriptTodo";
+import { todoList } from "../todo-border";
 
 export let longRest = 4;
 export let shortRestDuration = 0.1 * 60 * 1000;

@@ -1,12 +1,7 @@
 "use strict";
 
-import {
-  todoList,
-  doneTodoList,
-  descriptionTodo,
-  createToDo
-} from "../scriptTodo.js";
-import { createMassiveBox } from "./create-boxes-under-todolist.js";
+import { todoList, createToDo } from "../todo-border.js";
+import { createMassiveBox } from "./boxes-under-todolist.js";
 
 export function minusButtonClick(id) {
   let categoryTodo = document

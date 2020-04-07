@@ -1,12 +1,7 @@
 "use strict";
 
-import {
-  todoList,
-  doneTodoList,
-  descriptionTodo,
-  createToDo
-} from "../scriptTodo.js";
-import { createMassiveBox } from "./create-boxes-under-todolist.js";
+import { todoList, createToDo } from "../todo-border.js";
+import { createMassiveBox } from "./boxes-under-todolist.js";
 
 export function repeatTask(list, key) {
   let categoryTodo = list[key].todoCat;
@@ -17,17 +12,6 @@ export function repeatTask(list, key) {
   createMassiveBox();
 }
 
-//повтор задания при клике
-//export function todoTaskRepeat(key) {
-//    let categoryTodo = todoList[key].todoCat;
-//    let descriptionTodo = todoList[key].todoDesc;
-//
-//    checkTodo(categoryTodo, descriptionTodo);
-//    createToDo(todoList);
-//    createMassiveBox();
-//}
-
-//повтор задания при клике на плюс
 export function plusButtonClick() {
   let categoryTodo = document.querySelector(".todo-category-value").value;
   let descriptionTodo = document.querySelector(".todo-description-value").value;
