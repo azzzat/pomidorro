@@ -1,4 +1,4 @@
-import { todoList, todoTaskRepeat } from "../todo-border.js";
+import { todoList } from "../todo-border.js";
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
 document.onselectstart = function() {
