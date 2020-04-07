@@ -1,6 +1,6 @@
 "use strict";
 
-import { handler } from "./to-do/drag-and-drop.js";
+import { handler } from "./to-do/drag-and-drop";
 import {
   repeatTask,
   enterKeyClick,
