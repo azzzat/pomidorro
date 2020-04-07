@@ -12,7 +12,9 @@ export function handler() {
     divElem = document.querySelectorAll(".todo-case-bl");
 
     for (let i = 0; i < divElem.length; i++) {
-      divElem[i].removeEventListener("mouseover", handler);
+      divElem[i].removeEventListener("mouseover", function() {
+        handler();
+      });
     }
 
     let cloneDiv = event.currentTarget.cloneNode(true);
@@ -71,7 +73,9 @@ export function handler() {
         divElem[i].removeEventListener("mouseover", change);
       }
       for (let i = 0; i < divElem.length; i++) {
-        divElem[i].addEventListener("mouseover", handler);
+        divElem[i].addEventListener("mouseover", function() {
+          handler();
+        });
       }
       cloneDiv.style.pointerEvents = "auto";
       newDiv.remove();
