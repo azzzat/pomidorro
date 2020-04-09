@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"to-do/Drag-and-drop.js":[function(require,module,exports) {
+})({"to-do/drag-and-drop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -142,9 +142,7 @@ function handler() {
     exports.divElem = divElem = document.querySelectorAll(".todo-case-bl");
 
     for (var i = 0; i < divElem.length; i++) {
-      divElem[i].removeEventListener("mouseover", function () {
-        handler();
-      });
+      divElem[i].removeEventListener("mouseover", handler);
     }
 
     var cloneDiv = event.currentTarget.cloneNode(true);
@@ -201,9 +199,7 @@ function handler() {
       }
 
       for (var _i5 = 0; _i5 < divElem.length; _i5++) {
-        divElem[_i5].addEventListener("mouseover", function () {
-          handler();
-        });
+        divElem[_i5].addEventListener("mouseover", handler);
       }
 
       cloneDiv.style.pointerEvents = "auto";
@@ -468,7 +464,7 @@ exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = void 0;
 
-var _DragAndDrop = require("./to-do/Drag-and-drop.js");
+var _dragAndDrop = require("./to-do/drag-and-drop.js");
 
 var _taskRepeate = require("./to-do/task-repeate.js");
 
@@ -565,7 +561,7 @@ function createToDo(todoList) {
 
   for (var i = 0; i < divElem.length; i++) {
     divElem[i].addEventListener("mouseover", function () {
-      (0, _DragAndDrop.handler)();
+      (0, _dragAndDrop.handler)();
     });
   }
 
@@ -676,7 +672,7 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
-},{"./to-do/Drag-and-drop.js":"to-do/Drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
+},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -942,7 +938,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55384" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55805" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
