@@ -1,17 +1,30 @@
 "use strict";
 
+<<<<<<< HEAD:todo-border.js
 import { handler } from "./to-do/drag-and-drop";
 import {
   repeatTask,
   enterKeyClick,
   plusButtonClick
 } from "./to-do/task-repeat.js";
+=======
+import { handler } from "./to-do/drag-and-drop.js";
+import {
+  repeatTask,
+  enterKeyClick,
+  plusButtonClick,
+} from "./to-do/task-repeate.js";
+>>>>>>> master:scriptTodo.js
 import { minusButtonClick } from "./to-do/task-delete.js";
 import { createMassiveBox } from "./to-do/boxes-under-todolist.js";
 import {
   restSettings,
   setLongRestLine,
+<<<<<<< HEAD:todo-border.js
   longRest
+=======
+  longRest,
+>>>>>>> master:scriptTodo.js
 } from "./to-do/short-long-rest.js";
 import { createDoneMassiveBox } from "./to-do/boxes-under-donelist.js";
 import { deleteTaskButtonClick } from "./to-do/deleting-button.js";
@@ -31,14 +44,6 @@ export function createToDo(todoList) {
   createdLists.innerHTML = "";
 
   for (let key in todoList) {
-    if (document.querySelector(`.repeat-button-${key}`)) {
-      document
-        .querySelector(`.repeat-button-${key}`)
-        .removeEventListener("click", function() {
-          repeatTask(todoList, key);
-        });
-    }
-
     function element(el) {
       return document.createElement(el);
     }
@@ -101,12 +106,12 @@ export function createToDo(todoList) {
   for (let key in todoList) {
     document
       .querySelector(`.repeat-button-${key}`)
-      .addEventListener("mousedown", function() {
+      .addEventListener("mousedown", function () {
         repeatTask(todoList, key);
       });
     document
       .querySelector(`.minus-button-${key}`)
-      .addEventListener("mousedown", function() {
+      .addEventListener("mousedown", function () {
         minusButtonClick(key);
       });
   }
@@ -114,7 +119,7 @@ export function createToDo(todoList) {
   let divElem = document.querySelectorAll(".todo-case-bl");
 
   for (let i = 0; i < divElem.length; i++) {
-    divElem[i].addEventListener("mouseover", function() {
+    divElem[i].addEventListener("mouseover", function () {
       handler();
     });
   }
@@ -150,14 +155,6 @@ export function createDoneItems() {
   createdList.innerHTML = "";
 
   for (let key in doneTodoList) {
-    if (document.querySelector(`.todo-done-button-${key}`)) {
-      document
-        .querySelector(`.todo-done-button-${key}`)
-        .removeEventListener("click", function() {
-          repeatTask(doneTodoList, key);
-        });
-    }
-
     function element(el) {
       return document.createElement(el);
     }
@@ -210,13 +207,13 @@ export function createDoneItems() {
   for (let key in doneTodoList) {
     document
       .querySelector(`.todo-done-button-${key}`)
-      .addEventListener("click", function() {
+      .addEventListener("click", function () {
         repeatTask(doneTodoList, key);
       });
 
     document
       .querySelector(`.delete-done-task-${key}`)
-      .addEventListener("click", function() {
+      .addEventListener("click", function () {
         deleteTaskButtonClick(key);
       });
   }

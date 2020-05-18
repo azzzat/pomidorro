@@ -1,20 +1,31 @@
+<<<<<<< HEAD:to-do/drag-and-drop.js
 "use strict";
 
 import { todoList } from "../todo-border.js";
+=======
+import { todoList, todoTaskRepeat } from "../todo-border.js";
+>>>>>>> master:to-do/Drag-and-drop.js
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
-document.onselectstart = function() {
+document.onselectstart = function () {
   return false;
 };
 
-let todoRightButton = document.querySelectorAll(".todo-right-button");
+function makeNewClonnedElement() {}
 
+<<<<<<< HEAD:to-do/drag-and-drop.js
 function handler() {
   event.currentTarget.onmousedown = function(event) {
+=======
+export function handler() {
+  event.currentTarget.onmousedown = function (event) {
+>>>>>>> master:to-do/Drag-and-drop.js
     divElem = document.querySelectorAll(".todo-case-bl");
 
     for (let i = 0; i < divElem.length; i++) {
-      divElem[i].removeEventListener("mouseover", handler);
+      divElem[i].removeEventListener("mouseover", function () {
+        handler();
+      });
     }
 
     let cloneDiv = event.currentTarget.cloneNode(true);
@@ -29,11 +40,9 @@ function handler() {
     let newDiv = document
       .querySelector(".todo-item-list")
       .appendChild(cloneDiv);
-
     document.body.append(newDiv);
     let newTodoList = todoList[cloneDiv.id];
-
-    cloneDiv.ondragstart = function() {
+    cloneDiv.ondragstart = function () {
       return false;
     };
 
@@ -47,43 +56,37 @@ function handler() {
       cloneDiv.setAttribute("id", this.id);
       todoList.splice(this.id, 0, newTodoList);
 
-      function makeNewList() {
-        for (let i = 0; i < divElem.length; i++) {
-          divElem[i].setAttribute("id", i);
-        }
-        for (let i = 0; i < divElem.length; i++) {
-          divElem[i]
-            .querySelector(".todo-case-category")
-            .querySelector(".todo-case-text").innerHTML = todoList[i].todoCat;
-
-          divElem[i]
-            .querySelector(".todo-case-description")
-            .querySelector(".todo-case-text").innerHTML = todoList[i].todoDesc;
-
-          let ars1 = divElem[i].querySelector(".todo-case-tail");
-          ars1.querySelector(".number-icon").innerHTML = todoList[i].quantity;
-        }
+      for (let i = 0; i < divElem.length; i++) {
+        divElem[i].setAttribute("id", i);
       }
-      makeNewList();
+      for (let i = 0; i < divElem.length; i++) {
+        divElem[i]
+          .querySelector(".todo-case-category")
+          .querySelector(".todo-case-text").innerHTML = todoList[i].todoCat;
+
+        divElem[i]
+          .querySelector(".todo-case-description")
+          .querySelector(".todo-case-text").innerHTML = todoList[i].todoDesc;
+
+        let ars1 = divElem[i].querySelector(".todo-case-tail");
+        ars1.querySelector(".number-icon").innerHTML = todoList[i].quantity;
+      }
     }
 
-    document.onmouseup = function() {
-      document.onmousemove = function() {};
+    document.onmouseup = function () {
+      document.onmousemove = function () {};
       for (let i = 0; i < divElem.length; i++) {
         divElem[i].removeEventListener("mouseover", change);
-      }
-      for (let i = 0; i < divElem.length; i++) {
-        divElem[i].addEventListener("mouseover", handler);
       }
       cloneDiv.style.pointerEvents = "auto";
       newDiv.remove();
     };
 
-    document.onmousemove = function(newEvent) {
+    document.onmousemove = function (newEvent) {
       let posLeft = newEvent.pageX - newDiv.offsetLeft;
       let posTop = newEvent.pageY - newDiv.offsetTop;
 
-      document.onmousemove = function(newEvent) {
+      document.onmousemove = function (newEvent) {
         newDiv.style.top = newEvent.pageY - posTop + "px";
         newDiv.style.left = newEvent.pageX - posLeft + "px";
         cloneDiv.style.pointerEvents = "none";
