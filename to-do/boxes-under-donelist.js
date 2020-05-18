@@ -3,22 +3,25 @@ import { doneTodoList } from "../todo-border.js";
 export function createDoneMassiveBox() {
   let grouppedDoneTodo = doneTodoList.reduce((acc, cur) => {
     acc[cur.todoCat] = acc[cur.todoCat] || {
-      todoCat: cur.todoCat
+      todoCat: cur.todoCat,
     };
     return acc;
   }, {});
 
+  console.log(grouppedDoneTodo);
   createToDoDoneBox(grouppedDoneTodo);
 }
 
 function createToDoDoneBox(grouppedDoneTodo) {
-  let createdBox = "";
+  let firstChildButton = document.querySelector(".category-boxes-done-todo");
+  firstChildButton.innerHTML = " ";
 
   for (let key in grouppedDoneTodo) {
-    createdBox += '<button class="category-box">';
-    createdBox += "#";
-    createdBox += grouppedDoneTodo[key].todoCat;
-    createdBox += "</button>";
+    let buttonChild = firstChildButton.appendChild(
+      document.createElement("button")
+    );
+    buttonChild.className = "category-box";
+
+    buttonChild.innerText = `# ${grouppedDoneTodo[key].todoCat}`;
   }
-  document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
 }

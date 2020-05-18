@@ -31,13 +31,14 @@ export function createToDo(todoList) {
   createdLists.innerHTML = "";
 
   for (let key in todoList) {
-    if (document.querySelector(`.repeat-button-${key}`)) {
-      document
-        .querySelector(`.repeat-button-${key}`)
-        .removeEventListener("click", function () {
-          repeatTask(todoList, key);
-        });
-    }
+    // if (document.querySelector(`.repeat-button-${key}`)) {
+    //   console.log("удвлил");
+    //   document
+    //     .querySelector(`.repeat-button-${key}`)
+    //     .removeEventListener("click", function () {
+    //       repeatTask(todoList, key);
+    //     });
+    // }
 
     function element(el) {
       return document.createElement(el);

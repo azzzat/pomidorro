@@ -418,20 +418,19 @@ function createDoneMassiveBox() {
     return acc;
   }, {});
 
+  console.log(grouppedDoneTodo);
   createToDoDoneBox(grouppedDoneTodo);
 }
 
 function createToDoDoneBox(grouppedDoneTodo) {
-  var createdBox = "";
+  var firstChildButton = document.querySelector(".category-boxes-done-todo");
+  firstChildButton.innerHTML = " ";
 
   for (var key in grouppedDoneTodo) {
-    createdBox += '<button class="category-box">';
-    createdBox += "#";
-    createdBox += grouppedDoneTodo[key].todoCat;
-    createdBox += "</button>";
+    var buttonChild = firstChildButton.appendChild(document.createElement("button"));
+    buttonChild.className = "category-box";
+    buttonChild.innerText = "# ".concat(grouppedDoneTodo[key].todoCat);
   }
-
-  document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
 }
 },{"../todo-border.js":"todo-border.js"}],"to-do/deleting-button.js":[function(require,module,exports) {
 "use strict";
@@ -487,16 +486,18 @@ function createToDo(todoList) {
   var createdLists = document.querySelector(".todo-item-list");
   createdLists.innerHTML = "";
 
-  var _loop = function _loop(key) {
-    if (document.querySelector(".repeat-button-".concat(key))) {
-      document.querySelector(".repeat-button-".concat(key)).removeEventListener("click", function () {
-        (0, _taskRepeate.repeatTask)(todoList, key);
-      });
-    }
-
-    function element(el) {
+  for (var key in todoList) {
+    // if (document.querySelector(`.repeat-button-${key}`)) {
+    //   console.log("удвлил");
+    //   document
+    //     .querySelector(`.repeat-button-${key}`)
+    //     .removeEventListener("click", function () {
+    //       repeatTask(todoList, key);
+    //     });
+    // }
+    var element = function element(el) {
       return document.createElement(el);
-    }
+    };
 
     var firstDiv = createdLists.appendChild(element("div"));
     firstDiv.className = "todo-body todo-case-body todo-case-bl";
@@ -532,10 +533,6 @@ function createToDo(todoList) {
     var innerThirdDivSecondButtonIcon = innerThirdDivSecondButton.appendChild(element("icon"));
     innerThirdDivSecondButtonIcon.className = "delete-icon";
     innerThirdDivSecondButtonIcon.innerHTML = "&#8722;";
-  };
-
-  for (var key in todoList) {
-    _loop(key);
   }
 
   if (_shortLongRest.longRest == undefined) {
@@ -544,7 +541,7 @@ function createToDo(todoList) {
     }());
   }
 
-  var _loop2 = function _loop2(_key) {
+  var _loop = function _loop(_key) {
     document.querySelector(".repeat-button-".concat(_key)).addEventListener("mousedown", function () {
       (0, _taskRepeate.repeatTask)(todoList, _key);
     });
@@ -554,7 +551,7 @@ function createToDo(todoList) {
   };
 
   for (var _key in todoList) {
-    _loop2(_key);
+    _loop(_key);
   }
 
   var divElem = document.querySelectorAll(".todo-case-bl");
@@ -596,7 +593,7 @@ function createDoneItems() {
   var createdList = document.querySelector(".todo-case-category-done");
   createdList.innerHTML = "";
 
-  var _loop3 = function _loop3(key) {
+  var _loop2 = function _loop2(key) {
     if (document.querySelector(".todo-done-button-".concat(key))) {
       document.querySelector(".todo-done-button-".concat(key)).removeEventListener("click", function () {
         (0, _taskRepeate.repeatTask)(doneTodoList, key);
@@ -637,10 +634,10 @@ function createDoneItems() {
   };
 
   for (var key in doneTodoList) {
-    _loop3(key);
+    _loop2(key);
   }
 
-  var _loop4 = function _loop4(_key2) {
+  var _loop3 = function _loop3(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
       (0, _taskRepeate.repeatTask)(doneTodoList, _key2);
     });
@@ -650,7 +647,7 @@ function createDoneItems() {
   };
 
   for (var _key2 in doneTodoList) {
-    _loop4(_key2);
+    _loop3(_key2);
   }
 
   var doneListLength = doneTodoList.length;
@@ -938,7 +935,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57139" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57559" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
