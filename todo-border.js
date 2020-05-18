@@ -31,15 +31,6 @@ export function createToDo(todoList) {
   createdLists.innerHTML = "";
 
   for (let key in todoList) {
-    // if (document.querySelector(`.repeat-button-${key}`)) {
-    //   console.log("удвлил");
-    //   document
-    //     .querySelector(`.repeat-button-${key}`)
-    //     .removeEventListener("click", function () {
-    //       repeatTask(todoList, key);
-    //     });
-    // }
-
     function element(el) {
       return document.createElement(el);
     }
@@ -151,14 +142,6 @@ export function createDoneItems() {
   createdList.innerHTML = "";
 
   for (let key in doneTodoList) {
-    if (document.querySelector(`.todo-done-button-${key}`)) {
-      document
-        .querySelector(`.todo-done-button-${key}`)
-        .removeEventListener("click", function () {
-          repeatTask(doneTodoList, key);
-        });
-    }
-
     function element(el) {
       return document.createElement(el);
     }

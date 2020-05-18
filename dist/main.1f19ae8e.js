@@ -135,14 +135,16 @@ document.onselectstart = function () {
   return false;
 };
 
-var todoRightButton = document.querySelectorAll(".todo-right-button");
+function makeNewClonnedElement() {}
 
 function handler() {
   event.currentTarget.onmousedown = function (event) {
     exports.divElem = divElem = document.querySelectorAll(".todo-case-bl");
 
     for (var i = 0; i < divElem.length; i++) {
-      divElem[i].removeEventListener("mouseover", handler);
+      divElem[i].removeEventListener("mouseover", function () {
+        handler();
+      });
     }
 
     var cloneDiv = event.currentTarget.cloneNode(true);
@@ -173,22 +175,18 @@ function handler() {
 
       _todoBorder.todoList.splice(this.id, 0, newTodoList);
 
-      function makeNewList() {
-        for (var _i2 = 0; _i2 < divElem.length; _i2++) {
-          divElem[_i2].setAttribute("id", _i2);
-        }
-
-        for (var _i3 = 0; _i3 < divElem.length; _i3++) {
-          divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoCat;
-          divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoDesc;
-
-          var ars1 = divElem[_i3].querySelector(".todo-case-tail");
-
-          ars1.querySelector(".number-icon").innerHTML = _todoBorder.todoList[_i3].quantity;
-        }
+      for (var _i2 = 0; _i2 < divElem.length; _i2++) {
+        divElem[_i2].setAttribute("id", _i2);
       }
 
-      makeNewList();
+      for (var _i3 = 0; _i3 < divElem.length; _i3++) {
+        divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoCat;
+        divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoDesc;
+
+        var ars1 = divElem[_i3].querySelector(".todo-case-tail");
+
+        ars1.querySelector(".number-icon").innerHTML = _todoBorder.todoList[_i3].quantity;
+      }
     }
 
     document.onmouseup = function () {
@@ -196,10 +194,6 @@ function handler() {
 
       for (var _i4 = 0; _i4 < divElem.length; _i4++) {
         divElem[_i4].removeEventListener("mouseover", change);
-      }
-
-      for (var _i5 = 0; _i5 < divElem.length; _i5++) {
-        divElem[_i5].addEventListener("mouseover", handler);
       }
 
       cloneDiv.style.pointerEvents = "auto";
@@ -487,14 +481,6 @@ function createToDo(todoList) {
   createdLists.innerHTML = "";
 
   for (var key in todoList) {
-    // if (document.querySelector(`.repeat-button-${key}`)) {
-    //   console.log("удвлил");
-    //   document
-    //     .querySelector(`.repeat-button-${key}`)
-    //     .removeEventListener("click", function () {
-    //       repeatTask(todoList, key);
-    //     });
-    // }
     var element = function element(el) {
       return document.createElement(el);
     };
@@ -593,16 +579,10 @@ function createDoneItems() {
   var createdList = document.querySelector(".todo-case-category-done");
   createdList.innerHTML = "";
 
-  var _loop2 = function _loop2(key) {
-    if (document.querySelector(".todo-done-button-".concat(key))) {
-      document.querySelector(".todo-done-button-".concat(key)).removeEventListener("click", function () {
-        (0, _taskRepeate.repeatTask)(doneTodoList, key);
-      });
-    }
-
-    function element(el) {
+  for (var key in doneTodoList) {
+    var element = function element(el) {
       return document.createElement(el);
-    }
+    };
 
     var parentDiv = createdList.appendChild(element("div"));
     parentDiv.className = "todo-body todo-case-body";
@@ -631,13 +611,9 @@ function createDoneItems() {
     var thirdChildDivSecondButtonSpan = thirdChildDivSecondButton.appendChild(element("icon"));
     thirdChildDivSecondButtonSpan.className = "delete-icon";
     thirdChildDivSecondButtonSpan.innerHTML = "&#10007;";
-  };
-
-  for (var key in doneTodoList) {
-    _loop2(key);
   }
 
-  var _loop3 = function _loop3(_key2) {
+  var _loop2 = function _loop2(_key2) {
     document.querySelector(".todo-done-button-".concat(_key2)).addEventListener("click", function () {
       (0, _taskRepeate.repeatTask)(doneTodoList, _key2);
     });
@@ -647,7 +623,7 @@ function createDoneItems() {
   };
 
   for (var _key2 in doneTodoList) {
-    _loop3(_key2);
+    _loop2(_key2);
   }
 
   var doneListLength = doneTodoList.length;
@@ -935,7 +911,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57559" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57950" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
