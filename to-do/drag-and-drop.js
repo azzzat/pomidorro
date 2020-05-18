@@ -1,25 +1,12 @@
-<<<<<<< HEAD:to-do/drag-and-drop.js
-"use strict";
-
 import { todoList } from "../todo-border.js";
-=======
-import { todoList, todoTaskRepeat } from "../todo-border.js";
->>>>>>> master:to-do/Drag-and-drop.js
 
 export let divElem = document.querySelectorAll(".todo-case-bl");
 document.onselectstart = function () {
   return false;
 };
 
-function makeNewClonnedElement() {}
-
-<<<<<<< HEAD:to-do/drag-and-drop.js
-function handler() {
-  event.currentTarget.onmousedown = function(event) {
-=======
 export function handler() {
   event.currentTarget.onmousedown = function (event) {
->>>>>>> master:to-do/Drag-and-drop.js
     divElem = document.querySelectorAll(".todo-case-bl");
 
     for (let i = 0; i < divElem.length; i++) {
