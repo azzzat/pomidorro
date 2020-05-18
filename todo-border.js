@@ -1,30 +1,17 @@
 "use strict";
 
-<<<<<<< HEAD:todo-border.js
-import { handler } from "./to-do/drag-and-drop";
-import {
-  repeatTask,
-  enterKeyClick,
-  plusButtonClick
-} from "./to-do/task-repeat.js";
-=======
 import { handler } from "./to-do/drag-and-drop.js";
 import {
   repeatTask,
   enterKeyClick,
   plusButtonClick,
 } from "./to-do/task-repeate.js";
->>>>>>> master:scriptTodo.js
 import { minusButtonClick } from "./to-do/task-delete.js";
 import { createMassiveBox } from "./to-do/boxes-under-todolist.js";
 import {
   restSettings,
   setLongRestLine,
-<<<<<<< HEAD:todo-border.js
-  longRest
-=======
   longRest,
->>>>>>> master:scriptTodo.js
 } from "./to-do/short-long-rest.js";
 import { createDoneMassiveBox } from "./to-do/boxes-under-donelist.js";
 import { deleteTaskButtonClick } from "./to-do/deleting-button.js";
