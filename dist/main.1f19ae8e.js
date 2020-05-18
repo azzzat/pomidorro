@@ -123,6 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.handler = handler;
 exports.default = exports.divElem = void 0;
 
 var _todoBorder = require("../todo-border.js");
@@ -133,8 +134,6 @@ exports.divElem = divElem;
 document.onselectstart = function () {
   return false;
 };
-
-function makeNewClonnedElement() {}
 
 function handler() {
   event.currentTarget.onmousedown = function (event) {
@@ -178,24 +177,13 @@ function handler() {
         divElem[_i2].setAttribute("id", _i2);
       }
 
-<<<<<<< HEAD
-        for (var _i3 = 0; _i3 < divElem.length; _i3++) {
-          divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoCat;
-          divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoDesc;
-=======
       for (var _i3 = 0; _i3 < divElem.length; _i3++) {
         divElem[_i3].querySelector(".todo-case-category").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoCat;
         divElem[_i3].querySelector(".todo-case-description").querySelector(".todo-case-text").innerHTML = _todoBorder.todoList[_i3].todoDesc;
->>>>>>> master
 
         var ars1 = divElem[_i3].querySelector(".todo-case-tail");
 
-<<<<<<< HEAD
-          ars1.querySelector(".number-icon").innerHTML = _todoBorder.todoList[_i3].quantity;
-        }
-=======
         ars1.querySelector(".number-icon").innerHTML = _todoBorder.todoList[_i3].quantity;
->>>>>>> master
       }
     }
 
@@ -222,12 +210,9 @@ function handler() {
     };
   };
 }
-<<<<<<< HEAD
 
 var _default = handler;
 exports.default = _default;
-=======
->>>>>>> master
 },{"../todo-border.js":"todo-border.js"}],"to-do/boxes-under-todolist.js":[function(require,module,exports) {
 "use strict";
 
@@ -267,11 +252,7 @@ function createToDoBox(grouppedTodo) {
     firstChildButtonFirstA.innerHTML = grouppedTodo[key].todoCat;
   }
 }
-<<<<<<< HEAD
 },{"../todo-border.js":"todo-border.js"}],"to-do/task-repeat.js":[function(require,module,exports) {
-=======
-},{"../todo-border.js":"todo-border.js"}],"to-do/task-repeate.js":[function(require,module,exports) {
->>>>>>> master
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -432,19 +413,20 @@ function createDoneMassiveBox() {
     return acc;
   }, {});
 
-  console.log(grouppedDoneTodo);
   createToDoDoneBox(grouppedDoneTodo);
 }
 
 function createToDoDoneBox(grouppedDoneTodo) {
-  var firstChildButton = document.querySelector(".category-boxes-done-todo");
-  firstChildButton.innerHTML = " ";
+  var createdBox = "";
 
   for (var key in grouppedDoneTodo) {
-    var buttonChild = firstChildButton.appendChild(document.createElement("button"));
-    buttonChild.className = "category-box";
-    buttonChild.innerText = "# ".concat(grouppedDoneTodo[key].todoCat);
+    createdBox += '<button class="category-box">';
+    createdBox += "#";
+    createdBox += grouppedDoneTodo[key].todoCat;
+    createdBox += "</button>";
   }
+
+  document.querySelector(".category-boxes-done-todo").innerHTML = createdBox;
 }
 },{"../todo-border.js":"todo-border.js"}],"to-do/deleting-button.js":[function(require,module,exports) {
 "use strict";
@@ -477,7 +459,7 @@ exports.deletTodoTasks = deletTodoTasks;
 exports.deletDoneTodoTasks = deletDoneTodoTasks;
 exports.doneTodoList = exports.todoList = void 0;
 
-var _dragAndDrop = require("./to-do/drag-and-drop");
+var _dragAndDrop = require("./to-do/drag-and-drop.js");
 
 var _taskRepeat = require("./to-do/task-repeat.js");
 
@@ -500,19 +482,8 @@ function createToDo(todoList) {
   var createdLists = document.querySelector(".todo-item-list");
   createdLists.innerHTML = "";
 
-<<<<<<< HEAD
-  var _loop = function _loop(key) {
-    if (document.querySelector(".repeat-button-".concat(key))) {
-      document.querySelector(".repeat-button-".concat(key)).removeEventListener("click", function () {
-        (0, _taskRepeat.repeatTask)(todoList, key);
-      });
-    }
-
-    function element(el) {
-=======
   for (var key in todoList) {
     var element = function element(el) {
->>>>>>> master
       return document.createElement(el);
     };
 
@@ -610,19 +581,8 @@ function createDoneItems() {
   var createdList = document.querySelector(".todo-case-category-done");
   createdList.innerHTML = "";
 
-<<<<<<< HEAD
-  var _loop3 = function _loop3(key) {
-    if (document.querySelector(".todo-done-button-".concat(key))) {
-      document.querySelector(".todo-done-button-".concat(key)).removeEventListener("click", function () {
-        (0, _taskRepeat.repeatTask)(doneTodoList, key);
-      });
-    }
-
-    function element(el) {
-=======
   for (var key in doneTodoList) {
     var element = function element(el) {
->>>>>>> master
       return document.createElement(el);
     };
 
@@ -687,11 +647,7 @@ function deletDoneTodoTasks() {
 }
 
 document.querySelector(".category-box-delete-done").addEventListener("click", deletDoneTodoTasks);
-<<<<<<< HEAD
-},{"./to-do/drag-and-drop":"to-do/drag-and-drop.js","./to-do/task-repeat.js":"to-do/task-repeat.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
-=======
-},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeate.js":"to-do/task-repeate.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
->>>>>>> master
+},{"./to-do/drag-and-drop.js":"to-do/drag-and-drop.js","./to-do/task-repeat.js":"to-do/task-repeat.js","./to-do/task-delete.js":"to-do/task-delete.js","./to-do/boxes-under-todolist.js":"to-do/boxes-under-todolist.js","./to-do/short-long-rest.js":"to-do/short-long-rest.js","./to-do/boxes-under-donelist.js":"to-do/boxes-under-donelist.js","./to-do/deleting-button.js":"to-do/deleting-button.js"}],"watch-border.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -957,11 +913,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57336" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57950" + '/');
->>>>>>> master
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58984" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
