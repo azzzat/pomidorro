@@ -29,7 +29,7 @@
     "mkdirp": "^0.5.4",
     "normalize-url": "^3.3.0",
     "node-releases": "^1.1.53",
-    "nth-check": "^1.0.2",
+    "nth-check": "^2.0.1",
     "object-inspect": "^1.7.0",
     "object-keys": "^1.1.1",
     "object.assign": "^4.1.0",
