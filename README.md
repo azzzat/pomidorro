@@ -15,3 +15,9 @@ Pomodoro Tracker
 5.После каждого 4 помидора сделать длинный перерыв в 15 минут.
 
 Использовался чистый JavaScript и parcel.
+
+Установка parcel:
+npm install -g parcel-bundler
+
+Запуск приложения:
+parcel pomidorro/index.html
